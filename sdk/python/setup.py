@@ -188,8 +188,16 @@ class DevelopCommand(develop):
         develop.run(self)
 
 
+# Get version from version module.
+with open('feast/version.py') as fp:
+  globals_dict = {}
+  exec(fp.read(), globals_dict)  # pylint: disable=exec-used
+__version__ = globals_dict['__version__']
+
+
 setup(
     name=NAME,
+    version=__version__,
     author=AUTHOR,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
@@ -218,7 +226,6 @@ setup(
         "Programming Language :: Python :: 3.7",
     ],
     entry_points={"console_scripts": ["feast=feast.cli:cli"]},
-    use_scm_version={"root": "../..", "relative_to": __file__, "tag_regex": TAG_REGEX},
     setup_requires=["setuptools_scm", "grpcio", "grpcio-tools==1.34.0", "mypy-protobuf", "sphinx!=4.0.0"],
     package_data={
         "": [
