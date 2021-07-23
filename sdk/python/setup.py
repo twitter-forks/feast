@@ -142,7 +142,6 @@ if shutil.which("git"):
 else:
     use_scm_version = None
 
-
 class BuildProtoCommand(Command):
     description = "Builds the proto files into python files."
 
@@ -200,8 +199,16 @@ class DevelopCommand(develop):
         develop.run(self)
 
 
+# Get version from version module.
+with open('feast/version.py') as fp:
+  globals_dict = {}
+  exec(fp.read(), globals_dict)  # pylint: disable=exec-used
+__version__ = globals_dict['__version__']
+
+
 setup(
     name=NAME,
+    version=__version__,
     author=AUTHOR,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
