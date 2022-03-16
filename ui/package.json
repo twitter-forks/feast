@@ -50,7 +50,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && chmod ug+x scripts/clear-icons.sh && scripts/clear-icons.sh",
     "build:lib": "rimraf ./dist && tsc && rollup -c",
     "build:lib-dev": "rimraf ./dist && tsc && rollup -c && yalc publish -f",
     "test": "react-scripts test",
