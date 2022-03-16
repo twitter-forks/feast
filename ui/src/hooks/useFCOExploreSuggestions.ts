@@ -34,7 +34,7 @@ const createSearchLink = (
   return URL + "?" + encodeSearchQueryString(`${key}:${value}`);
 };
 
-const NUMBER_OF_SUGGESTION_GROUPS = 2;
+const NUMBER_OF_SUGGESTION_GROUPS = 1;
 const NUMBER_OF_VALUES_PER_GROUP = 4;
 
 const sortTagByUniqueValues = <T>(
