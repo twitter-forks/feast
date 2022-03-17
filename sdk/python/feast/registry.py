@@ -685,7 +685,7 @@ class Registry:
             project: Feast project to convert to a dict
         """
         registry_dict = defaultdict(list)
-
+        registry_dict["project"] = project
         for entity in sorted(
             self.list_entities(project=project), key=lambda entity: entity.name
         ):
