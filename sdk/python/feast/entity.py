@@ -88,6 +88,15 @@ class Entity:
 
         self.value_type = value_type
 
+        if join_key:
+            warnings.warn(
+                (
+                    "The `join_key` parameter is being deprecated in favor of the `join_keys` parameter. "
+                    "Please switch from using `join_key` to `join_keys`. Feast 0.23 and onwards will not "
+                    "support the `join_key` parameter."
+                ),
+                DeprecationWarning,
+            )
         self.join_keys = join_keys or []
         if join_keys and len(join_keys) > 1:
             raise ValueError(
