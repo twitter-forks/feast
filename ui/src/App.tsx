@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import "inter-ui/inter.css";
 import "@elastic/eui/dist/eui_theme_light.css";
 
@@ -19,8 +19,14 @@ import DataSourceInstance from "./pages/data-sources/DataSourceInstance";
 import RootProjectSelectionPage from "./pages/RootProjectSelectionPage";
 import DatasetInstance from "./pages/saved-data-sets/DatasetInstance";
 import NoProjectGuard from "./components/NoProjectGuard";
+import { useEffect } from "react";
+import ReactGA from 'react-ga';
 
 const App = () => {
+  useEffect(() => {
+  ReactGA.initialize("UA-232856404-1");
+  ReactGA.pageview(window.location.pathname + window.location.search)
+  }, [])
   return (
     <EuiProvider colorMode="light">
       <Routes>
