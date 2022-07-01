@@ -5,7 +5,7 @@ import {
   useNavigate,
   Location as RouterLocation,
 } from "react-router-dom";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 ReactGA.pageview(window.location.pathname + window.location.search)
 

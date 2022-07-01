@@ -20,7 +20,7 @@ import RootProjectSelectionPage from "./pages/RootProjectSelectionPage";
 import DatasetInstance from "./pages/saved-data-sets/DatasetInstance";
 import NoProjectGuard from "./components/NoProjectGuard";
 import { useEffect } from "react";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 const App = () => {
   useEffect(() => {
