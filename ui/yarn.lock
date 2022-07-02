@@ -8531,11 +8531,6 @@ react-focus-on@^3.5.4:
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
 
-react-ga@^3.3.1:
-  version "3.3.1"
-  resolved "https://artifactory.twitter.biz/artifactory/api/npm/js-virtual/react-ga/-/react-ga-3.3.1.tgz#d8e1f4e05ec55ed6ff944dcb14b99011dfaf9504"
-  integrity sha512-4Vc0W5EvXAXUN/wWyxvsAKDLLgtJ3oLmhYYssx+YzphJpejtOst6cbIHCIyF50Fdxuf5DDKqRYny24yJ2y7GFQ==
-
 react-input-autosize@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-3.0.0.tgz#6b5898c790d4478d69420b55441fcc31d5c50a85"
