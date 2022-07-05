@@ -8531,6 +8531,11 @@ react-focus-on@^3.5.4:
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
 
+react-ga4@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-ga4/-/react-ga4-1.4.1.tgz#6ee2a2db115ed235b2f2092bc746b4eeeca9e206"
+  integrity sha512-ioBMEIxd4ePw4YtaloTUgqhQGqz5ebDdC4slEpLgy2sLx1LuZBC9iYCwDymTXzcntw6K1dHX183ulP32nNdG7w==
+
 react-input-autosize@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-3.0.0.tgz#6b5898c790d4478d69420b55441fcc31d5c50a85"

@@ -19,8 +19,15 @@ import DataSourceInstance from "./pages/data-sources/DataSourceInstance";
 import RootProjectSelectionPage from "./pages/RootProjectSelectionPage";
 import DatasetInstance from "./pages/saved-data-sets/DatasetInstance";
 import NoProjectGuard from "./components/NoProjectGuard";
+import { useEffect } from "react";
+import ReactGA from 'react-ga4';
 
 const App = () => {
+  useEffect(() => {
+  ReactGA.initialize("G-5WVZ78CPZP");
+  //ReactGA.pageview(window.location.pathname + window.location.search)
+  ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search });
+  }, [])
   return (
     <EuiProvider colorMode="light">
       <Routes>

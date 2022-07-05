@@ -5,6 +5,11 @@ import {
   useNavigate,
   Location as RouterLocation,
 } from "react-router-dom";
+import ReactGA from 'react-ga4';
+
+//ReactGA.pageview(window.location.pathname + window.location.search)
+ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search });
+
 
 // via: https://github.com/pbeshai/use-query-params/issues/196#issuecomment-996893750
 interface RouteAdapterProps {
