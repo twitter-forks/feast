@@ -1,136 +1,77 @@
 # Roadmap
 
-## Backlog
+The list below contains the functionality that contributors are planning to develop for Feast
 
-* Add On-demand transformations support
-* Add Data quality monitoring
-* Add Snowflake offline store support
-* Add Bigtable support
-* Add Push/Ingestion API support
+* Items below that are in development (or planned for development) will be indicated in parentheses.
+* We welcome contribution to all items in the roadmap!
+* Want to influence our roadmap and prioritization? Submit your feedback to [this form](https://docs.google.com/forms/d/e/1FAIpQLSfa1nRQ0sKz-JEFnMMCi4Jseag\_yDssO\_3nV9qMfxfrkil-wA/viewform).
+* Want to speak to a Feast contributor? We are more than happy to jump on a call. Please schedule a time using [Calendly](https://calendly.com/d/x2ry-g5bb/meet-with-feast-team).
 
-## Scheduled for development \(next 3 months\)
-
-[Roadmap discussion](https://github.com/feast-dev/feast/issues/1527)
-
-* Ensure Feast Serving is compatible with the new Feast
-  * Decouple Feast Serving from Feast Core
-  * Add FeatureView support to Feast Serving
-  * Update Helm Charts \(remove Core, Postgres, Job Service, Spark\)
-* Add Redis support for Feast
-* Add direct deployment support to AWS and GCP
-* Add Dynamo support
-* Add Redshift support
-
-## Feast 0.10
-
-### **New Functionality**
-
-1. Full local mode support \(Sqlite and Parquet\)
-2. Provider model for added extensibility
-3. Firestore support
-4. Native \(No-Spark\) BigQuery support
-5. Added support for object store based registry
-6. Add support for FeatureViews
-7. Added support for infrastructure configuration through `apply`
-
-### **Technical debt, refactoring, or housekeeping**
-
-1. Remove dependency on Feast Core
-2. Feast Serving made optional
-3. Moved Python API documentation to Read The Docs
-4. Moved Feast Java components to [feast-java](https://github.com/feast-dev/feast-java)
-5. Moved Feast Spark components to [feast-spark](https://github.com/feast-dev/feast-spark)
-
-## Feast 0.9
-
-[Discussion](https://github.com/feast-dev/feast/issues/1131)
-
-### New Functionality
-
-* Added Feast Job Service for management of ingestion and retrieval jobs
-* Added support for [Spark on K8s Operator](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator) as Spark job launcher
-* Added Azure deployment and storage support \([\#1241](https://github.com/feast-dev/feast/pull/1241)\)
-
-Note: Please see discussion thread above for functionality that did not make this release.
-
-## Feast 0.8
-
-[Discussion](https://github.com/feast-dev/feast/issues/1018)
-
-[Feast 0.8 RFC](https://docs.google.com/document/d/1snRxVb8ipWZjCiLlfkR4Oc28p7Fkv_UXjvxBFWjRBj4/edit#heading=h.yvkhw2cuvx5)
-
-### **New Functionality**
-
-1. Add support for AWS \(data sources and deployment\)
-2. Add support for local deployment
-3. Add support for Spark based ingestion
-4. Add support for Spark based historical retrieval
-
-### **Technical debt, refactoring, or housekeeping**
-
-1. Move job management functionality to SDK
-2. Remove Apache Beam based ingestion
-3. Allow direct ingestion from batch sources that does not pass through stream
-4. Remove Feast Historical Serving abstraction to allow direct access from Feast SDK to data sources for retrieval
-
-## Feast 0.7
-
-[Discussion](https://github.com/feast-dev/feast/issues/834)
-
-[GitHub Milestone](https://github.com/feast-dev/feast/milestone/4)
-
-### **New Functionality**
-
-1. Label based Ingestion Job selector for Job Controller [\#903](https://github.com/feast-dev/feast/pull/903)
-2. Authentication Support for Java & Go SDKs [\#971](https://github.com/feast-dev/feast/pull/971)
-3. Automatically Restart Ingestion Jobs on Upgrade [\#949](https://github.com/feast-dev/feast/pull/949)
-4. Structured Audit Logging [\#891](https://github.com/feast-dev/feast/pull/891)
-5. Request Response Logging support via Fluentd [\#961](https://github.com/feast-dev/feast/pull/961)
-6. Feast Core Rest Endpoints [\#878](https://github.com/feast-dev/feast/pull/878)
-
-### **Technical debt, refactoring, or housekeeping**
-
-1. Improved integration testing framework [\#886](https://github.com/feast-dev/feast/pull/886)
-2. Rectify all flaky batch tests [\#953](https://github.com/feast-dev/feast/pull/953), [\#982](https://github.com/feast-dev/feast/pull/982)
-3. Decouple job management from Feast Core [\#951](https://github.com/feast-dev/feast/pull/951)
-
-## Feast 0.6
-
-[Discussion](https://github.com/feast-dev/feast/issues/767)
-
-[GitHub Milestone](https://github.com/feast-dev/feast/milestone/3)
-
-### New functionality
-
-1. Batch statistics and validation [\#612](https://github.com/feast-dev/feast/pull/612)
-2. Authentication and authorization [\#554](https://github.com/feast-dev/feast/pull/554)
-3. Online feature and entity status metadata [\#658](https://github.com/feast-dev/feast/pull/658)
-4. Improved searching and filtering of features and entities 
-5. Python support for labels [\#663](https://github.com/feast-dev/feast/issues/663)
-
-### Technical debt, refactoring, or housekeeping
-
-1. Improved job life cycle management [\#761](https://github.com/feast-dev/feast/issues/761)
-2. Compute and write metrics for rows prior to store writes [\#763](https://github.com/feast-dev/feast/pull/763) 
-
-## Feast 0.5
-
-[Discussion](https://github.com/feast-dev/feast/issues/527)
-
-### New functionality
-
-1. Streaming statistics and validation \(M1 from [Feature Validation RFC](https://docs.google.com/document/d/1TPmd7r4mniL9Y-V_glZaWNo5LMXLshEAUpYsohojZ-8/edit)\)
-2. Support for Redis Clusters \([\#478](https://github.com/feast-dev/feast/issues/478), [\#502](https://github.com/feast-dev/feast/issues/502)\)
-3. Add feature and feature set labels, i.e. key/value registry metadata \([\#463](https://github.com/feast-dev/feast/issues/463)\)
-4. Job management API  \([\#302](https://github.com/feast-dev/feast/issues/302)\)
-
-### Technical debt, refactoring, or housekeeping
-
-1. Clean up and document all configuration options \([\#525](https://github.com/feast-dev/feast/issues/525)\)
-2. Externalize storage interfaces \([\#402](https://github.com/feast-dev/feast/issues/402)\)
-3. Reduce memory usage in Redis \([\#515](https://github.com/feast-dev/feast/issues/515)\)
-4. Support for handling out of order ingestion \([\#273](https://github.com/feast-dev/feast/issues/273)\)
-5. Remove feature versions and enable automatic data migration \([\#386](https://github.com/feast-dev/feast/issues/386)\) \([\#462](https://github.com/feast-dev/feast/issues/462)\)
-6. Tracking of batch ingestion by with dataset\_id/job\_id \([\#461](https://github.com/feast-dev/feast/issues/461)\)
-7. Write Beam metrics after ingestion to store \(not prior\) \([\#489](https://github.com/feast-dev/feast/issues/489)\)
-
+* **Data Sources**
+  * [x] [Snowflake source](https://docs.feast.dev/reference/data-sources/snowflake)
+  * [x] [Redshift source](https://docs.feast.dev/reference/data-sources/redshift)
+  * [x] [BigQuery source](https://docs.feast.dev/reference/data-sources/bigquery)
+  * [x] [Parquet file source](https://docs.feast.dev/reference/data-sources/file)
+  * [x] [Synapse source (community plugin)](https://github.com/Azure/feast-azure)
+  * [x] [Hive (community plugin)](https://github.com/baineng/feast-hive)
+  * [x] [Postgres (community plugin)](https://github.com/nossrannug/feast-postgres)
+  * [x] [Spark (community plugin)](https://docs.feast.dev/reference/data-sources/spark)
+  * [x] Kafka / Kinesis sources (via [push support into the online store](https://docs.feast.dev/reference/data-sources/push))
+  * [ ] HTTP source
+* **Offline Stores**
+  * [x] [Snowflake](https://docs.feast.dev/reference/offline-stores/snowflake)
+  * [x] [Redshift](https://docs.feast.dev/reference/offline-stores/redshift)
+  * [x] [BigQuery](https://docs.feast.dev/reference/offline-stores/bigquery)
+  * [x] [Synapse (community plugin)](https://github.com/Azure/feast-azure)
+  * [x] [Hive (community plugin)](https://github.com/baineng/feast-hive)
+  * [x] [Postgres (community plugin)](https://github.com/nossrannug/feast-postgres)
+  * [x] [Trino (community plugin)](https://github.com/Shopify/feast-trino)
+  * [x] [Spark (community plugin)](https://docs.feast.dev/reference/offline-stores/spark)
+  * [x] [In-memory / Pandas](https://docs.feast.dev/reference/offline-stores/file)
+  * [x] [Custom offline store support](https://docs.feast.dev/how-to-guides/adding-a-new-offline-store)
+* **Online Stores**
+  * [x] [DynamoDB](https://docs.feast.dev/reference/online-stores/dynamodb)
+  * [x] [Redis](https://docs.feast.dev/reference/online-stores/redis)
+  * [x] [Datastore](https://docs.feast.dev/reference/online-stores/datastore)
+  * [x] [SQLite](https://docs.feast.dev/reference/online-stores/sqlite)
+  * [x] [Azure Cache for Redis (community plugin)](https://github.com/Azure/feast-azure)
+  * [x] [Postgres (community plugin)](https://github.com/nossrannug/feast-postgres)
+  * [x] [Custom online store support](https://docs.feast.dev/how-to-guides/adding-support-for-a-new-online-store)
+  * [ ] Bigtable (in progress)
+  * [ ] Cassandra
+* **Streaming**
+  * [x] [Custom streaming ingestion job support](https://docs.feast.dev/how-to-guides/creating-a-custom-provider)
+  * [x] [Push based streaming data ingestion](https://docs.feast.dev/reference/data-sources/push.md)
+  * [ ] Streaming ingestion on AWS
+  * [ ] Streaming ingestion on GCP
+* **Feature Engineering**
+  * [x] On-demand Transformations (Alpha release. See [RFC](https://docs.google.com/document/d/1lgfIw0Drc65LpaxbUu49RCeJgMew547meSJttnUqz7c/edit#))
+  * [ ] Batch transformation (In progress. See [RFC](https://docs.google.com/document/d/1964OkzuBljifDvkV-0fakp2uaijnVzdwWNGdz7Vz50A/edit))
+  * [ ] Streaming transformation
+* **Deployments**
+  * [x] AWS Lambda (Alpha release. See [RFC](https://docs.google.com/document/d/1eZWKWzfBif66LDN32IajpaG-j82LSHCCOzY6R7Ax7MI/edit))
+  * [x] Kubernetes (See [guide](https://docs.feast.dev/how-to-guides/running-feast-in-production#4.3.-java-based-feature-server-deployed-on-kubernetes))
+  * [ ] Cloud Run
+  * [ ] KNative
+* **Feature Serving**
+  * [x] Python Client
+  * [x] REST Feature Server (Python) (Alpha release. See [RFC](https://docs.google.com/document/d/1iXvFhAsJ5jgAhPOpTdB3j-Wj1S9x3Ev\_Wr6ZpnLzER4/edit))
+  * [x] gRPC Feature Server (Java) (See [#1497](https://github.com/feast-dev/feast/issues/1497))
+  * [x] Push API
+  * [ ] Java Client
+  * [ ] Go Client
+  * [ ] Delete API
+  * [ ] Feature Logging (for training)
+* **Data Quality Management (See [RFC](https://docs.google.com/document/d/110F72d4NTv80p35wDSONxhhPBqWRwbZXG4f9mNEMd98/edit))**
+  * [x] Data profiling and validation (Great Expectations)
+  * [ ] Training-serving skew detection (in progress)
+  * [ ] Metric production
+  * [ ] Drift detection
+* **Feature Discovery and Governance**
+  * [x] Python SDK for browsing feature registry
+  * [x] CLI for browsing feature registry
+  * [x] Model-centric feature tracking (feature services)
+  * [x] Amundsen integration (see [Feast extractor](https://github.com/amundsen-io/amundsen/blob/main/databuilder/databuilder/extractor/feast_extractor.py))
+  * [x] Feast Web UI (alpha)
+  * [ ] REST API for browsing feature registry
+  * [ ] Feature versioning

@@ -1,15 +1,15 @@
 # SQLite
 
-### Description
+## Description
 
 The [SQLite](https://www.sqlite.org/index.html) online store provides support for materializing feature values into an SQLite database for serving online features.
 
 * All feature values are stored in an on-disk SQLite database
 * Only the latest feature values are persisted
 
-### Example
+## Example
 
-{% code title="feature\_store.yaml" %}
+{% code title="feature_store.yaml" %}
 ```yaml
 project: my_feature_repo
 registry: data/registry.db
@@ -21,4 +21,3 @@ online_store:
 {% endcode %}
 
 Configuration options are available [here](https://rtd.feast.dev/en/latest/#feast.repo_config.SqliteOnlineStoreConfig).
-
