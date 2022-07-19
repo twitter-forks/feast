@@ -33,7 +33,6 @@ try:
     from setuptools.command.build_ext import build_ext as _build_ext
     from setuptools.command.develop import develop
     from setuptools.command.install import install
-
 except ImportError:
     from distutils.command.build_py import build_py
     from distutils.command.build_ext import build_ext as _build_ext
@@ -412,13 +411,20 @@ class build_ext(_build_ext):
             package = '.'.join(modpath[:-1])
             package_dir = build_py.get_package_dir(package)
             src = os.path.join(self.build_lib, package_dir)
-
             # copy whole directory
             copy_tree(src, package_dir)
 
+# Get version from version module.
+my_path = os.path.abspath(os.path.dirname(__file__))
+path = os.path.join(my_path, "feast/version.py")
+with open(path) as fp:
+    globals_dict = {}
+    exec(fp.read(), globals_dict)  # pylint: disable=exec-used
+__version__ = globals_dict["__version__"]
 
 setup(
     name=NAME,
+    version=__version__,
     author=AUTHOR,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
@@ -452,7 +458,7 @@ setup(
         "Programming Language :: Python :: 3.7",
     ],
     entry_points={"console_scripts": ["feast=feast.cli:cli"]},
-    use_scm_version=use_scm_version,
+    # use_scm_version=use_scm_version,
     setup_requires=[
         "setuptools_scm",
         "grpcio",
@@ -474,6 +480,10 @@ setup(
         "develop": DevelopCommand,
         "build_ext": build_ext,
     },
-    ext_modules=[Extension('feast.embedded_go.lib._embedded',
-                           ["github.com/feast-dev/feast/go/embedded"])],
+    # ext_modules=[
+    #     Extension(
+    #         "feast.embedded_go.lib._embedded",
+    #         ["github.com/feast-dev/feast/go/embedded"],
+    #     )
+    # ],
 )
