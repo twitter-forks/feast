@@ -59,7 +59,7 @@ class BigQuerySource(DataSource):
             warnings.warn(
                 (
                     "The argument 'date_partition_column' is not supported for BigQuery sources. "
-                    "It will be removed in Feast 0.21+"
+                    "It will be removed in Feast 0.23+"
                 ),
                 DeprecationWarning,
             )
@@ -72,7 +72,7 @@ class BigQuerySource(DataSource):
             else:
                 warnings.warn(
                     (
-                        f"Starting in Feast 0.21, Feast will require either a name for a data source (if using query) or `table`: {self.query}"
+                        f"Starting in Feast 0.23, Feast will require either a name for a data source (if using query) or `table`: {self.query}"
                     ),
                     DeprecationWarning,
                 )

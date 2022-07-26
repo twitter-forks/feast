@@ -118,7 +118,7 @@ class OnDemandFeatureView(BaseFeatureView):
                 (
                     "The `features` parameter is being deprecated in favor of the `schema` parameter. "
                     "Please switch from using `features` to `schema`. This will also requiring switching "
-                    "feature definitions from using `Feature` to `Field`. Feast 0.21 and onwards will not "
+                    "feature definitions from using `Feature` to `Field`. Feast 0.23 and onwards will not "
                     "support the `features` parameter."
                 ),
                 DeprecationWarning,
@@ -131,7 +131,7 @@ class OnDemandFeatureView(BaseFeatureView):
             warnings.warn(
                 (
                     "The `inputs` parameter is being deprecated. Please use `sources` instead. "
-                    "Feast 0.21 and onwards will not support the `inputs` parameter."
+                    "Feast 0.23 and onwards will not support the `inputs` parameter."
                 ),
                 DeprecationWarning,
             )
@@ -163,7 +163,7 @@ class OnDemandFeatureView(BaseFeatureView):
                     (
                         "The `features` parameter is being deprecated in favor of the `schema` parameter. "
                         "Please switch from using `features` to `schema`. This will also requiring switching "
-                        "feature definitions from using `Feature` to `Field`. Feast 0.21 and onwards will not "
+                        "feature definitions from using `Feature` to `Field`. Feast 0.23 and onwards will not "
                         "support the `features` parameter."
                     ),
                     DeprecationWarning,
@@ -173,7 +173,7 @@ class OnDemandFeatureView(BaseFeatureView):
                 warnings.warn(
                     (
                         "The `inputs` parameter is being deprecated. Please use `sources` instead. "
-                        "Feast 0.21 and onwards will not support the `inputs` parameter."
+                        "Feast 0.23 and onwards will not support the `inputs` parameter."
                     ),
                     DeprecationWarning,
                 )
@@ -512,7 +512,7 @@ def on_demand_feature_view(
             (
                 "The `features` parameter is being deprecated in favor of the `schema` parameter. "
                 "Please switch from using `features` to `schema`. This will also requiring switching "
-                "feature definitions from using `Feature` to `Field`. Feast 0.21 and onwards will not "
+                "feature definitions from using `Feature` to `Field`. Feast 0.23 and onwards will not "
                 "support the `features` parameter."
             ),
             DeprecationWarning,
@@ -525,7 +525,7 @@ def on_demand_feature_view(
         warnings.warn(
             (
                 "The `inputs` parameter is being deprecated. Please use `sources` instead. "
-                "Feast 0.21 and onwards will not support the `inputs` parameter."
+                "Feast 0.23 and onwards will not support the `inputs` parameter."
             ),
             DeprecationWarning,
         )
@@ -553,20 +553,31 @@ def on_demand_feature_view(
                 (
                     "The `features` parameter is being deprecated in favor of the `schema` parameter. "
                     "Please switch from using `features` to `schema`. This will also requiring switching "
-                    "feature definitions from using `Feature` to `Field`. Feast 0.21 and onwards will not "
+                    "feature definitions from using `Feature` to `Field`. Feast 0.23 and onwards will not "
                     "support the `features` parameter."
                 ),
                 DeprecationWarning,
             )
         if len(args) >= 2:
-            _sources = args[1]
-            warnings.warn(
-                (
-                    "The `inputs` parameter is being deprecated. Please use `sources` instead. "
-                    "Feast 0.21 and onwards will not support the `inputs` parameter."
-                ),
-                DeprecationWarning,
-            )
+            _inputs = args[1]
+            for _, source in _inputs.items():
+                if isinstance(source, FeatureView):
+                    _sources.append(feature_view_to_batch_feature_view(source))
+                elif isinstance(source, RequestSource) or isinstance(
+                    source, FeatureViewProjection
+                ):
+                    _sources.append(source)
+                else:
+                    raise ValueError(
+                        "input can only accept FeatureView, FeatureViewProjection, or RequestSource"
+                    )
+                warnings.warn(
+                    (
+                        "The `inputs` parameter is being deprecated. Please use `sources` instead. "
+                        "Feast 0.23 and onwards will not support the `inputs` parameter."
+                    ),
+                    DeprecationWarning,
+                )
 
     if not _sources:
         raise ValueError("The `sources` parameter must be specified.")
