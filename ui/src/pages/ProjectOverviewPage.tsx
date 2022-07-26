@@ -65,23 +65,19 @@ const ProjectOverviewPage = () => {
               ) : (
                 <EuiText>
                   <p>
-                    Welcome to your new Feast project. In this UI, you can see
-                    Data Sources, Entities, Feature Views and Feature Services
-                    registered in Feast.
+                    Welcome to the Twitter Feature Store production metadata store! If you
+                    are new to Feature Store we suggest checking out our{' '}
+                    <a href="http://go/fs2">DocBird page</a>.
                   </p>
                   <p>
-                    It looks like this project already has some objects
-                    registered. If you are new to this project, we suggest
+                    If you are new to this project, we suggest
                     starting by exploring the Feature Services, as they
                     represent the collection of Feature Views serving a
                     particular model.
                   </p>
                   <p>
-                    <strong>Note</strong>: We encourage you to replace this
-                    welcome message with more suitable content for your team.
-                    You can do so by specifying a{" "}
-                    <code>project_description</code> in your{" "}
-                    <code>feature_store.yaml</code> file.
+                    <strong>Questions?</strong>: Please reach out to the{' '}
+                    <a href="https://twitter.slack.com/archives/C022QGCQCKV">#ml-platform-support</a> channel.
                   </p>
                 </EuiText>
               ))}
