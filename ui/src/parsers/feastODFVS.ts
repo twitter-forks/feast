@@ -28,7 +28,7 @@ const FeastODFVSchema = z.object({
   spec: z.object({
     name: z.string(),
     features: z.array(FeastFeatureColumnSchema),
-    inputs: z.record(ODFVInputsSchema),
+    sources: z.record(ODFVInputsSchema),
     userDefinedFunction: z.object({
       name: z.string(),
       body: z.string(),
