@@ -29,12 +29,7 @@ const queryClient = new QueryClient();
 const tabsRegistry = {
   RegularFeatureViewCustomTabs: [
     {
-      label: "Custom Tab Demo", // Navigation Label for the tab
-      path: "demo-tab", // Subpath for the tab
-      Component: RFVDemoCustomTab,
-    },
-    {
-      label: "Data Tab Demo", // Navigation Label for the tab
+      label: "Data Tab", // Navigation Label for the tab
       path: "data-tab", // Subpath for the tab
       Component: DataTab,
     },
@@ -62,9 +57,9 @@ const tabsRegistry = {
   ],
   EntityCustomTabs: [
     {
-      label: "Custom Tab Demo",
-      path: "demo-tab",
-      Component: EntDemoCustomTab,
+      label: "Data Tab", // Navigation Label for the tab
+      path: "data-tab", // Subpath for the tab
+      Component: DataTab,
     },
   ],
   DatasetCustomTabs: [
@@ -76,9 +71,9 @@ const tabsRegistry = {
   ],
   FeatureCustomTabs: [
     {
-      label: "Custom Tab Demo",
-      path: "demo-tab",
-      Component: FDemoCustomTab,
+      label: "Data Tab", // Navigation Label for the tab
+      path: "data-tab", // Subpath for the tab
+      Component: DataTab,
     },
   ],
 };

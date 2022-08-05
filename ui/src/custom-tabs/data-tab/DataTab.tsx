@@ -14,21 +14,20 @@ import {
   EuiTableRow,
   EuiTableRowCell,
 } from "@elastic/eui";
-import useLoadRegularFeatureView from "../../pages/feature-views/useLoadFeatureView";
 import DataQuery from "./DataQuery";
 
-const FeatureViewDataRow = z.object({
+const DataRow = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-type FeatureViewDataRowType = z.infer<typeof FeatureViewDataRow>;
+type DataRowType = z.infer<typeof DataRow>;
 
 const LineHeightProp: React.CSSProperties = {
   lineHeight: 1,
 }
 
-const EuiFeatureViewDataRow = ({name, value}: FeatureViewDataRowType) => {
+const EuiDataRow = ({name, value}: DataRowType) => {
   return (
     <EuiTableRow>
       <EuiTableRowCell>
@@ -45,11 +44,11 @@ const EuiFeatureViewDataRow = ({name, value}: FeatureViewDataRowType) => {
   );
 }
 
-const FeatureViewDataTable = (data: any) => {
-  var items: FeatureViewDataRowType[] = [];
+const DataTable = (data: any) => {
+  var items: DataRowType[] = [];
 
   for (let element in data.data){
-    const row: FeatureViewDataRowType = {
+    const row: DataRowType = {
       name: element,
       value: JSON.stringify(data.data[element], null, 2),
     };
@@ -68,7 +67,7 @@ const FeatureViewDataTable = (data: any) => {
         </EuiTableHeaderCell>
       </EuiTableHeader>
       {items.map((item) => {
-        return <EuiFeatureViewDataRow name={item.name} value={item.value} />
+        return <EuiDataRow name={item.name} value={item.value} />
       })}
     </EuiTable>
   )
@@ -97,7 +96,7 @@ const DataTab = () => {
               <h3>Properties</h3>
             </EuiTitle>
             <EuiHorizontalRule margin="xs" />
-            <FeatureViewDataTable data={data} />
+            <DataTable data={data} />
           </EuiPanel>
           </EuiFlexItem>
         </EuiFlexGroup>
