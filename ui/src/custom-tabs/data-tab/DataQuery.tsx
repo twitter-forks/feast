@@ -5,6 +5,9 @@ interface DataQueryInterface {
 }
 
 const DataQuery = (featureView: string) => {
+  const response = fetch("https://featurestore.twitter.biz/hello").then((res) => res.text());
+  console.log(response);
+
   const queryKey = `data-tab-namespace:${featureView}`;
 
   return useQuery<any>(
