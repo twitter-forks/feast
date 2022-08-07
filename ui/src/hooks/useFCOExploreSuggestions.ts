@@ -21,7 +21,7 @@ const FCO_TO_URL_NAME_MAP: Record<FEAST_FCO_TYPES, string> = {
   dataSource: "/data-source",
   entity: "/entity",
   featureView: "/feature-view",
-  featureService: "/feature-service",
+  model: "/model",
 };
 
 const createSearchLink = (
@@ -94,7 +94,7 @@ const generateExplorationSuggestions = (
                     selectedTag,
                     tagValue
                   ),
-                label: `Feature Services where ${selectedTag} is '${tagValue}'`,
+                label: `Models where ${selectedTag} is '${tagValue}'`,
                 count: fvEntries.length,
               };
             }),

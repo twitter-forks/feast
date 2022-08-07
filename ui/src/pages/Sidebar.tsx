@@ -9,7 +9,7 @@ import RegistryPathContext from "../contexts/RegistryPathContext";
 import { DataSourceIcon16 } from "../graphics/DataSourceIcon";
 import { EntityIcon16 } from "../graphics/EntityIcon";
 import { FeatureViewIcon16 } from "../graphics/FeatureViewIcon";
-import { FeatureServiceIcon16 } from "../graphics/FeatureServiceIcon";
+import { ModelIcon16 } from "../graphics/ModelIcon";
 import { DatasetIcon16 } from "../graphics/DatasetIcon";
 
 const SideNav = () => {
@@ -43,9 +43,9 @@ const SideNav = () => {
       : ""
   }`;
 
-  const featureServicesLabel = `Feature Services ${
-    isSuccess && data?.objects.featureServices
-      ? `(${data?.objects.featureServices?.length})`
+  const modelsLabel = `Models ${
+    isSuccess && data?.objects.models
+      ? `(${data?.objects.models?.length})`
       : ""
   }`;
 
@@ -91,13 +91,13 @@ const SideNav = () => {
           isSelected: useMatchSubpath("feature-view"),
         },
         {
-          name: featureServicesLabel,
-          id: htmlIdGenerator("featureService")(),
-          icon: <EuiIcon type={FeatureServiceIcon16} />,
+          name: modelsLabel,
+          id: htmlIdGenerator("model")(),
+          icon: <EuiIcon type={ModelIcon16} />,
           onClick: () => {
-            navigate(`/p/${projectName}/feature-service`);
+            navigate(`/p/${projectName}/model`);
           },
-          isSelected: useMatchSubpath("feature-service"),
+          isSelected: useMatchSubpath("model"),
         },
         {
           name: savedDatasetsLabel,

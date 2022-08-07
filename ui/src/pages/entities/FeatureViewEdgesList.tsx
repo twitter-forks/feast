@@ -14,7 +14,7 @@ const whereFSconsumesThisFv = (fvName: string) => {
   return (r: EntityRelation) => {
     return (
       r.source.name === fvName &&
-      r.target.type === FEAST_FCO_TYPES.featureService
+      r.target.type === FEAST_FCO_TYPES.model
     );
   };
 };

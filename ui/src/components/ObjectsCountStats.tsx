@@ -18,7 +18,7 @@ const useLoadObjectStats = () => {
   const data =
     query.isSuccess && query.data
       ? {
-          featureServices: query.data.objects.featureServices?.length || 0,
+          models: query.data.objects.models?.length || 0,
           featureViews: query.data.mergedFVList.length,
           entities: query.data.objects.entities?.length || 0,
           dataSources: query.data.objects.dataSources?.length || 0,
@@ -55,9 +55,9 @@ const ObjectsCountStats = () => {
             <EuiFlexItem>
               <EuiStat
                 style={statStyle}
-                onClick={() => navigate(`/p/${projectName}/feature-service`)}
-                description="Feature Services→"
-                title={data.featureServices}
+                onClick={() => navigate(`/p/${projectName}/model`)}
+                description="Models→"
+                title={data.models}
                 reverse
               />
             </EuiFlexItem>

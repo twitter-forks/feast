@@ -1,7 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { EuiBasicTable } from "@elastic/eui";
-import { FeastFeatureInServiceType } from "../parsers/feastFeatureServices";
+import { FeastFeatureInServiceType } from "../parsers/feastModels";
 import EuiCustomLink from "./EuiCustomLink";
 import { FEAST_FEATURE_VALUE_TYPES } from "../parsers/types";
 import { useParams } from "react-router-dom";
@@ -10,7 +10,7 @@ interface FeatureViewsListInterace {
   featureViews: FeastFeatureInServiceType[];
 }
 
-const FeaturesInServiceList = ({ featureViews }: FeatureViewsListInterace) => {
+const FeaturesInModelList = ({ featureViews }: FeatureViewsListInterace) => {
   const { projectName } = useParams();
 
   const FeatureInService = z.object({
@@ -68,4 +68,4 @@ const FeaturesInServiceList = ({ featureViews }: FeatureViewsListInterace) => {
   );
 };
 
-export default FeaturesInServiceList;
+export default FeaturesInModelList;

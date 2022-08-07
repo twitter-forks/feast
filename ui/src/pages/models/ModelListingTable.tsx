@@ -7,34 +7,34 @@ import {
 import EuiCustomLink from "../../components/EuiCustomLink";
 import {
   FeastFeatureInServiceType,
-  FeastFeatureServiceType,
-} from "../../parsers/feastFeatureServices";
+  FeastModelType,
+} from "../../parsers/feastModels";
 import { useParams } from "react-router-dom";
 
-interface FeatureServiceListingTableProps {
+interface ModelListingTableProps {
   tagKeysSet: Set<string>;
-  featureServices: FeastFeatureServiceType[];
+  models: FeastModelType[];
 }
 
-type FeatureServiceTypeColumn =
-  | EuiTableFieldDataColumnType<FeastFeatureServiceType>
-  | EuiTableComputedColumnType<FeastFeatureServiceType>;
+type ModelTypeColumn =
+  | EuiTableFieldDataColumnType<FeastModelType>
+  | EuiTableComputedColumnType<FeastModelType>;
 
-const FeatureServiceListingTable = ({
+const ModelListingTable = ({
   tagKeysSet,
-  featureServices,
-}: FeatureServiceListingTableProps) => {
+  models,
+}: ModelListingTableProps) => {
   const { projectName } = useParams();
 
-  const columns: FeatureServiceTypeColumn[] = [
+  const columns: ModelTypeColumn[] = [
     {
       name: "Name",
       field: "spec.name",
       render: (name: string) => {
         return (
           <EuiCustomLink
-            href={`/p/${projectName}/feature-service/${name}`}
-            to={`/p/${projectName}/feature-service/${name}`}
+            href={`/p/${projectName}/model/${name}`}
+            to={`/p/${projectName}/model/${name}`}
           >
             {name}
           </EuiCustomLink>
@@ -64,7 +64,7 @@ const FeatureServiceListingTable = ({
   tagKeysSet.forEach((key) => {
     columns.push({
       name: key,
-      render: (item: FeastFeatureServiceType) => {
+      render: (item: FeastModelType) => {
         let tag = <span>n/a</span>;
 
         const value = item.spec.tags ? item.spec.tags[key] : undefined;
@@ -78,7 +78,7 @@ const FeatureServiceListingTable = ({
     });
   });
 
-  const getRowProps = (item: FeastFeatureServiceType) => {
+  const getRowProps = (item: FeastModelType) => {
     return {
       "data-test-subj": `row-${item.spec.name}`,
     };
@@ -87,10 +87,10 @@ const FeatureServiceListingTable = ({
   return (
     <EuiBasicTable
       columns={columns}
-      items={featureServices}
+      items={models}
       rowProps={getRowProps}
     />
   );
 };
 
-export default FeatureServiceListingTable;
+export default ModelListingTable;

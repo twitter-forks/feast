@@ -3,13 +3,13 @@ import { EuiBasicTable } from "@elastic/eui";
 import EuiCustomLink from "../../components/EuiCustomLink";
 import { useParams } from "react-router-dom";
 
-interface ConsumingFeatureServicesListInterace {
+interface ConsumingModelsListInterace {
   fsNames: string[];
 }
 
-const ConsumingFeatureServicesList = ({
+const ConsumingModelsList = ({
   fsNames,
-}: ConsumingFeatureServicesListInterace) => {
+}: ConsumingModelsListInterace) => {
   const { projectName } = useParams();
 
   const columns = [
@@ -19,8 +19,8 @@ const ConsumingFeatureServicesList = ({
       render: (name: string) => {
         return (
           <EuiCustomLink
-            href={`/p/${projectName}/feature-service/${name}`}
-            to={`/p/${projectName}/feature-service/${name}`}
+            href={`/p/${projectName}/model/${name}`}
+            to={`/p/${projectName}/model/${name}`}
           >
             {name}
           </EuiCustomLink>
@@ -40,4 +40,4 @@ const ConsumingFeatureServicesList = ({
   );
 };
 
-export default ConsumingFeatureServicesList;
+export default ConsumingModelsList;

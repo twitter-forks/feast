@@ -1,14 +1,14 @@
 import React from "react";
 import { EuiPanel } from "@elastic/eui";
 import { useParams } from "react-router-dom";
-import useLoadFeatureService from "./useLoadFeatureService";
+import useLoadModel from "./useLoadModel";
 
-const FeatureServiceRawData = () => {
-  let { featureServiceName } = useParams();
+const ModelRawData = () => {
+  let { modelName } = useParams();
 
-  const fsName = featureServiceName === undefined ? "" : featureServiceName;
+  const fsName = modelName === undefined ? "" : modelName;
 
-  const { isSuccess, data } = useLoadFeatureService(fsName);
+  const { isSuccess, data } = useLoadModel(fsName);
 
   return isSuccess && data ? (
     <EuiPanel hasBorder={true} hasShadow={false}>
@@ -21,4 +21,4 @@ const FeatureServiceRawData = () => {
   );
 };
 
-export default FeatureServiceRawData;
+export default ModelRawData;

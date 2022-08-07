@@ -2,27 +2,27 @@ import React from "react";
 import { EuiEmptyPrompt, EuiTitle, EuiLink, EuiButton } from "@elastic/eui";
 import FeastIconBlue from "../../graphics/FeastIconBlue";
 
-const FeatureServiceIndexEmptyState = () => {
+const ModelIndexEmptyState = () => {
   return (
     <EuiEmptyPrompt
       iconType={FeastIconBlue}
-      title={<h2>There are no feature services</h2>}
+      title={<h2>There are no models</h2>}
       body={
         <p>
-          This project does not have any Feature Services. Learn more about
-          creating Feature Services in Feast Docs.
+          This project does not have any Models. Learn more about
+          creating Models in Feast Docs.
         </p>
       }
       actions={
         <EuiButton
           onClick={() => {
             window.open(
-              "https://docs.feast.dev/getting-started/concepts/feature-service",
+              "https://docs.feast.dev/getting-started/concepts/model",
               "_blank"
             );
           }}
         >
-          Open Feature Services Docs
+          Open Models Docs
         </EuiButton>
       }
       footer={
@@ -39,4 +39,4 @@ const FeatureServiceIndexEmptyState = () => {
   );
 };
 
-export default FeatureServiceIndexEmptyState;
+export default ModelIndexEmptyState;

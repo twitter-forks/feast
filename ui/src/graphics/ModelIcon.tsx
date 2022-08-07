@@ -1,6 +1,6 @@
 import React from "react";
 
-const FeatureServiceIcon = ({
+const ModelIcon = ({
   size,
   className,
 }: {
@@ -24,19 +24,19 @@ const FeatureServiceIcon = ({
   );
 };
 
-const FeatureServiceIcon16 = () => {
+const ModelIcon16 = () => {
   return (
-    <FeatureServiceIcon size={16} className="euiSideNavItemButton__icon" />
+    <ModelIcon size={16} className="euiSideNavItemButton__icon" />
   );
 };
 
-const FeatureServiceIcon32 = () => {
+const ModelIcon32 = () => {
   return (
-    <FeatureServiceIcon
+    <ModelIcon
       size={32}
       className="euiIcon euiIcon--xLarge euiPageHeaderContent__titleIcon"
     />
   );
 };
 
-export { FeatureServiceIcon, FeatureServiceIcon16, FeatureServiceIcon32 };
+export { ModelIcon, ModelIcon16, ModelIcon32 };

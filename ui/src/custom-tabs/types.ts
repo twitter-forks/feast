@@ -3,7 +3,7 @@ import {
   useLoadRegularFeatureView,
 } from "../pages/feature-views/useLoadFeatureView";
 import useLoadFeature from "../pages/features/useLoadFeature";
-import useLoadFeatureService from "../pages/feature-services/useLoadFeatureService";
+import useLoadModel from "../pages/models/useLoadModel";
 import useLoadDataSource from "../pages/data-sources/useLoadDataSource";
 import useLoadEntity from "../pages/entities/useLoadEntity";
 import useLoadDataset from "../pages/saved-data-sets/useLoadDataset";
@@ -77,18 +77,18 @@ interface FeatureCustomTabRegistrationInterface
 }
 
 
-// Type for Feature Service Custom Tabs
-interface FeatureServiceCustomTabProps {
+// Type for Model Custom Tabs
+interface ModelCustomTabProps {
   id: string | undefined;
-  feastObjectQuery: ReturnType<typeof useLoadFeatureService>;
+  feastObjectQuery: ReturnType<typeof useLoadModel>;
 }
-interface FeatureServiceCustomTabRegistrationInterface
+interface ModelCustomTabRegistrationInterface
   extends CustomTabRegistrationInterface {
   Component: ({
     id,
     feastObjectQuery,
     ...args
-  }: FeatureServiceCustomTabProps) => JSX.Element;
+  }: ModelCustomTabProps) => JSX.Element;
 }
 
 // Type for Data Source Custom Tabs
@@ -127,8 +127,8 @@ export type {
   OnDemandFeatureViewQueryReturnType,
   OnDemandFeatureViewCustomTabProps,
   OnDemandFeatureViewCustomTabRegistrationInterface,
-  FeatureServiceCustomTabRegistrationInterface,
-  FeatureServiceCustomTabProps,
+  ModelCustomTabRegistrationInterface,
+  ModelCustomTabProps,
   DataSourceCustomTabRegistrationInterface,
   DataSourceCustomTabProps,
   EntityCustomTabRegistrationInterface,

@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react";
 import RegistryPathContext from "../contexts/RegistryPathContext";
-import { FeastFeatureServiceType } from "../parsers/feastFeatureServices";
+import { FeastModelType } from "../parsers/feastModels";
 import { FeastFeatureViewType } from "../parsers/feastFeatureViews";
 import useLoadRegistry from "../queries/useLoadRegistry";
 
@@ -59,16 +59,16 @@ const useFeatureViewTagsAggregation = () => {
   };
 };
 
-const useFeatureServiceTagsAggregation = () => {
+const useModelTagsAggregation = () => {
   const registryUrl = useContext(RegistryPathContext);
   const query = useLoadRegistry(registryUrl);
 
   const data = useMemo(() => {
     return query.data &&
       query.data.objects &&
-      query.data.objects.featureServices
-      ? buildTagCollection<FeastFeatureServiceType>(
-          query.data.objects.featureServices,
+      query.data.objects.models
+      ? buildTagCollection<FeastModelType>(
+          query.data.objects.models,
           (fs) => {
             return fs.spec.tags;
           }
@@ -82,4 +82,4 @@ const useFeatureServiceTagsAggregation = () => {
   };
 };
 
-export { useFeatureViewTagsAggregation, useFeatureServiceTagsAggregation };
+export { useFeatureViewTagsAggregation, useModelTagsAggregation };

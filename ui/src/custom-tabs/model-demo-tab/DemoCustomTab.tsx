@@ -2,7 +2,7 @@ import React from "react";
 
 import {
   // Feature View Custom Tabs will get these props
-  FeatureServiceCustomTabProps,
+  ModelCustomTabProps,
 } from "../types";
 
 import {
@@ -21,7 +21,7 @@ import useDemoQuery from "./useDemoQuery";
 const DemoCustomTab = ({
   id,
   feastObjectQuery,
-}: FeatureServiceCustomTabProps) => {
+}: ModelCustomTabProps) => {
   // Use React Query to fetch data
   // that is custom to this tab.
   // See: https://react-query.tanstack.com/guides/queries

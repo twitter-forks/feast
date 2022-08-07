@@ -71,7 +71,7 @@ const ProjectOverviewPage = () => {
                   </p>
                   <p>
                     If you are new to this project, we suggest
-                    starting by exploring the Feature Services, as they
+                    starting by exploring the Models, as they
                     represent the collection of Feature Views serving a
                     particular model.
                   </p>

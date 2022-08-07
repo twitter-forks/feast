@@ -14,19 +14,19 @@ import {
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import FeaturesInServiceList from "../../components/FeaturesInServiceDisplay";
+import FeaturesInModelList from "../../components/FeaturesInModelDisplay";
 import TagsDisplay from "../../components/TagsDisplay";
 import { encodeSearchQueryString } from "../../hooks/encodeSearchQueryString";
 import FeatureViewEdgesList from "../entities/FeatureViewEdgesList";
-import useLoadFeatureService from "./useLoadFeatureService";
+import useLoadModel from "./useLoadModel";
 
-const FeatureServiceOverviewTab = () => {
-  let { featureServiceName, projectName } = useParams();
+const ModelOverviewTab = () => {
+  let { modelName, projectName } = useParams();
 
-  const fsName = featureServiceName === undefined ? "" : featureServiceName;
+  const fsName = modelName === undefined ? "" : modelName;
 
   const { isLoading, isSuccess, isError, data, entities } =
-    useLoadFeatureService(fsName);
+    useLoadModel(fsName);
   const isEmpty = data === undefined;
 
   let numFeatures = 0;
@@ -47,8 +47,8 @@ const FeatureServiceOverviewTab = () => {
           <EuiLoadingSpinner size="m" /> Loading
         </React.Fragment>
       )}
-      {isEmpty && <p>No feature service with name: {featureServiceName}</p>}
-      {isError && <p>Error loading feature service: {featureServiceName}</p>}
+      {isEmpty && <p>No model with name: {modelName}</p>}
+      {isError && <p>Error loading model: {modelName}</p>}
       {isSuccess && data && (
         <React.Fragment>
           <EuiFlexGroup alignItems="center">
@@ -83,10 +83,10 @@ const FeatureServiceOverviewTab = () => {
                 </EuiTitle>
                 <EuiHorizontalRule margin="xs" />
                 {data.spec.features ? (
-                  <FeaturesInServiceList featureViews={data.spec.features} />
+                  <FeaturesInModelList featureViews={data.spec.features} />
                 ) : (
                   <EuiText>
-                    No features specified for this feature service.
+                    No features specified for this model.
                   </EuiText>
                 )}
               </EuiPanel>
@@ -102,13 +102,13 @@ const FeatureServiceOverviewTab = () => {
                     tags={data.spec.tags}
                     createLink={(key, value) => {
                       return (
-                        `/p/${projectName}/feature-service?` +
+                        `/p/${projectName}/model?` +
                         encodeSearchQueryString(`${key}:${value}`)
                       );
                     }}
                   />
                 ) : (
-                  <EuiText>No Tags specified on this feature service.</EuiText>
+                  <EuiText>No Tags specified on this model.</EuiText>
                 )}
               </EuiPanel>
               <EuiSpacer size="m" />
@@ -155,7 +155,7 @@ const FeatureServiceOverviewTab = () => {
                     })}
                   />
                 ) : (
-                  <EuiText>No feature views in this feature service</EuiText>
+                  <EuiText>No feature views in this model</EuiText>
                 )}
               </EuiPanel>
             </EuiFlexItem>
@@ -166,4 +166,4 @@ const FeatureServiceOverviewTab = () => {
   );
 };
 
-export default FeatureServiceOverviewTab;
+export default ModelOverviewTab;

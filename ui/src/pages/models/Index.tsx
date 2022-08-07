@@ -12,31 +12,31 @@ import {
   EuiFieldSearch,
 } from "@elastic/eui";
 
-import { FeatureServiceIcon32 } from "../../graphics/FeatureServiceIcon";
+import { ModelIcon32 } from "../../graphics/ModelIcon";
 
 import useLoadRegistry from "../../queries/useLoadRegistry";
-import FeatureServiceListingTable from "./FeatureServiceListingTable";
+import ModelListingTable from "./ModelListingTable";
 import {
   useSearchQuery,
   useTagsWithSuggestions,
   filterInputInterface,
   tagTokenGroupsType,
 } from "../../hooks/useSearchInputWithTags";
-import { FeastFeatureServiceType } from "../../parsers/feastFeatureServices";
+import { FeastModelType } from "../../parsers/feastModels";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import RegistryPathContext from "../../contexts/RegistryPathContext";
-import FeatureServiceIndexEmptyState from "./FeatureServiceIndexEmptyState";
+import ModelIndexEmptyState from "./ModelIndexEmptyState";
 import TagSearch from "../../components/TagSearch";
-import { useFeatureServiceTagsAggregation } from "../../hooks/useTagsAggregation";
+import { useModelTagsAggregation } from "../../hooks/useTagsAggregation";
 
-const useLoadFeatureServices = () => {
+const useLoadModels = () => {
   const registryUrl = useContext(RegistryPathContext);
   const registryQuery = useLoadRegistry(registryUrl);
 
   const data =
     registryQuery.data === undefined
       ? undefined
-      : registryQuery.data.objects.featureServices;
+      : registryQuery.data.objects.models;
 
   return {
     ...registryQuery,
@@ -45,7 +45,7 @@ const useLoadFeatureServices = () => {
 };
 
 const shouldIncludeFSsGivenTokenGroups = (
-  entry: FeastFeatureServiceType,
+  entry: FeastModelType,
   tagTokenGroups: tagTokenGroupsType
 ) => {
   return Object.entries(tagTokenGroups).every(([key, values]) => {
@@ -62,7 +62,7 @@ const shouldIncludeFSsGivenTokenGroups = (
 };
 
 const filterFn = (
-  data: FeastFeatureServiceType[],
+  data: FeastModelType[],
   filterInput: filterInputInterface
 ) => {
   let filteredByTags = data;
@@ -88,10 +88,10 @@ const filterFn = (
 };
 
 const Index = () => {
-  const { isLoading, isSuccess, isError, data } = useLoadFeatureServices();
-  const tagAggregationQuery = useFeatureServiceTagsAggregation();
+  const { isLoading, isSuccess, isError, data } = useLoadModels();
+  const tagAggregationQuery = useModelTagsAggregation();
 
-  useDocumentTitle(`Feature Services | Feast`);
+  useDocumentTitle(`Models | Feast`);
 
   const { searchString, searchTokens, setSearchString } = useSearchQuery();
 
@@ -115,8 +115,8 @@ const Index = () => {
     <React.Fragment>
       <EuiPageHeader
         restrictWidth
-        iconType={FeatureServiceIcon32}
-        pageTitle="Feature Services"
+        iconType={ModelIcon32}
+        pageTitle="Models"
       />
       <EuiPageContent
         hasBorder={false}
@@ -132,7 +132,7 @@ const Index = () => {
             </p>
           )}
           {isError && <p>We encountered an error while loading.</p>}
-          {isSuccess && !data && <FeatureServiceIndexEmptyState />}
+          {isSuccess && !data && <ModelIndexEmptyState />}
           {isSuccess && filterResult && (
             <React.Fragment>
               <EuiFlexGroup>
@@ -161,8 +161,8 @@ const Index = () => {
                 </EuiFlexItem>
               </EuiFlexGroup>
               <EuiSpacer size="m" />
-              <FeatureServiceListingTable
-                featureServices={filterResult}
+              <ModelListingTable
+                models={filterResult}
                 tagKeysSet={tagKeysSet}
               />
             </React.Fragment>

@@ -11,7 +11,7 @@ const FeatureInServiceSchema = z.object({
   featureColumns: z.array(FeatureColumnInService),
 });
 
-const FeastFeatureServiceSchema = z.object({
+const FeastModelSchema = z.object({
   spec: z.object({
     name: z.string(),
     features: z.array(FeatureInServiceSchema),
@@ -23,8 +23,8 @@ const FeastFeatureServiceSchema = z.object({
   }),
 });
 
-type FeastFeatureServiceType = z.infer<typeof FeastFeatureServiceSchema>;
+type FeastModelType = z.infer<typeof FeastModelSchema>;
 type FeastFeatureInServiceType = z.infer<typeof FeatureInServiceSchema>;
 
-export { FeastFeatureServiceSchema };
-export type { FeastFeatureServiceType, FeastFeatureInServiceType };
+export { FeastModelSchema };
+export type { FeastModelType, FeastFeatureInServiceType };

@@ -6,31 +6,31 @@ import {
   EuiPageContentBody,
 } from "@elastic/eui";
 
-import { FeatureServiceIcon32 } from "../../graphics/FeatureServiceIcon";
+import { ModelIcon32 } from "../../graphics/ModelIcon";
 import { useMatchExact } from "../../hooks/useMatchSubpath";
-import FeatureServiceOverviewTab from "./FeatureServiceOverviewTab";
+import ModelOverviewTab from "./ModelOverviewTab";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 import {
-  useFeatureServiceCustomTabs,
-  useFeatureServiceCustomTabRoutes,
+  useModelCustomTabs,
+  useModelCustomTabRoutes,
 } from "../../custom-tabs/TabsRegistryContext";
 
-const FeatureServiceInstance = () => {
+const ModelInstance = () => {
   const navigate = useNavigate();
-  let { featureServiceName } = useParams();
+  let { modelName } = useParams();
 
-  useDocumentTitle(`${featureServiceName} | Feature Service | Feast`);
+  useDocumentTitle(`${modelName} | Model | Feast`);
 
-  const { customNavigationTabs } = useFeatureServiceCustomTabs(navigate);
-  const CustomTabRoutes = useFeatureServiceCustomTabRoutes();
+  const { customNavigationTabs } = useModelCustomTabs(navigate);
+  const CustomTabRoutes = useModelCustomTabRoutes();
 
   return (
     <React.Fragment>
       <EuiPageHeader
         restrictWidth
-        iconType={FeatureServiceIcon32}
-        pageTitle={`Feature Service: ${featureServiceName}`}
+        iconType={ModelIcon32}
+        pageTitle={`Model: ${modelName}`}
         tabs={[
           {
             label: "Overview",
@@ -51,7 +51,7 @@ const FeatureServiceInstance = () => {
       >
         <EuiPageContentBody>
           <Routes>
-            <Route path="/" element={<FeatureServiceOverviewTab />} />
+            <Route path="/" element={<ModelOverviewTab />} />
             {CustomTabRoutes}
           </Routes>
         </EuiPageContentBody>
@@ -60,4 +60,4 @@ const FeatureServiceInstance = () => {
   );
 };
 
-export default FeatureServiceInstance;
+export default ModelInstance;

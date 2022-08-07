@@ -79,10 +79,10 @@ const EntityOverviewTab = () => {
                 <EuiHorizontalRule margin="xs" />
                 <EuiDescriptionList>
                   <EuiDescriptionListTitle>
-                    Source Feature Service
+                    Source Model
                   </EuiDescriptionListTitle>
                   <EuiDescriptionListDescription>
-                    {data.spec.featureService}
+                    {data.spec.model}
                   </EuiDescriptionListDescription>
                 </EuiDescriptionList>
               </EuiPanel>

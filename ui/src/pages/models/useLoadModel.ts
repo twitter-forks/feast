@@ -5,15 +5,15 @@ import RegistryPathContext from "../../contexts/RegistryPathContext";
 import useLoadRegistry from "../../queries/useLoadRegistry";
 import { EntityReference } from "../../parsers/parseEntityRelationships";
 
-const useLoadFeatureService = (featureServiceName: string) => {
+const useLoadModel = (modelName: string) => {
   const registryUrl = useContext(RegistryPathContext);
   const registryQuery = useLoadRegistry(registryUrl);
 
   const data =
     registryQuery.data === undefined
       ? undefined
-      : registryQuery.data.objects.featureServices?.find(
-          (fs) => fs.spec.name === featureServiceName
+      : registryQuery.data.objects.models?.find(
+          (fs) => fs.spec.name === modelName
         );
 
   let entities =
@@ -22,7 +22,7 @@ const useLoadFeatureService = (featureServiceName: string) => {
       : registryQuery.data?.indirectRelationships
           .filter((relationship) => {
             return (
-              relationship.target.type === FEAST_FCO_TYPES.featureService &&
+              relationship.target.type === FEAST_FCO_TYPES.model &&
               relationship.target.name === data.spec.name &&
               relationship.source.type === FEAST_FCO_TYPES.entity
             );
@@ -45,4 +45,4 @@ const useLoadFeatureService = (featureServiceName: string) => {
   };
 };
 
-export default useLoadFeatureService;
+export default useLoadModel;

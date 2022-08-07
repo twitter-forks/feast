@@ -70,7 +70,7 @@ test("routes are reachable", async () => {
     "Data Sources",
     "Entities",
     "Feature Views",
-    "Feature Services",
+    "Models",
     "Datasets",
   ];
 

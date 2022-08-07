@@ -14,7 +14,7 @@ interface EntityRelation {
 const parseEntityRelationships = (objects: FeastRegistryType) => {
   const links: EntityRelation[] = [];
 
-  objects.featureServices?.forEach((fs) => {
+  objects.models?.forEach((fs) => {
     fs.spec.features.forEach((feature) => {
       links.push({
         source: {
@@ -22,7 +22,7 @@ const parseEntityRelationships = (objects: FeastRegistryType) => {
           name: feature.featureViewName,
         },
         target: {
-          type: FEAST_FCO_TYPES["featureService"],
+          type: FEAST_FCO_TYPES["model"],
           name: fs.spec.name,
         },
       });

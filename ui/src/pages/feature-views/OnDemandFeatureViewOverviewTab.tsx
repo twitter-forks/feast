@@ -21,7 +21,7 @@ import { FEAST_FCO_TYPES } from "../../parsers/types";
 import useLoadRelationshipData from "../../queries/useLoadRelationshipsData";
 import FeatureViewProjectionDisplayPanel from "./components/FeatureViewProjectionDisplayPanel";
 import RequestDataDisplayPanel from "./components/RequestDataDisplayPanel";
-import ConsumingFeatureServicesList from "./ConsumingFeatureServicesList";
+import ConsumingModelsList from "./ConsumingModelsList";
 
 interface OnDemandFeatureViewOverviewTabProps {
   data: FeastODFVType;
@@ -31,7 +31,7 @@ const whereFSconsumesThisFv = (fvName: string) => {
   return (r: EntityRelation) => {
     return (
       r.source.name === fvName &&
-      r.target.type === FEAST_FCO_TYPES.featureService
+      r.target.type === FEAST_FCO_TYPES.model
     );
   };
 };
@@ -126,11 +126,11 @@ const OnDemandFeatureViewOverviewTab = ({
           <EuiSpacer size="m" />
           <EuiPanel hasBorder={true}>
             <EuiTitle size="xs">
-              <h3>Consuming Feature Services</h3>
+              <h3>Consuming Models</h3>
             </EuiTitle>
             <EuiHorizontalRule margin="xs" />
             {fsNames.length > 0 ? (
-              <ConsumingFeatureServicesList fsNames={fsNames} />
+              <ConsumingModelsList fsNames={fsNames} />
             ) : (
               <EuiText>No services consume this feature view</EuiText>
             )}
