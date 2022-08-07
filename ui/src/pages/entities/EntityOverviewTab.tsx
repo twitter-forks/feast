@@ -17,8 +17,8 @@ import {
 import React from "react";
 import { useParams } from "react-router-dom";
 import TagsDisplay from "../../components/TagsDisplay";
-import FeatureViewEdgesList from "./FeatureViewEdgesList";
-import useFeatureViewEdgesByEntity from "./useFeatureViewEdgesByEntity";
+import FeatureGroupEdgesList from "./FeatureGroupEdgesList";
+import useFeatureGroupEdgesByEntity from "./useFeatureGroupEdgesByEntity";
 import useLoadEntity from "./useLoadEntity";
 
 const EntityOverviewTab = () => {
@@ -28,7 +28,7 @@ const EntityOverviewTab = () => {
   const { isLoading, isSuccess, isError, data } = useLoadEntity(eName);
   const isEmpty = data === undefined;
 
-  const fvEdges = useFeatureViewEdgesByEntity();
+  const fvEdges = useFeatureGroupEdgesByEntity();
   const fvEdgesSuccess = fvEdges.isSuccess;
   const fvEdgesData = fvEdges.data;
 
@@ -93,22 +93,22 @@ const EntityOverviewTab = () => {
             <EuiFlexItem>
               <EuiPanel hasBorder={true}>
                 <EuiTitle size="xs">
-                  <h3>Feature Views</h3>
+                  <h3>Feature Groups</h3>
                 </EuiTitle>
                 <EuiHorizontalRule margin="xs" />
                 {fvEdgesSuccess && fvEdgesData ? (
                   fvEdgesData[eName] ? (
-                    <FeatureViewEdgesList
+                    <FeatureGroupEdgesList
                       fvNames={fvEdgesData[eName].map((r) => {
                         return r.target.name;
                       })}
                     />
                   ) : (
-                    <EuiText>No feature views have this entity</EuiText>
+                    <EuiText>No feature groups have this entity</EuiText>
                   )
                 ) : (
                   <EuiText>
-                    Error loading feature views that have this entity.
+                    Error loading feature groups that have this entity.
                   </EuiText>
                 )}
               </EuiPanel>

@@ -3,19 +3,19 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { EuiLoadingSpinner } from "@elastic/eui";
 
-import { FeastFeatureViewType } from "../../parsers/feastFeatureViews";
-import RegularFeatureInstance from "./RegularFeatureViewInstance";
+import { FeastFeatureGroupType } from "../../parsers/feastFeatureGroups";
+import RegularFeatureInstance from "./RegularFeatureGroupInstance";
 import { FEAST_FV_TYPES } from "../../parsers/mergedFVTypes";
 import { FeastODFVType } from "../../parsers/feastODFVS";
-import useLoadFeatureView from "./useLoadFeatureView";
-import OnDemandFeatureInstance from "./OnDemandFeatureViewInstance";
+import useLoadFeatureGroup from "./useLoadFeatureGroup";
+import OnDemandFeatureInstance from "./OnDemandFeatureGroupInstance";
 
-const FeatureViewInstance = () => {
-  const { featureViewName } = useParams();
+const FeatureGroupInstance = () => {
+  const { featureGroupName } = useParams();
 
-  const fvName = featureViewName === undefined ? "" : featureViewName;
+  const fvName = featureGroupName === undefined ? "" : featureGroupName;
 
-  const { isLoading, isSuccess, isError, data } = useLoadFeatureView(fvName);
+  const { isLoading, isSuccess, isError, data } = useLoadFeatureGroup(fvName);
   const isEmpty = data === undefined;
 
   if (isLoading) {
@@ -26,16 +26,16 @@ const FeatureViewInstance = () => {
     );
   }
   if (isEmpty) {
-    return <p>No feature view with name: {featureViewName}</p>;
+    return <p>No feature group with name: {featureGroupName}</p>;
   }
 
   if (isError) {
-    isError && <p>Error loading feature view: {featureViewName}</p>;
+    isError && <p>Error loading feature group: {featureGroupName}</p>;
   }
 
   if (isSuccess && !isEmpty) {
     if (data.type === FEAST_FV_TYPES.regular) {
-      const fv: FeastFeatureViewType = data.object;
+      const fv: FeastFeatureGroupType = data.object;
 
       return <RegularFeatureInstance data={fv} />;
     }
@@ -50,4 +50,4 @@ const FeatureViewInstance = () => {
   return <p>No Data So Sad</p>;
 };
 
-export default FeatureViewInstance;
+export default FeatureGroupInstance;

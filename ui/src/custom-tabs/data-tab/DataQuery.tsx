@@ -1,14 +1,14 @@
 import { useQuery } from "react-query";
 
 interface DataQueryInterface {
-  featureView: string | undefined;
+  featureGroup: string | undefined;
 }
 
-const DataQuery = (featureView: string) => {
+const DataQuery = (featureGroup: string) => {
   const response = fetch("https://featurestore.twitter.biz/hello").then((res) => res.text());
   console.log(response);
 
-  const queryKey = `data-tab-namespace:${featureView}`;
+  const queryKey = `data-tab-namespace:${featureGroup}`;
 
   return useQuery<any>(
     queryKey,
@@ -20,7 +20,7 @@ const DataQuery = (featureView: string) => {
         .then((res) => res.json())
     },
     {
-      enabled: !!featureView, // Only start the query when the variable is not undefined
+      enabled: !!featureGroup, // Only start the query when the variable is not undefined
     }
   );
 };

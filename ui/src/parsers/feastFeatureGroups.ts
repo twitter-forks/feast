@@ -28,7 +28,7 @@ const FeastBatchSourceSchema = z.object({
   dataSourceClassType: z.string(),
 });
 
-const FeastFeatureViewSchema = z.object({
+const FeastFeatureGroupSchema = z.object({
   spec: z.object({
     name: z.string(),
     entities: z.array(z.string()),
@@ -52,8 +52,8 @@ const FeastFeatureViewSchema = z.object({
   }),
 });
 
-type FeastFeatureViewType = z.infer<typeof FeastFeatureViewSchema>;
+type FeastFeatureGroupType = z.infer<typeof FeastFeatureGroupSchema>;
 type FeastFeatureColumnType = z.infer<typeof FeastFeatureColumnSchema>;
 
-export { FeastFeatureViewSchema, FeastFeatureColumnSchema };
-export type { FeastFeatureViewType, FeastFeatureColumnType };
+export { FeastFeatureGroupSchema, FeastFeatureColumnSchema };
+export type { FeastFeatureGroupType, FeastFeatureColumnType };

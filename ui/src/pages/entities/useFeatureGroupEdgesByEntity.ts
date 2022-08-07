@@ -17,7 +17,7 @@ const entityGroupByName = (data: EntityRelation[]) => {
     }, {});
 };
 
-const useFeatureViewEdgesByEntity = () => {
+const useFeatureGroupEdgesByEntity = () => {
   const query = useLoadRelationshipData();
 
   return {
@@ -27,4 +27,4 @@ const useFeatureViewEdgesByEntity = () => {
   };
 };
 
-export default useFeatureViewEdgesByEntity;
+export default useFeatureGroupEdgesByEntity;

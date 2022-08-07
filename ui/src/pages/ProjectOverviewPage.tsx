@@ -72,7 +72,7 @@ const ProjectOverviewPage = () => {
                   <p>
                     If you are new to this project, we suggest
                     starting by exploring the Models, as they
-                    represent the collection of Feature Views serving a
+                    represent the collection of Feature Groups serving a
                     particular model.
                   </p>
                   <p>

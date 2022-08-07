@@ -7,7 +7,7 @@ const FeatureColumnInService = z.object({
 });
 
 const FeatureInServiceSchema = z.object({
-  featureViewName: z.string(),
+  featureGroupName: z.string(),
   featureColumns: z.array(FeatureColumnInService),
 });
 

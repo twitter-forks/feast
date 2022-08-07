@@ -1,14 +1,14 @@
 import React from "react";
 import { EuiBasicTable, EuiPanel, EuiText, EuiTitle } from "@elastic/eui";
 
-import { FeatureViewProjectionType } from "../../../parsers/feastODFVS";
+import { FeatureGroupProjectionType } from "../../../parsers/feastODFVS";
 import { useParams } from "react-router-dom";
 import EuiCustomLink from "../../../components/EuiCustomLink";
 
-interface RequestDataDisplayPanelProps extends FeatureViewProjectionType {}
+interface RequestDataDisplayPanelProps extends FeatureGroupProjectionType {}
 
-const FeatureViewProjectionDisplayPanel = ({
-  featureViewProjection,
+const FeatureGroupProjectionDisplayPanel = ({
+  featureGroupProjection,
 }: RequestDataDisplayPanelProps) => {
   const { projectName } = useParams();
 
@@ -26,22 +26,22 @@ const FeatureViewProjectionDisplayPanel = ({
   return (
     <EuiPanel hasBorder={true}>
       <EuiText size="xs">
-        <span>Feature View</span>
+        <span>Feature Group</span>
       </EuiText>
       <EuiTitle size="s">
         <EuiCustomLink
-          href={`/p/${projectName}/feature-view/${featureViewProjection.featureViewName}`}
-          to={`/p/${projectName}/feature-view/${featureViewProjection.featureViewName}`}
+          href={`/p/${projectName}/feature-group/${featureGroupProjection.featureGroupName}`}
+          to={`/p/${projectName}/feature-group/${featureGroupProjection.featureGroupName}`}
         >
-          {featureViewProjection.featureViewName}
+          {featureGroupProjection.featureGroupName}
         </EuiCustomLink>
       </EuiTitle>
       <EuiBasicTable
         columns={columns}
-        items={featureViewProjection.featureColumns}
+        items={featureGroupProjection.featureColumns}
       />
     </EuiPanel>
   );
 };
 
-export default FeatureViewProjectionDisplayPanel;
+export default FeatureGroupProjectionDisplayPanel;

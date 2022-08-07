@@ -2,27 +2,27 @@ import React from "react";
 import { EuiEmptyPrompt, EuiTitle, EuiLink, EuiButton } from "@elastic/eui";
 import FeastIconBlue from "../../graphics/FeastIconBlue";
 
-const FeatureViewIndexEmptyState = () => {
+const FeatureGroupIndexEmptyState = () => {
   return (
     <EuiEmptyPrompt
       iconType={FeastIconBlue}
-      title={<h2>There are no feature views</h2>}
+      title={<h2>There are no feature groups</h2>}
       body={
         <p>
-          This project does not have any Feature Views. Learn more about
-          creating Feature Views in Feast Docs.
+          This project does not have any Feature Groups. Learn more about
+          creating Feature Groups in Feast Docs.
         </p>
       }
       actions={
         <EuiButton
           onClick={() => {
             window.open(
-              "https://docs.feast.dev/getting-started/concepts/feature-view",
+              "https://docs.feast.dev/getting-started/concepts/feature-group",
               "_blank"
             );
           }}
         >
-          Open Feature View Docs
+          Open Feature Group Docs
         </EuiButton>
       }
       footer={
@@ -39,4 +39,4 @@ const FeatureViewIndexEmptyState = () => {
   );
 };
 
-export default FeatureViewIndexEmptyState;
+export default FeatureGroupIndexEmptyState;

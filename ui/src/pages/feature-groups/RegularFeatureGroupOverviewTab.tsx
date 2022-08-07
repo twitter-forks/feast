@@ -15,7 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import FeaturesListDisplay from "../../components/FeaturesListDisplay";
 import TagsDisplay from "../../components/TagsDisplay";
 import { encodeSearchQueryString } from "../../hooks/encodeSearchQueryString";
-import { FeastFeatureViewType } from "../../parsers/feastFeatureViews";
+import { FeastFeatureGroupType } from "../../parsers/feastFeatureGroups";
 import { EntityRelation } from "../../parsers/parseEntityRelationships";
 import { FEAST_FCO_TYPES } from "../../parsers/types";
 import useLoadRelationshipData from "../../queries/useLoadRelationshipsData";
@@ -31,19 +31,19 @@ const whereFSconsumesThisFv = (fvName: string) => {
   };
 };
 
-interface RegularFeatureViewOverviewTabProps {
-  data: FeastFeatureViewType;
+interface RegularFeatureGroupOverviewTabProps {
+  data: FeastFeatureGroupType;
 }
 
-const RegularFeatureViewOverviewTab = ({
+const RegularFeatureGroupOverviewTab = ({
   data,
-}: RegularFeatureViewOverviewTabProps) => {
+}: RegularFeatureGroupOverviewTabProps) => {
   const navigate = useNavigate();
 
   const { projectName } = useParams();
-  const { featureViewName } = useParams();
+  const { featureGroupName } = useParams();
 
-  const fvName = featureViewName === undefined ? "" : featureViewName;
+  const fvName = featureGroupName === undefined ? "" : featureGroupName;
 
   const relationshipQuery = useLoadRelationshipData();
 
@@ -71,7 +71,7 @@ const RegularFeatureViewOverviewTab = ({
             />
           </EuiFlexItem>
         ) : (
-          <EuiText>No batchSource specified on this feature view.</EuiText>
+          <EuiText>No batchSource specified on this feature group.</EuiText>
         )}
         {data.meta.lastUpdatedTimestamp && (
           <EuiFlexItem>
@@ -93,12 +93,12 @@ const RegularFeatureViewOverviewTab = ({
             {projectName && data.spec.features ? (
               <FeaturesListDisplay
                 projectName={projectName}
-                featureViewName={data.spec.name}
+                featureGroupName={data.spec.name}
                 features={data.spec.features}
                 link={true}
               />
             ) : (
-              <EuiText>No Tags specified on this feature view.</EuiText>
+              <EuiText>No Tags specified on this feature group.</EuiText>
             )}
           </EuiPanel>
         </EuiFlexItem>
@@ -140,7 +140,7 @@ const RegularFeatureViewOverviewTab = ({
             {fsNames.length > 0 ? (
               <ConsumingModelsList fsNames={fsNames} />
             ) : (
-              <EuiText>No services consume this feature view</EuiText>
+              <EuiText>No services consume this feature group</EuiText>
             )}
           </EuiPanel>
           <EuiSpacer size="m" />
@@ -154,13 +154,13 @@ const RegularFeatureViewOverviewTab = ({
                 tags={data.spec.tags}
                 createLink={(key, value) => {
                   return (
-                    `/p/${projectName}/feature-view?` +
+                    `/p/${projectName}/feature-group?` +
                     encodeSearchQueryString(`${key}:${value}`)
                   );
                 }}
               />
             ) : (
-              <EuiText>No Tags specified on this feature view.</EuiText>
+              <EuiText>No Tags specified on this feature group.</EuiText>
             )}
           </EuiPanel>
         </EuiFlexItem>
@@ -197,4 +197,4 @@ const RegularFeatureViewOverviewTab = ({
   );
 };
 
-export default RegularFeatureViewOverviewTab;
+export default RegularFeatureGroupOverviewTab;

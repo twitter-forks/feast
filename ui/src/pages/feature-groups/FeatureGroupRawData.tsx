@@ -1,14 +1,14 @@
 import React from "react";
 import { EuiPanel } from "@elastic/eui";
 import { useParams } from "react-router-dom";
-import useLoadFeatureView from "./useLoadFeatureView";
+import useLoadFeatureGroup from "./useLoadFeatureGroup";
 
-const FeatureViewRawData = () => {
-  let { featureViewName } = useParams();
+const FeatureGroupRawData = () => {
+  let { featureGroupName } = useParams();
 
-  const fvName = featureViewName === undefined ? "" : featureViewName;
+  const fvName = featureGroupName === undefined ? "" : featureGroupName;
 
-  const { isSuccess, data } = useLoadFeatureView(fvName);
+  const { isSuccess, data } = useLoadFeatureGroup(fvName);
 
   return isSuccess && data ? (
     <EuiPanel hasBorder={true} hasShadow={false}>
@@ -21,4 +21,4 @@ const FeatureViewRawData = () => {
   );
 };
 
-export default FeatureViewRawData;
+export default FeatureGroupRawData;

@@ -6,7 +6,7 @@ import useLoadRelationshipData from "../../queries/useLoadRelationshipsData";
 import { EntityRelation } from "../../parsers/parseEntityRelationships";
 import { FEAST_FCO_TYPES } from "../../parsers/types";
 
-interface FeatureViewEdgesListInterace {
+interface FeatureGroupEdgesListInterace {
   fvNames: string[];
 }
 
@@ -42,7 +42,7 @@ const useGetFSConsumersOfFV = (fvList: string[]) => {
   };
 };
 
-const FeatureViewEdgesList = ({ fvNames }: FeatureViewEdgesListInterace) => {
+const FeatureGroupEdgesList = ({ fvNames }: FeatureGroupEdgesListInterace) => {
   const { projectName } = useParams();
 
   const { isLoading, data } = useGetFSConsumersOfFV(fvNames);
@@ -54,8 +54,8 @@ const FeatureViewEdgesList = ({ fvNames }: FeatureViewEdgesListInterace) => {
       render: (name: string) => {
         return (
           <EuiCustomLink
-            href={`/p/${projectName}/feature-view/${name}`}
-            to={`/p/${projectName}/feature-view/${name}`}
+            href={`/p/${projectName}/feature-group/${name}`}
+            to={`/p/${projectName}/feature-group/${name}`}
           >
             {name}
           </EuiCustomLink>
@@ -86,4 +86,4 @@ const FeatureViewEdgesList = ({ fvNames }: FeatureViewEdgesListInterace) => {
   );
 };
 
-export default FeatureViewEdgesList;
+export default FeatureGroupEdgesList;

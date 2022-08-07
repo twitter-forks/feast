@@ -2,14 +2,14 @@ import { useContext } from "react";
 import RegistryPathContext from "../../contexts/RegistryPathContext";
 import useLoadRegistry from "../../queries/useLoadRegistry";
 
-const useLoadFeatureView = (featureViewName: string) => {
+const useLoadFeatureGroup = (featureGroupName: string) => {
   const registryUrl = useContext(RegistryPathContext);
   const registryQuery = useLoadRegistry(registryUrl);
 
   const data =
     registryQuery.data === undefined
       ? undefined
-      : registryQuery.data.mergedFVMap[featureViewName];
+      : registryQuery.data.mergedFVMap[featureGroupName];
 
   return {
     ...registryQuery,
@@ -17,15 +17,15 @@ const useLoadFeatureView = (featureViewName: string) => {
   };
 };
 
-const useLoadRegularFeatureView = (featureViewName: string) => {
+const useLoadRegularFeatureGroup = (featureGroupName: string) => {
   const registryUrl = useContext(RegistryPathContext);
   const registryQuery = useLoadRegistry(registryUrl);
 
   const data =
     registryQuery.data === undefined
       ? undefined
-      : registryQuery.data.objects.featureViews?.find((fv) => {
-          return fv.spec.name === featureViewName;
+      : registryQuery.data.objects.featureGroups?.find((fv) => {
+          return fv.spec.name === featureGroupName;
         });
 
   return {
@@ -34,15 +34,15 @@ const useLoadRegularFeatureView = (featureViewName: string) => {
   };
 };
 
-const useLoadOnDemandFeatureView = (featureViewName: string) => {
+const useLoadOnDemandFeatureGroup = (featureGroupName: string) => {
   const registryUrl = useContext(RegistryPathContext);
   const registryQuery = useLoadRegistry(registryUrl);
 
   const data =
     registryQuery.data === undefined
       ? undefined
-      : registryQuery.data.objects.onDemandFeatureViews?.find((fv) => {
-          return fv.spec.name === featureViewName;
+      : registryQuery.data.objects.onDemandFeatureGroups?.find((fv) => {
+          return fv.spec.name === featureGroupName;
         });
 
   return {
@@ -51,5 +51,5 @@ const useLoadOnDemandFeatureView = (featureViewName: string) => {
   };
 };
 
-export default useLoadFeatureView;
-export { useLoadRegularFeatureView, useLoadOnDemandFeatureView };
+export default useLoadFeatureGroup;
+export { useLoadRegularFeatureGroup, useLoadOnDemandFeatureGroup };

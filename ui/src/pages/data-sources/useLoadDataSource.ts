@@ -14,21 +14,21 @@ const useLoadDataSource = (dataSourceName: string) => {
           (ds) => ds.name === dataSourceName
         );
 
-  const consumingFeatureViews = 
+  const consumingFeatureGroups = 
     registryQuery.data === undefined
       ? undefined
       : registryQuery.data.relationships.filter(
         (relationship) => { 
           return (relationship.source.type === FEAST_FCO_TYPES.dataSource &&
           relationship.source.name === data?.name &&
-          relationship.target.type === FEAST_FCO_TYPES.featureView);
+          relationship.target.type === FEAST_FCO_TYPES.featureGroup);
         }
       );
 
   return {
     ...registryQuery,
     data,
-    consumingFeatureViews
+    consumingFeatureGroups
   };
 };
 

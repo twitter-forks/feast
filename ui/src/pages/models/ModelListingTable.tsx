@@ -44,10 +44,10 @@ const ModelListingTable = ({
     {
       name: "# of Features",
       field: "spec.features",
-      render: (featureViews: FeastFeatureInServiceType[]) => {
+      render: (featureGroups: FeastFeatureInServiceType[]) => {
         var numFeatures = 0;
-        featureViews.forEach((featureView) => {
-          numFeatures += featureView.featureColumns.length;
+        featureGroups.forEach((featureGroup) => {
+          numFeatures += featureGroup.featureColumns.length;
         });
         return numFeatures;
       },

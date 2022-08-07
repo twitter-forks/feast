@@ -13,17 +13,17 @@ import FeaturesListDisplay from "../../components/FeaturesListDisplay";
 import {
   FeastODFVType,
   RequestDataSourceType,
-  FeatureViewProjectionType,
+  FeatureGroupProjectionType,
 } from "../../parsers/feastODFVS";
 import { useParams } from "react-router-dom";
 import { EntityRelation } from "../../parsers/parseEntityRelationships";
 import { FEAST_FCO_TYPES } from "../../parsers/types";
 import useLoadRelationshipData from "../../queries/useLoadRelationshipsData";
-import FeatureViewProjectionDisplayPanel from "./components/FeatureViewProjectionDisplayPanel";
+import FeatureGroupProjectionDisplayPanel from "./components/FeatureGroupProjectionDisplayPanel";
 import RequestDataDisplayPanel from "./components/RequestDataDisplayPanel";
 import ConsumingModelsList from "./ConsumingModelsList";
 
-interface OnDemandFeatureViewOverviewTabProps {
+interface OnDemandFeatureGroupOverviewTabProps {
   data: FeastODFVType;
 }
 
@@ -36,9 +36,9 @@ const whereFSconsumesThisFv = (fvName: string) => {
   };
 };
 
-const OnDemandFeatureViewOverviewTab = ({
+const OnDemandFeatureGroupOverviewTab = ({
   data,
-}: OnDemandFeatureViewOverviewTabProps) => {
+}: OnDemandFeatureGroupOverviewTabProps) => {
   const inputs = Object.entries(data.spec.sources);
   const { projectName } = useParams();
 
@@ -76,12 +76,12 @@ const OnDemandFeatureViewOverviewTab = ({
             {projectName && data.spec.features ? (
               <FeaturesListDisplay
                 projectName={projectName}
-                featureViewName={data.spec.name}
+                featureGroupName={data.spec.name}
                 features={data.spec.features}
                 link={false}
               />
             ) : (
-              <EuiText>No Tags sepcified on this feature view.</EuiText>
+              <EuiText>No Tags sepcified on this feature group.</EuiText>
             )}
           </EuiPanel>
         </EuiFlexItem>
@@ -103,11 +103,11 @@ const OnDemandFeatureViewOverviewTab = ({
                   );
                 }
 
-                if (inputGroup as FeatureViewProjectionType) {
+                if (inputGroup as FeatureGroupProjectionType) {
                   return (
                     <EuiFlexItem key={key}>
-                      <FeatureViewProjectionDisplayPanel
-                        {...(inputGroup as FeatureViewProjectionType)}
+                      <FeatureGroupProjectionDisplayPanel
+                        {...(inputGroup as FeatureGroupProjectionType)}
                       />
                     </EuiFlexItem>
                   );
@@ -132,7 +132,7 @@ const OnDemandFeatureViewOverviewTab = ({
             {fsNames.length > 0 ? (
               <ConsumingModelsList fsNames={fsNames} />
             ) : (
-              <EuiText>No services consume this feature view</EuiText>
+              <EuiText>No services consume this feature group</EuiText>
             )}
           </EuiPanel>
         </EuiFlexItem>
@@ -141,4 +141,4 @@ const OnDemandFeatureViewOverviewTab = ({
   );
 };
 
-export default OnDemandFeatureViewOverviewTab;
+export default OnDemandFeatureGroupOverviewTab;

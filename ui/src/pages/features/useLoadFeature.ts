@@ -2,15 +2,15 @@ import { useContext } from "react";
 import RegistryPathContext from "../../contexts/RegistryPathContext";
 import useLoadRegistry from "../../queries/useLoadRegistry";
 
-const useLoadFeature = (featureViewName: string, featureName: string) => {
+const useLoadFeature = (featureGroupName: string, featureName: string) => {
   const registryUrl = useContext(RegistryPathContext);
   const registryQuery = useLoadRegistry(registryUrl);
 
   const data =
     registryQuery.data === undefined
       ? undefined
-      : registryQuery.data.objects.featureViews?.find((fv) => {
-          return fv.spec.name === featureViewName;
+      : registryQuery.data.objects.featureGroups?.find((fv) => {
+          return fv.spec.name === featureGroupName;
         });
 
   const featureData = 

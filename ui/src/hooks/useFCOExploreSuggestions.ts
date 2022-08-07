@@ -1,9 +1,9 @@
 import { encodeSearchQueryString } from "./encodeSearchQueryString";
 import { FEAST_FCO_TYPES } from "../parsers/types";
 
-import { FeastFeatureViewType } from "../parsers/feastFeatureViews";
+import { FeastFeatureGroupType } from "../parsers/feastFeatureGroups";
 import { useParams } from "react-router-dom";
-import { useFeatureViewTagsAggregation } from "./useTagsAggregation";
+import { useFeatureGroupTagsAggregation } from "./useTagsAggregation";
 
 interface ExplorationSuggestionItem {
   name: string;
@@ -20,7 +20,7 @@ interface ExplorationSuggestion {
 const FCO_TO_URL_NAME_MAP: Record<FEAST_FCO_TYPES, string> = {
   dataSource: "/data-source",
   entity: "/entity",
-  featureView: "/feature-view",
+  featureGroup: "/feature-group",
   model: "/model",
 };
 
@@ -66,19 +66,19 @@ const sortTagsByTotalUsage = <T>(
 };
 
 const generateExplorationSuggestions = (
-  tagAggregation: Record<string, Record<string, FeastFeatureViewType[]>>,
+  tagAggregation: Record<string, Record<string, FeastFeatureGroupType[]>>,
   projectName: string
 ) => {
   const suggestions: ExplorationSuggestion[] = [];
 
   if (tagAggregation) {
     const SortedCandidates =
-      sortTagByUniqueValues<FeastFeatureViewType>(tagAggregation);
+      sortTagByUniqueValues<FeastFeatureGroupType>(tagAggregation);
 
     SortedCandidates.slice(0, NUMBER_OF_SUGGESTION_GROUPS).forEach(
       ([selectedTag, selectedTagValuesMap]) => {
         suggestions.push({
-          title: `Feature Views by "${selectedTag}"`,
+          title: `Feature Groups by "${selectedTag}"`,
           items: Object.entries(selectedTagValuesMap)
             .sort(([a, entriesOfA], [b, entriesOfB]) => {
               return entriesOfB.length - entriesOfA.length;
@@ -90,7 +90,7 @@ const generateExplorationSuggestions = (
                 link:
                   `/p/${projectName}` +
                   createSearchLink(
-                    FEAST_FCO_TYPES["featureView"],
+                    FEAST_FCO_TYPES["featureGroup"],
                     selectedTag,
                     tagValue
                   ),
@@ -107,7 +107,7 @@ const generateExplorationSuggestions = (
 };
 
 const useFCOExploreSuggestions = () => {
-  const query = useFeatureViewTagsAggregation();
+  const query = useFeatureGroupTagsAggregation();
   const tagAggregation = query.data;
 
   const { projectName } = useParams();

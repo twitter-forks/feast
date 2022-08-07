@@ -30,12 +30,12 @@ const columnsSummaryStatisticsSchema = z.union([
   stringColumnSummaryStaticsSchema,
 ]);
 
-const featureViewSummaryStatisticsSchema = z.object({
+const featureGroupSummaryStatisticsSchema = z.object({
   columnsSummaryStatistics: z.record(columnsSummaryStatisticsSchema),
 });
 
-type FeatureViewSummaryStatisticsType = z.infer<
-  typeof featureViewSummaryStatisticsSchema
+type FeatureGroupSummaryStatisticsType = z.infer<
+  typeof featureGroupSummaryStatisticsSchema
 >;
 
 type NumericColumnSummaryStatisticType = z.infer<
@@ -47,9 +47,9 @@ type StringColumnSummaryStatisticType = z.infer<
 
 type HistogramDataType = z.infer<typeof histogramSchema>;
 
-export { featureViewSummaryStatisticsSchema };
+export { featureGroupSummaryStatisticsSchema };
 export type {
-  FeatureViewSummaryStatisticsType,
+  FeatureGroupSummaryStatisticsType,
   HistogramDataType,
   NumericColumnSummaryStatisticType,
   StringColumnSummaryStatisticType,

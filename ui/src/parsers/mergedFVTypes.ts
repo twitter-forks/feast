@@ -1,7 +1,7 @@
 import {
   FeastFeatureColumnType,
-  FeastFeatureViewType,
-} from "./feastFeatureViews";
+  FeastFeatureGroupType,
+} from "./feastFeatureGroups";
 import { FeastODFVType } from "./feastODFVS";
 import { FeastRegistryType } from "./feastRegistry";
 
@@ -14,7 +14,7 @@ interface regularFVInterface {
   name: string;
   type: FEAST_FV_TYPES.regular;
   features: FeastFeatureColumnType[];
-  object: FeastFeatureViewType;
+  object: FeastFeatureGroupType;
 }
 
 interface ODFVInterface {
@@ -31,7 +31,7 @@ const mergedFVTypes = (objects: FeastRegistryType) => {
 
   const mergedFVList: genericFVType[] = [];
 
-  objects.featureViews?.forEach((fv) => {
+  objects.featureGroups?.forEach((fv) => {
     const obj: genericFVType = {
       name: fv.spec.name,
       type: FEAST_FV_TYPES.regular,
@@ -43,7 +43,7 @@ const mergedFVTypes = (objects: FeastRegistryType) => {
     mergedFVList.push(obj);
   });
 
-  objects.onDemandFeatureViews?.forEach((odfv) => {
+  objects.onDemandFeatureGroups?.forEach((odfv) => {
     const obj: genericFVType = {
       name: odfv.spec.name,
       type: FEAST_FV_TYPES.ondemand,

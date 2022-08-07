@@ -17,12 +17,12 @@ import {
 
 const FeatureInstance = () => {
   const navigate = useNavigate();
-  let { FeatureViewName, FeatureName } = useParams();
+  let { FeatureGroupName, FeatureName } = useParams();
 
   const { customNavigationTabs } = useFeatureCustomTabs(navigate);
   const CustomTabRoutes = useFeatureCustomTabRoutes();
 
-  useDocumentTitle(`${FeatureName} | ${FeatureViewName} | Feast`);
+  useDocumentTitle(`${FeatureName} | ${FeatureGroupName} | Feast`);
 
   return (
     <React.Fragment>

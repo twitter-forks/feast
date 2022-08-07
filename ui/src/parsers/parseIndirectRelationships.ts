@@ -10,11 +10,11 @@ const parseIndirectRelationships = (
 
   // Only contains Entity -> FS or DS -> FS relationships
   objects.models?.forEach((model) => {
-    model.spec.features.forEach((featureView) => {
+    model.spec.features.forEach((featureGroup) => {
       relationships
         .filter(
           (relationship) =>
-            relationship.target.name === featureView.featureViewName
+            relationship.target.name === featureGroup.featureGroupName
         )
         .forEach((relationship) => {
           indirectLinks.push({

@@ -48,11 +48,11 @@ const EntityOverviewTab = () => {
                 <EuiHorizontalRule margin="xs" />
                 <DatasetFeaturesTable
                   features={data.spec.features.map((joinedName: string) => {
-                    const [featureViewName, featureName] =
+                    const [featureGroupName, featureName] =
                       joinedName.split(":");
 
                     return {
-                      featureViewName,
+                      featureGroupName,
                       featureName,
                     };
                   })}

@@ -7,14 +7,14 @@ import {
   EuiPageContentBody,
 } from "@elastic/eui";
 
-import { FeatureViewIcon32 } from "../../graphics/FeatureViewIcon";
+import { FeatureGroupIcon32 } from "../../graphics/FeatureGroupIcon";
 import { useMatchExact } from "../../hooks/useMatchSubpath";
 import { FeastODFVType } from "../../parsers/feastODFVS";
-import OnDemandFeatureViewOverviewTab from "./OnDemandFeatureViewOverviewTab";
+import OnDemandFeatureGroupOverviewTab from "./OnDemandFeatureGroupOverviewTab";
 
 import {
-  useOnDemandFeatureViewCustomTabs,
-  useOnDemandFeatureViewCustomTabRoutes,
+  useOnDemandFeatureGroupCustomTabs,
+  useOnDemandFeatureGroupCustomTabRoutes,
 } from "../../custom-tabs/TabsRegistryContext";
 
 interface OnDemandFeatureInstanceProps {
@@ -23,17 +23,17 @@ interface OnDemandFeatureInstanceProps {
 
 const OnDemandFeatureInstance = ({ data }: OnDemandFeatureInstanceProps) => {
   const navigate = useNavigate();
-  let { featureViewName } = useParams();
+  let { featureGroupName } = useParams();
 
-  const { customNavigationTabs } = useOnDemandFeatureViewCustomTabs(navigate);
-  const CustomTabRoutes = useOnDemandFeatureViewCustomTabRoutes();
+  const { customNavigationTabs } = useOnDemandFeatureGroupCustomTabs(navigate);
+  const CustomTabRoutes = useOnDemandFeatureGroupCustomTabRoutes();
 
   return (
     <React.Fragment>
       <EuiPageHeader
         restrictWidth
-        iconType={FeatureViewIcon32}
-        pageTitle={`${featureViewName}`}
+        iconType={FeatureGroupIcon32}
+        pageTitle={`${featureGroupName}`}
         tabs={[
           {
             label: "Overview",
@@ -56,7 +56,7 @@ const OnDemandFeatureInstance = ({ data }: OnDemandFeatureInstanceProps) => {
           <Routes>
             <Route
               path="/"
-              element={<OnDemandFeatureViewOverviewTab data={data} />}
+              element={<OnDemandFeatureGroupOverviewTab data={data} />}
             />
             {CustomTabRoutes}
           </Routes>

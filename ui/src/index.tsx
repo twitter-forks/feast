@@ -5,11 +5,11 @@ import FeastUI from "./FeastUI";
 
 // How to add a Custom Tab
 // 1. Pick which object type you want your tab
-//    to be in. e.g. Feature View, Model, etc.
+//    to be in. e.g. Feature Group, Model, etc.
 //
 // 2. Write a regular React Component for Tab Content.
 //    It will be passed props with data about the Feast FCO
-//    e.g. RegularFeatureViewCustomTabProps, ModelCustomTabProps
+//    e.g. RegularFeatureGroupCustomTabProps, ModelCustomTabProps
 //    See: types.ts in this folder
 //
 // 3. Register the tab in the appropriate array below. Each entry
@@ -27,14 +27,14 @@ import FDemoCustomTab from "./custom-tabs/feature-demo-tab/DemoCustomTab";
 const queryClient = new QueryClient();
 
 const tabsRegistry = {
-  RegularFeatureViewCustomTabs: [
+  RegularFeatureGroupCustomTabs: [
     {
       label: "Data Tab", // Navigation Label for the tab
       path: "data-tab", // Subpath for the tab
       Component: DataTab,
     },
   ],
-  OnDemandFeatureViewCustomTabs: [
+  OnDemandFeatureGroupCustomTabs: [
     {
       label: "Custom Tab Demo",
       path: "demo-tab",

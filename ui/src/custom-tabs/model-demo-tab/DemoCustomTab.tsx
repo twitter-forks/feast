@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-  // Feature View Custom Tabs will get these props
+  // Feature Group Custom Tabs will get these props
   ModelCustomTabProps,
 } from "../types";
 
@@ -26,7 +26,7 @@ const DemoCustomTab = ({
   // that is custom to this tab.
   // See: https://react-query.tanstack.com/guides/queries
   const { isLoading, isError, isSuccess, data } = useDemoQuery({
-    featureView: id,
+    featureGroup: id,
   });
 
   if (isLoading) {

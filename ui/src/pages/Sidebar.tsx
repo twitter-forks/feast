@@ -8,7 +8,7 @@ import RegistryPathContext from "../contexts/RegistryPathContext";
 
 import { DataSourceIcon16 } from "../graphics/DataSourceIcon";
 import { EntityIcon16 } from "../graphics/EntityIcon";
-import { FeatureViewIcon16 } from "../graphics/FeatureViewIcon";
+import { FeatureGroupIcon16 } from "../graphics/FeatureGroupIcon";
 import { ModelIcon16 } from "../graphics/ModelIcon";
 import { DatasetIcon16 } from "../graphics/DatasetIcon";
 
@@ -37,7 +37,7 @@ const SideNav = () => {
       : ""
   }`;
 
-  const featureViewsLabel = `Feature Views ${
+  const featureGroupsLabel = `Feature Groups ${
     isSuccess && data?.mergedFVList && data?.mergedFVList.length > 0
       ? `(${data?.mergedFVList.length})`
       : ""
@@ -82,13 +82,13 @@ const SideNav = () => {
           isSelected: useMatchSubpath("entity"),
         },
         {
-          name: featureViewsLabel,
-          id: htmlIdGenerator("featureView")(),
-          icon: <EuiIcon type={FeatureViewIcon16} />,
+          name: featureGroupsLabel,
+          id: htmlIdGenerator("featureGroup")(),
+          icon: <EuiIcon type={FeatureGroupIcon16} />,
           onClick: () => {
-            navigate(`/p/${projectName}/feature-view`);
+            navigate(`/p/${projectName}/feature-group`);
           },
-          isSelected: useMatchSubpath("feature-view"),
+          isSelected: useMatchSubpath("feature-group"),
         },
         {
           name: modelsLabel,

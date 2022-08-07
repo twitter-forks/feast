@@ -6,25 +6,25 @@ import EuiCustomLink from "./EuiCustomLink";
 import { FEAST_FEATURE_VALUE_TYPES } from "../parsers/types";
 import { useParams } from "react-router-dom";
 
-interface FeatureViewsListInterace {
-  featureViews: FeastFeatureInServiceType[];
+interface FeatureGroupsListInterace {
+  featureGroups: FeastFeatureInServiceType[];
 }
 
-const FeaturesInModelList = ({ featureViews }: FeatureViewsListInterace) => {
+const FeaturesInModelList = ({ featureGroups }: FeatureGroupsListInterace) => {
   const { projectName } = useParams();
 
   const FeatureInService = z.object({
-    featureViewName: z.string(),
+    featureGroupName: z.string(),
     featureColumnName: z.string(),
     valueType: z.nativeEnum(FEAST_FEATURE_VALUE_TYPES),
   });
   type FeatureInServiceType = z.infer<typeof FeatureInService>;
 
   var items: FeatureInServiceType[] = [];
-  featureViews.forEach((featureView) => {
-    featureView.featureColumns.forEach((featureColumn) => {
+  featureGroups.forEach((featureGroup) => {
+    featureGroup.featureColumns.forEach((featureColumn) => {
       const row: FeatureInServiceType = {
-        featureViewName: featureView.featureViewName,
+        featureGroupName: featureGroup.featureGroupName,
         featureColumnName: featureColumn.name,
         valueType: featureColumn.valueType,
       };
@@ -34,13 +34,13 @@ const FeaturesInModelList = ({ featureViews }: FeatureViewsListInterace) => {
 
   const columns = [
     {
-      name: "Feature View",
-      field: "featureViewName",
+      name: "Feature Group",
+      field: "featureGroupName",
       render: (name: string) => {
         return (
           <EuiCustomLink
-            href={`/p/${projectName}/feature-view/${name}`}
-            to={`/p/${projectName}/feature-view/${name}`}
+            href={`/p/${projectName}/feature-group/${name}`}
+            to={`/p/${projectName}/feature-group/${name}`}
           >
             {name}
           </EuiCustomLink>
@@ -59,7 +59,7 @@ const FeaturesInModelList = ({ featureViews }: FeatureViewsListInterace) => {
 
   const getRowProps = (item: FeatureInServiceType) => {
     return {
-      "data-test-subj": `row-${item.featureViewName}`,
+      "data-test-subj": `row-${item.featureGroupName}`,
     };
   };
 

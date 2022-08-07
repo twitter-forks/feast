@@ -9,19 +9,19 @@ import { genericFVType } from "../../parsers/mergedFVTypes";
 import { EuiTableComputedColumnType } from "@elastic/eui/src/components/basic_table";
 import { useParams } from "react-router-dom";
 
-interface FeatureViewListingTableProps {
+interface FeatureGroupListingTableProps {
   tagKeysSet: Set<string>;
-  featureViews: genericFVType[];
+  featureGroups: genericFVType[];
 }
 
 type genericFVTypeColumn =
   | EuiTableFieldDataColumnType<genericFVType>
   | EuiTableComputedColumnType<genericFVType>;
 
-const FeatureViewListingTable = ({
+const FeatureGroupListingTable = ({
   tagKeysSet,
-  featureViews,
-}: FeatureViewListingTableProps) => {
+  featureGroups,
+}: FeatureGroupListingTableProps) => {
   const { projectName } = useParams();
 
   const columns: genericFVTypeColumn[] = [
@@ -32,8 +32,8 @@ const FeatureViewListingTable = ({
       render: (name: string, item: genericFVType) => {
         return (
           <EuiCustomLink
-            href={`/p/${projectName}/feature-view/${name}`}
-            to={`/p/${projectName}/feature-view/${name}`}
+            href={`/p/${projectName}/feature-group/${name}`}
+            to={`/p/${projectName}/feature-group/${name}`}
           >
             {name} {item.type === "ondemand" && <EuiBadge>ondemand</EuiBadge>}
           </EuiCustomLink>
@@ -81,10 +81,10 @@ const FeatureViewListingTable = ({
   return (
     <EuiBasicTable
       columns={columns}
-      items={featureViews}
+      items={featureGroups}
       rowProps={getRowProps}
     />
   );
 };
 
-export default FeatureViewListingTable;
+export default FeatureGroupListingTable;

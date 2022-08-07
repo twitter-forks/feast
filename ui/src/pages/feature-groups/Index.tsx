@@ -12,10 +12,10 @@ import {
   EuiFlexItem,
 } from "@elastic/eui";
 
-import { FeatureViewIcon32 } from "../../graphics/FeatureViewIcon";
+import { FeatureGroupIcon32 } from "../../graphics/FeatureGroupIcon";
 
 import useLoadRegistry from "../../queries/useLoadRegistry";
-import FeatureViewListingTable from "./FeatureViewListingTable";
+import FeatureGroupListingTable from "./FeatureGroupListingTable";
 import {
   filterInputInterface,
   useSearchQuery,
@@ -24,11 +24,11 @@ import {
 import { genericFVType, regularFVInterface } from "../../parsers/mergedFVTypes";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import RegistryPathContext from "../../contexts/RegistryPathContext";
-import FeatureViewIndexEmptyState from "./FeatureViewIndexEmptyState";
-import { useFeatureViewTagsAggregation } from "../../hooks/useTagsAggregation";
+import FeatureGroupIndexEmptyState from "./FeatureGroupIndexEmptyState";
+import { useFeatureGroupTagsAggregation } from "../../hooks/useTagsAggregation";
 import TagSearch from "../../components/TagSearch";
 
-const useLoadFeatureViews = () => {
+const useLoadFeatureGroups = () => {
   const registryUrl = useContext(RegistryPathContext);
   const registryQuery = useLoadRegistry(registryUrl);
 
@@ -90,10 +90,10 @@ const filterFn = (data: genericFVType[], filterInput: filterInputInterface) => {
 };
 
 const Index = () => {
-  const { isLoading, isSuccess, isError, data } = useLoadFeatureViews();
-  const tagAggregationQuery = useFeatureViewTagsAggregation();
+  const { isLoading, isSuccess, isError, data } = useLoadFeatureGroups();
+  const tagAggregationQuery = useFeatureGroupTagsAggregation();
 
-  useDocumentTitle(`Feature Views | Feast`);
+  useDocumentTitle(`Feature Groups | Feast`);
 
   const { searchString, searchTokens, setSearchString } = useSearchQuery();
 
@@ -117,8 +117,8 @@ const Index = () => {
     <React.Fragment>
       <EuiPageHeader
         restrictWidth
-        iconType={FeatureViewIcon32}
-        pageTitle="Feature Views"
+        iconType={FeatureGroupIcon32}
+        pageTitle="Feature Groups"
       />
       <EuiPageContent
         hasBorder={false}
@@ -134,7 +134,7 @@ const Index = () => {
             </p>
           )}
           {isError && <p>We encountered an error while loading.</p>}
-          {isSuccess && data?.length === 0 && <FeatureViewIndexEmptyState />}
+          {isSuccess && data?.length === 0 && <FeatureGroupIndexEmptyState />}
           {isSuccess && data && data.length > 0 && filterResult && (
             <React.Fragment>
               <EuiFlexGroup>
@@ -163,9 +163,9 @@ const Index = () => {
                 </EuiFlexItem>
               </EuiFlexGroup>
               <EuiSpacer size="m" />
-              <FeatureViewListingTable
+              <FeatureGroupListingTable
                 tagKeysSet={tagKeysSet}
-                featureViews={filterResult}
+                featureGroups={filterResult}
               />
             </React.Fragment>
           )}

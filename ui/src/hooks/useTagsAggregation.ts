@@ -1,7 +1,7 @@
 import { useContext, useMemo } from "react";
 import RegistryPathContext from "../contexts/RegistryPathContext";
 import { FeastModelType } from "../parsers/feastModels";
-import { FeastFeatureViewType } from "../parsers/feastFeatureViews";
+import { FeastFeatureGroupType } from "../parsers/feastFeatureGroups";
 import useLoadRegistry from "../queries/useLoadRegistry";
 
 // Usage of generic type parameter T
@@ -38,14 +38,14 @@ const buildTagCollection = <T>(
   return tagCollection;
 };
 
-const useFeatureViewTagsAggregation = () => {
+const useFeatureGroupTagsAggregation = () => {
   const registryUrl = useContext(RegistryPathContext);
   const query = useLoadRegistry(registryUrl);
 
   const data = useMemo(() => {
-    return query.data && query.data.objects && query.data.objects.featureViews
-      ? buildTagCollection<FeastFeatureViewType>(
-          query.data.objects.featureViews,
+    return query.data && query.data.objects && query.data.objects.featureGroups
+      ? buildTagCollection<FeastFeatureGroupType>(
+          query.data.objects.featureGroups,
           (fv) => {
             return fv.spec.tags;
           }
@@ -82,4 +82,4 @@ const useModelTagsAggregation = () => {
   };
 };
 
-export { useFeatureViewTagsAggregation, useModelTagsAggregation };
+export { useFeatureGroupTagsAggregation, useModelTagsAggregation };

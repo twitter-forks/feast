@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import FeaturesInModelList from "../../components/FeaturesInModelDisplay";
 import TagsDisplay from "../../components/TagsDisplay";
 import { encodeSearchQueryString } from "../../hooks/encodeSearchQueryString";
-import FeatureViewEdgesList from "../entities/FeatureViewEdgesList";
+import FeatureGroupEdgesList from "../entities/FeatureGroupEdgesList";
 import useLoadModel from "./useLoadModel";
 
 const ModelOverviewTab = () => {
@@ -30,11 +30,11 @@ const ModelOverviewTab = () => {
   const isEmpty = data === undefined;
 
   let numFeatures = 0;
-  let numFeatureViews = 0;
+  let numFeatureGroups = 0;
   if (data) {
-    data.spec.features.forEach((featureView) => {
-      numFeatureViews += 1;
-      numFeatures += featureView.featureColumns.length;
+    data.spec.features.forEach((featureGroup) => {
+      numFeatureGroups += 1;
+      numFeatures += featureGroup.featureColumns.length;
     });
   }
 
@@ -62,8 +62,8 @@ const ModelOverviewTab = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiStat
-                title={`${numFeatureViews}`}
-                description="Feature Views"
+                title={`${numFeatureGroups}`}
+                description="Feature Groups"
               />
             </EuiFlexItem>
             <EuiFlexItem>
@@ -83,7 +83,7 @@ const ModelOverviewTab = () => {
                 </EuiTitle>
                 <EuiHorizontalRule margin="xs" />
                 {data.spec.features ? (
-                  <FeaturesInModelList featureViews={data.spec.features} />
+                  <FeaturesInModelList featureGroups={data.spec.features} />
                 ) : (
                   <EuiText>
                     No features specified for this model.
@@ -145,17 +145,17 @@ const ModelOverviewTab = () => {
               <EuiSpacer size="m" />
               <EuiPanel hasBorder={true}>
                 <EuiTitle size="xs">
-                  <h3>All Feature Views</h3>
+                  <h3>All Feature Groups</h3>
                 </EuiTitle>
                 <EuiHorizontalRule margin="xs" />
                 {data.spec.features.length > 0 ? (
-                  <FeatureViewEdgesList
+                  <FeatureGroupEdgesList
                     fvNames={data.spec.features.map((f) => {
-                      return f.featureViewName;
+                      return f.featureGroupName;
                     })}
                   />
                 ) : (
-                  <EuiText>No feature views in this model</EuiText>
+                  <EuiText>No feature groups in this model</EuiText>
                 )}
               </EuiPanel>
             </EuiFlexItem>

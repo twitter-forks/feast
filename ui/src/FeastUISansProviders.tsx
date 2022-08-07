@@ -15,8 +15,8 @@ import EntityIndex from "./pages/entities/Index";
 import EntityInstance from "./pages/entities/EntityInstance";
 import FeatureInstance from "./pages/features/FeatureInstance";
 import ModelIndex from "./pages/models/Index";
-import FeatureViewIndex from "./pages/feature-views/Index";
-import FeatureViewInstance from "./pages/feature-views/FeatureViewInstance";
+import FeatureGroupIndex from "./pages/feature-groups/Index";
+import FeatureGroupInstance from "./pages/feature-groups/FeatureGroupInstance";
 import ModelInstance from "./pages/models/ModelInstance";
 import DataSourceInstance from "./pages/data-sources/DataSourceInstance";
 import RootProjectSelectionPage from "./pages/RootProjectSelectionPage";
@@ -84,13 +84,13 @@ const FeastUISansProviders = ({
                       element={<DataSourceInstance />}
                     />
                     <Route
-                      path="feature-view/"
-                      element={<FeatureViewIndex />}
+                      path="feature-group/"
+                      element={<FeatureGroupIndex />}
                     />
-                    <Route path="feature-view/:featureViewName/*" element={<FeatureViewInstance />}>
+                    <Route path="feature-group/:featureGroupName/*" element={<FeatureGroupInstance />}>
                     </Route>
                     <Route
-                        path="feature-view/:FeatureViewName/feature/:FeatureName/*"
+                        path="feature-group/:FeatureGroupName/feature/:FeatureName/*"
                         element={<FeatureInstance />}
                       />
                     <Route

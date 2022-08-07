@@ -1,8 +1,8 @@
 import React from "react";
 
 import {
-  // Feature View Custom Tabs will get these props
-  OnDemandFeatureViewCustomTabProps,
+  // Feature Group Custom Tabs will get these props
+  OnDemandFeatureGroupCustomTabProps,
 } from "../types";
 
 import {
@@ -21,12 +21,12 @@ import useDemoQuery from "./useDemoQuery";
 const DemoCustomTab = ({
   id,
   feastObjectQuery,
-}: OnDemandFeatureViewCustomTabProps) => {
+}: OnDemandFeatureGroupCustomTabProps) => {
   // Use React Query to fetch data
   // that is custom to this tab.
   // See: https://react-query.tanstack.com/guides/queries
   const { isLoading, isError, isSuccess, data } = useDemoQuery({
-    featureView: id,
+    featureGroup: id,
   });
 
   if (isLoading) {

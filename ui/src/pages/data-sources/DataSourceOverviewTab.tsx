@@ -16,7 +16,7 @@ import {
 import React from "react";
 import { useParams } from "react-router-dom";
 import BatchSourcePropertiesView from "./BatchSourcePropertiesView";
-import FeatureViewEdgesList from "../entities/FeatureViewEdgesList";
+import FeatureGroupEdgesList from "../entities/FeatureGroupEdgesList";
 import RequestDataSourceSchemaTable from "./RequestDataSourceSchemaTable";
 import useLoadDataSource from "./useLoadDataSource";
 
@@ -24,10 +24,10 @@ const DataSourceOverviewTab = () => {
   let { dataSourceName } = useParams();
 
   const dsName = dataSourceName === undefined ? "" : dataSourceName;
-  const { isLoading, isSuccess, isError, data, consumingFeatureViews } =
+  const { isLoading, isSuccess, isError, data, consumingFeatureGroups } =
     useLoadDataSource(dsName);
   const isEmpty = data === undefined;
-  console.log(consumingFeatureViews);
+  console.log(consumingFeatureGroups);
 
   return (
     <React.Fragment>
@@ -97,17 +97,17 @@ const DataSourceOverviewTab = () => {
             <EuiFlexItem>
               <EuiPanel hasBorder={true}>
                 <EuiTitle size="xs">
-                  <h2>Consuming Feature Views</h2>
+                  <h2>Consuming Feature Groups</h2>
                 </EuiTitle>
                 <EuiHorizontalRule margin="xs"></EuiHorizontalRule>
-                {consumingFeatureViews && consumingFeatureViews.length > 0 ? (
-                  <FeatureViewEdgesList
-                    fvNames={consumingFeatureViews.map((f) => {
+                {consumingFeatureGroups && consumingFeatureGroups.length > 0 ? (
+                  <FeatureGroupEdgesList
+                    fvNames={consumingFeatureGroups.map((f) => {
                       return f.target.name;
                     })}
                   />
                 ) : (
-                  <EuiText>No consuming feature views</EuiText>
+                  <EuiText>No consuming feature groups</EuiText>
                 )}
               </EuiPanel>
             </EuiFlexItem>

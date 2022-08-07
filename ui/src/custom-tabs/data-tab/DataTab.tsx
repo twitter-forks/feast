@@ -85,8 +85,8 @@ const DataTab = () => {
         <EuiLoadingSpinner size="m" /> Loading
       </React.Fragment>
     )}
-    {isEmpty && <p>No feature view with name: {fName}</p>}
-    {isError && <p>Error loading feature view: {fName}</p>}
+    {isEmpty && <p>No feature group with name: {fName}</p>}
+    {isError && <p>Error loading feature group: {fName}</p>}
     {isSuccess && data && (
       <React.Fragment>
       <EuiFlexGroup>

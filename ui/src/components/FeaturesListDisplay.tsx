@@ -1,22 +1,22 @@
 import React, { useContext } from "react";
 import { EuiBasicTable, EuiLoadingSpinner, EuiBadge } from "@elastic/eui";
-import { FeastFeatureColumnType } from "../parsers/feastFeatureViews";
-import useLoadFeatureViewSummaryStatistics from "../queries/useLoadFeatureViewSummaryStatistics";
+import { FeastFeatureColumnType } from "../parsers/feastFeatureGroups";
+import useLoadFeatureGroupSummaryStatistics from "../queries/useLoadFeatureGroupSummaryStatistics";
 import SparklineHistogram from "./SparklineHistogram";
 import FeatureFlagsContext from "../contexts/FeatureFlagsContext";
 import EuiCustomLink from "./EuiCustomLink";
 
 interface FeaturesListProps {
   projectName: string;
-  featureViewName: string;
+  featureGroupName: string;
   features: FeastFeatureColumnType[];
   link: boolean;
 }
 
-const FeaturesList = ({ projectName, featureViewName, features, link }: FeaturesListProps) => {
+const FeaturesList = ({ projectName, featureGroupName, features, link }: FeaturesListProps) => {
   const { enabledFeatureStatistics } = useContext(FeatureFlagsContext);
   const { isLoading, isError, isSuccess, data } =
-    useLoadFeatureViewSummaryStatistics(featureViewName);
+    useLoadFeatureGroupSummaryStatistics(featureGroupName);
 
   let columns: { name: string; render?: any; field: any }[] = [
     { 
@@ -24,8 +24,8 @@ const FeaturesList = ({ projectName, featureViewName, features, link }: Features
       field: "name",
       render: (item: string) => ( 
         <EuiCustomLink 
-          href={`/p/${projectName}/feature-view/${featureViewName}/feature/${item}`}
-          to={`/p/${projectName}/feature-view/${featureViewName}/feature/${item}`}>
+          href={`/p/${projectName}/feature-group/${featureGroupName}/feature/${item}`}
+          to={`/p/${projectName}/feature-group/${featureGroupName}/feature/${item}`}>
           {item}
         </EuiCustomLink>
       ) 

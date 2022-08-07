@@ -1,7 +1,7 @@
 enum FEAST_FCO_TYPES {
   dataSource = "dataSource",
   entity = "entity",
-  featureView = "featureView",
+  featureGroup = "featureGroup",
   model = "model",
 }
 

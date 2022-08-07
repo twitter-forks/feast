@@ -8,8 +8,8 @@ import {
   Route,
 } from "react-router-dom";
 
-import RegularFeatureViewCustomTabLoadingWrapper from "../utils/custom-tabs/RegularFeatureViewCustomTabLoadingWrapper";
-import OnDemandFeatureViewCustomTabLoadingWrapper from "../utils/custom-tabs/OnDemandFeatureViewCustomTabLoadingWrapper";
+import RegularFeatureGroupCustomTabLoadingWrapper from "../utils/custom-tabs/RegularFeatureGroupCustomTabLoadingWrapper";
+import OnDemandFeatureGroupCustomTabLoadingWrapper from "../utils/custom-tabs/OnDemandFeatureGroupCustomTabLoadingWrapper";
 import ModelCustomTabLoadingWrapper from "../utils/custom-tabs/ModelCustomTabLoadingWrapper";
 import FeatureCustomTabLoadingWrapper from "../utils/custom-tabs/FeatureCustomTabLoadingWrapper";
 import DataSourceCustomTabLoadingWrapper from "../utils/custom-tabs/DataSourceCustomTabLoadingWrapper";
@@ -17,8 +17,8 @@ import EntityCustomTabLoadingWrapper from "../utils/custom-tabs/EntityCustomTabL
 import DatasetCustomTabLoadingWrapper from "../utils/custom-tabs/DatasetCustomTabLoadingWrapper";
 
 import {
-  RegularFeatureViewCustomTabRegistrationInterface,
-  OnDemandFeatureViewCustomTabRegistrationInterface,
+  RegularFeatureGroupCustomTabRegistrationInterface,
+  OnDemandFeatureGroupCustomTabRegistrationInterface,
   ModelCustomTabRegistrationInterface,
   FeatureCustomTabRegistrationInterface,
   DataSourceCustomTabRegistrationInterface,
@@ -28,8 +28,8 @@ import {
 } from "./types";
 
 interface FeastTabsRegistryInterface {
-  RegularFeatureViewCustomTabs?: RegularFeatureViewCustomTabRegistrationInterface[];
-  OnDemandFeatureViewCustomTabs?: OnDemandFeatureViewCustomTabRegistrationInterface[];
+  RegularFeatureGroupCustomTabs?: RegularFeatureGroupCustomTabRegistrationInterface[];
+  OnDemandFeatureGroupCustomTabs?: OnDemandFeatureGroupCustomTabRegistrationInterface[];
   ModelCustomTabs?: ModelCustomTabRegistrationInterface[];
   FeatureCustomTabs?: FeatureCustomTabRegistrationInterface[];
   DataSourceCustomTabs?: DataSourceCustomTabRegistrationInterface[];
@@ -71,13 +71,13 @@ const useGenericCustomTabsNavigation = <
     []
   );
 
-  const featureViewRoot = useResolvedPath(""); // Root of Feature View Section
+  const featureGroupRoot = useResolvedPath(""); // Root of Feature Group Section
   const { pathname } = useLocation(); // Current Location
 
   useEffect(() => {
     setTabs(
       entries.map(({ label, path }) => {
-        const resolvedTabPath = resolvePath(path, featureViewRoot.pathname);
+        const resolvedTabPath = resolvePath(path, featureGroupRoot.pathname);
 
         return {
           label,
@@ -91,7 +91,7 @@ const useGenericCustomTabsNavigation = <
         };
       })
     );
-  }, [pathname, navigate, featureViewRoot.pathname, entries]);
+  }, [pathname, navigate, featureGroupRoot.pathname, entries]);
 
   return {
     customNavigationTabs,
@@ -126,22 +126,22 @@ const genericCustomTabRoutes = <T,>(
 };
 
 // Navigation Hooks for Each Custom Tab Type
-const useRegularFeatureViewCustomTabs = (navigate: NavigateFunction) => {
-  const { RegularFeatureViewCustomTabs } =
+const useRegularFeatureGroupCustomTabs = (navigate: NavigateFunction) => {
+  const { RegularFeatureGroupCustomTabs } =
     React.useContext(TabsRegistryContext);
 
-  return useGenericCustomTabsNavigation<RegularFeatureViewCustomTabRegistrationInterface>(
-    RegularFeatureViewCustomTabs || [],
+  return useGenericCustomTabsNavigation<RegularFeatureGroupCustomTabRegistrationInterface>(
+    RegularFeatureGroupCustomTabs || [],
     navigate
   );
 };
 
-const useOnDemandFeatureViewCustomTabs = (navigate: NavigateFunction) => {
-  const { OnDemandFeatureViewCustomTabs } =
+const useOnDemandFeatureGroupCustomTabs = (navigate: NavigateFunction) => {
+  const { OnDemandFeatureGroupCustomTabs } =
     React.useContext(TabsRegistryContext);
 
-  return useGenericCustomTabsNavigation<OnDemandFeatureViewCustomTabRegistrationInterface>(
-    OnDemandFeatureViewCustomTabs || [],
+  return useGenericCustomTabsNavigation<OnDemandFeatureGroupCustomTabRegistrationInterface>(
+    OnDemandFeatureGroupCustomTabs || [],
     navigate
   );
 };
@@ -192,23 +192,23 @@ const useDatasetCustomTabs = (navigate: NavigateFunction) => {
 };
 
 // Routes for Each Custom Tab Type
-const useRegularFeatureViewCustomTabRoutes = () => {
-  const { RegularFeatureViewCustomTabs } =
+const useRegularFeatureGroupCustomTabRoutes = () => {
+  const { RegularFeatureGroupCustomTabs } =
     React.useContext(TabsRegistryContext);
 
   return genericCustomTabRoutes(
-    RegularFeatureViewCustomTabs || [],
-    RegularFeatureViewCustomTabLoadingWrapper
+    RegularFeatureGroupCustomTabs || [],
+    RegularFeatureGroupCustomTabLoadingWrapper
   );
 };
 
-const useOnDemandFeatureViewCustomTabRoutes = () => {
-  const { OnDemandFeatureViewCustomTabs } =
+const useOnDemandFeatureGroupCustomTabRoutes = () => {
+  const { OnDemandFeatureGroupCustomTabs } =
     React.useContext(TabsRegistryContext);
 
   return genericCustomTabRoutes(
-    OnDemandFeatureViewCustomTabs || [],
-    OnDemandFeatureViewCustomTabLoadingWrapper
+    OnDemandFeatureGroupCustomTabs || [],
+    OnDemandFeatureGroupCustomTabLoadingWrapper
   );
 };
 
@@ -260,16 +260,16 @@ const useDatasetCustomTabRoutes = () => {
 export default TabsRegistryContext;
 export {
   // Navigation
-  useRegularFeatureViewCustomTabs,
-  useOnDemandFeatureViewCustomTabs,
+  useRegularFeatureGroupCustomTabs,
+  useOnDemandFeatureGroupCustomTabs,
   useModelCustomTabs,
   useFeatureCustomTabs,
   useDataSourceCustomTabs,
   useEntityCustomTabs,
   useDatasetCustomTabs,
   // Routes
-  useRegularFeatureViewCustomTabRoutes,
-  useOnDemandFeatureViewCustomTabRoutes,
+  useRegularFeatureGroupCustomTabRoutes,
+  useOnDemandFeatureGroupCustomTabRoutes,
   useModelCustomTabRoutes,
   useFeatureCustomTabRoutes,
   useDataSourceCustomTabRoutes,

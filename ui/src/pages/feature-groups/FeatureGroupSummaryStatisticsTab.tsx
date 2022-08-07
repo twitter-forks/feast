@@ -2,11 +2,11 @@ import React from "react";
 
 import { EuiEmptyPrompt, EuiLoadingContent, EuiTitle } from "@elastic/eui";
 import { useParams } from "react-router-dom";
-import useLoadFeatureViewSummaryStatistics from "../../queries/useLoadFeatureViewSummaryStatistics";
+import useLoadFeatureGroupSummaryStatistics from "../../queries/useLoadFeatureGroupSummaryStatistics";
 import {
   NumericColumnSummaryStatisticType,
   StringColumnSummaryStatisticType,
-} from "../../parsers/featureViewSummaryStatistics";
+} from "../../parsers/featureGroupSummaryStatistics";
 import NumericFeaturesTable from "../../components/NumericFeaturesTable";
 
 interface ColumnsByGroup {
@@ -14,15 +14,15 @@ interface ColumnsByGroup {
   STRING?: StringColumnSummaryStatisticType[];
 }
 
-const FeatureViewSummaryStatisticsTab = () => {
-  let { featureViewName } = useParams();
+const FeatureGroupSummaryStatisticsTab = () => {
+  let { featureGroupName } = useParams();
 
-  if (!featureViewName) {
-    throw new Error("Unable to get Feature View Name");
+  if (!featureGroupName) {
+    throw new Error("Unable to get Feature Group Name");
   }
 
   const { isError, data } =
-    useLoadFeatureViewSummaryStatistics(featureViewName);
+    useLoadFeatureGroupSummaryStatistics(featureGroupName);
 
   if (isError) {
     return (
@@ -33,7 +33,7 @@ const FeatureViewSummaryStatisticsTab = () => {
         body={
           <p>
             There was an error loading statistics for{" "}
-            <strong>{featureViewName}</strong>. Please check that statistics
+            <strong>{featureGroupName}</strong>. Please check that statistics
             have been generated.
           </p>
         }
@@ -81,4 +81,4 @@ const FeatureViewSummaryStatisticsTab = () => {
   return <EuiLoadingContent lines={4} />;
 };
 
-export default FeatureViewSummaryStatisticsTab;
+export default FeatureGroupSummaryStatisticsTab;
