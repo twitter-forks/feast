@@ -5,6 +5,9 @@ import {
   EuiPageContent,
   EuiPageContentBody,
   EuiLoadingSpinner,
+  EuiTitle,
+  EuiFlexItem,
+  EuiButton,
 } from "@elastic/eui";
 
 import { EntityIcon32 } from "../../graphics/EntityIcon";
@@ -50,6 +53,11 @@ const Index = () => {
         borderRadius="none"
       >
         <EuiPageContentBody>
+        <EuiFlexItem grow={1}>
+          <EuiButton href="entity-addition">
+            Add New Entity
+          </EuiButton>
+        </EuiFlexItem>
           {isLoading && (
             <p>
               <EuiLoadingSpinner size="m" /> Loading

@@ -18,6 +18,7 @@ function form_submit() {
   var field = (document.getElementsByName("metadata_field")[0] as HTMLInputElement).value;
   var val = (document.getElementsByName("metadata_val")[0] as HTMLInputElement).value;
   DataFormQuery(field, val);
+  window.location.href = "./"
 }
 
 const DataFormTab = () => {

@@ -16,13 +16,18 @@ import EntityInstance from "./pages/entities/EntityInstance";
 import FeatureInstance from "./pages/features/FeatureInstance";
 import ModelIndex from "./pages/models/Index";
 import FeatureGroupIndex from "./pages/feature-groups/Index";
-import FeatureGroupAddition from "./pages/feature-groups/Addition";
 import FeatureGroupInstance from "./pages/feature-groups/FeatureGroupInstance";
 import ModelInstance from "./pages/models/ModelInstance";
 import DataSourceInstance from "./pages/data-sources/DataSourceInstance";
 import RootProjectSelectionPage from "./pages/RootProjectSelectionPage";
 import DatasetInstance from "./pages/saved-data-sets/DatasetInstance";
 import NoProjectGuard from "./components/NoProjectGuard";
+
+import FeatureGroupAddition from "./pages/feature-groups/Addition";
+import FeatureAddition from "./pages/features/Addition";
+import EntityAddition from "./pages/entities/Addition";
+import ModelAddition from "./pages/models/Addition";
+
 
 import TabsRegistryContext, {
   FeastTabsRegistryInterface,
@@ -99,6 +104,10 @@ const FeastUISansProviders = ({
                         element={<FeatureInstance />}
                       />
                     <Route
+                      path="feature-addition/"
+                      element={<FeatureAddition />}
+                    />
+                    <Route
                       path="model/"
                       element={<ModelIndex />}
                     />
@@ -106,12 +115,19 @@ const FeastUISansProviders = ({
                       path="model/:modelName/*"
                       element={<ModelInstance />}
                     />
+                    <Route
+                      path="feature-group-addition/"
+                      element={<ModelAddition />}
+                    />
                     <Route path="entity/" element={<EntityIndex />} />
                     <Route
                       path="entity/:entityName/*"
                       element={<EntityInstance />}
                     />
-
+                    <Route
+                      path="entity-addition/"
+                      element={<EntityAddition />}
+                    />
                     <Route path="data-set/" element={<DatasetIndex />} />
                     <Route
                       path="data-set/:datasetName/*"
@@ -131,3 +147,4 @@ const FeastUISansProviders = ({
 
 export default FeastUISansProviders;
 export type { FeastUIConfigs };
+
