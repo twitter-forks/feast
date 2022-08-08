@@ -4,7 +4,6 @@ import {
   EuiCode,
   EuiFlexGroup,
   EuiHorizontalRule,
-  EuiLoadingSpinner,
   EuiTable,
   EuiTitle,
   EuiTableHeader,
@@ -74,20 +73,11 @@ const DataTable = (data: any) => {
 }
 
 const DataTab = () => {
-  const fName = "credit_history"
-  const { isLoading, isError, isSuccess, data } = DataQuery(fName);
-  const isEmpty = data === undefined;
+  const data = DataQuery().data;
 
   return (
     <React.Fragment>
-    {isLoading && (
-      <React.Fragment>
-        <EuiLoadingSpinner size="m" /> Loading
-      </React.Fragment>
-    )}
-    {isEmpty && <p>No feature group with name: {fName}</p>}
-    {isError && <p>Error loading feature group: {fName}</p>}
-    {isSuccess && data && (
+    {data && (
       <React.Fragment>
       <EuiFlexGroup>
         <EuiFlexItem>
