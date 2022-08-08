@@ -75,7 +75,11 @@ const ProjectOverviewPage = () => {
                   of features and models to inform how they should continue designing Twitter’s ML platform. 
                   </p>
                   <p>
-                    Learn how to add to the catalog or make changes by visiting{' '}
+                  In addition to manual updates, we provide a REST API for programmatic updates and automation. When a team does a feature
+                  importance run or feature quality check, for instance, that information can be automatically propogated.
+                  </p>
+                  <p>
+                    Learn how to use the API by visiting{' '}
                     <a href="https://docs.google.com/document/d/1MNrqj81y4fl7PWS6I1NxlccVZcx2X4Hd4CAESaR0YF8/edit#heading=h.b9bdzauwwzcq">
                     go/ml-catalog-docs.</a><br/>
                     <strong>Questions, concerns, ideas?</strong> Hit us up in{' '}
