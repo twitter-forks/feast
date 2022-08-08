@@ -35,7 +35,7 @@ const ProjectOverviewPage = () => {
         <EuiTitle size="l">
           <h1>
             {isLoading && <EuiLoadingContent lines={1} />}
-            {isSuccess && `Don't be a maybe, join the effort!`}
+            {isSuccess && `Hi there! Join the effort!`}
           </h1>
         </EuiTitle>
         <EuiSpacer />

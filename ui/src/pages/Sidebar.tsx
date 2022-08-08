@@ -6,11 +6,9 @@ import { useMatchSubpath } from "../hooks/useMatchSubpath";
 import useLoadRegistry from "../queries/useLoadRegistry";
 import RegistryPathContext from "../contexts/RegistryPathContext";
 
-import { DataSourceIcon16 } from "../graphics/DataSourceIcon";
 import { EntityIcon16 } from "../graphics/EntityIcon";
 import { FeatureGroupIcon16 } from "../graphics/FeatureGroupIcon";
 import { ModelIcon16 } from "../graphics/ModelIcon";
-import { DatasetIcon16 } from "../graphics/DatasetIcon";
 
 const SideNav = () => {
   const registryUrl = useContext(RegistryPathContext);
@@ -24,12 +22,6 @@ const SideNav = () => {
   const toggleOpenOnMobile = () => {
     setisSideNavOpenOnMobile(!isSideNavOpenOnMobile);
   };
-
-  const dataSourcesLabel = `Data Sources ${
-    isSuccess && data?.objects.dataSources
-      ? `(${data?.objects.dataSources?.length})`
-      : ""
-  }`;
 
   const entitiesLabel = `Entities ${
     isSuccess && data?.objects.entities
@@ -83,15 +75,6 @@ const SideNav = () => {
             navigate(`/p/${projectName}/entity`);
           },
           isSelected: useMatchSubpath("entity"),
-        },
-        {
-          name: dataSourcesLabel,
-          id: htmlIdGenerator("dataSources")(),
-          icon: <EuiIcon type={DataSourceIcon16} />,
-          onClick: () => {
-            navigate(`/p/${projectName}/data-source`);
-          },
-          isSelected: useMatchSubpath("data-source"),
         },
       ],
     },
