@@ -27,14 +27,15 @@ const DataFormTab = () => {
       <EuiFlexGroup>
         <EuiFlexItem>
           <EuiPanel hasBorder={true}>
-            <EuiFormRow label="Text field" helpText="I am some friendly help text.">
+            <EuiFormRow label="Field Name" helpText="Specify any of the standard info fields or specify a
+              custom field that'll be displayed in the 'Additional Info' table on the page.">
               <EuiFieldText name="metadata_field" id="metadata_field" />
             </EuiFormRow>
-            <EuiFormRow label="Text field" helpText="I am some friendly help text.">
+            <EuiFormRow label="Field Value">
               <EuiFieldText name="metadata_val" id="metadata_val" />
             </EuiFormRow>
             <EuiButton fill onClick={() => {form_submit()}}>
-              Set Metadata
+              Submit
             </EuiButton>
           </EuiPanel>
         </EuiFlexItem>

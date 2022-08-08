@@ -19,9 +19,7 @@ import DataFormTab from "./custom-tabs/data-form-tab/DataFormTab";
 import RFVDemoCustomTab from "./custom-tabs/reguar-fv-demo-tab/DemoCustomTab";
 import ODFVDemoCustomTab from "./custom-tabs/ondemand-fv-demo-tab/DemoCustomTab";
 import FSDemoCustomTab from "./custom-tabs/model-demo-tab/DemoCustomTab";
-import DSDemoCustomTab from "./custom-tabs/data-source-demo-tab/DemoCustomTab";
 import EntDemoCustomTab from "./custom-tabs/entity-demo-tab/DemoCustomTab";
-import DatasetDemoCustomTab from "./custom-tabs/dataset-demo-tab/DemoCustomTab";
 import FDemoCustomTab from "./custom-tabs/feature-demo-tab/DemoCustomTab";
 
 const queryClient = new QueryClient();
@@ -29,7 +27,7 @@ const queryClient = new QueryClient();
 const tabsRegistry = {
   RegularFeatureGroupCustomTabs: [
     {
-      label: "Metadata Update",
+      label: "Edit/Add Info",
       path: "metadata-update",
       Component: DataFormTab,
     }
@@ -43,35 +41,21 @@ const tabsRegistry = {
   ],
   ModelCustomTabs: [
     {
-      label: "Metadata Update",
+      label: "Edit/Add Info",
       path: "metadata-update",
       Component: DataFormTab,
     }
-  ],
-  DataSourceCustomTabs: [
-    {
-      label: "Custom Tab Demo",
-      path: "fs-demo-tab",
-      Component: DSDemoCustomTab,
-    },
   ],
   EntityCustomTabs: [
     {
-      label: "Metadata Update",
+      label: "Edit/Add Info",
       path: "metadata-update",
       Component: DataFormTab,
     }
   ],
-  DatasetCustomTabs: [
-    {
-      label: "Custom Tab Demo",
-      path: "demo-tab",
-      Component: DatasetDemoCustomTab,
-    },
-  ],
   FeatureCustomTabs: [
     {
-      label: "Metadata Update",
+      label: "Edit/Add Info",
       path: "metadata-update",
       Component: DataFormTab,
     }
