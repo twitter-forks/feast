@@ -47,16 +47,13 @@ const ObjectsCountStats = () => {
       {isError && <p>There was an error in loading registry information.</p>}
       {isSuccess && data && (
         <React.Fragment>
-          <EuiTitle size="xs">
-            <h3>Registered in this Feast project are &hellip;</h3>
-          </EuiTitle>
           <EuiSpacer size="s" />
           <EuiFlexGroup>
             <EuiFlexItem>
               <EuiStat
                 style={statStyle}
                 onClick={() => navigate(`/p/${projectName}/model`)}
-                description="Models→"
+                description="Models"
                 title={data.models}
                 reverse
               />
@@ -64,7 +61,7 @@ const ObjectsCountStats = () => {
             <EuiFlexItem>
               <EuiStat
                 style={statStyle}
-                description="Feature Groups→"
+                description="Feature Groups"
                 onClick={() => navigate(`/p/${projectName}/feature-group`)}
                 title={data.featureGroups}
                 reverse
@@ -73,7 +70,7 @@ const ObjectsCountStats = () => {
             <EuiFlexItem>
               <EuiStat
                 style={statStyle}
-                description="Entities→"
+                description="Entities"
                 onClick={() => navigate(`/p/${projectName}/entity`)}
                 title={data.entities}
                 reverse
@@ -82,7 +79,7 @@ const ObjectsCountStats = () => {
             <EuiFlexItem>
               <EuiStat
                 style={statStyle}
-                description="Data Sources→"
+                description="Data Sources"
                 onClick={() => navigate(`/p/${projectName}/data-source`)}
                 title={data.dataSources}
                 reverse

@@ -22,10 +22,13 @@ const ExplorePanel = () => {
   return (
     <EuiPanel>
       <EuiTitle size="xs">
-        <h3>Explore this Project</h3>
+        <h3>The Partners</h3>
       </EuiTitle>
       <EuiHorizontalRule margin="xs" />
-      {isLoading && <EuiLoadingContent lines={3} />}
+      <p>
+        <em>To be announced!</em>
+      </p>
+{/*      {isLoading && <EuiLoadingContent lines={3} />}
       {isSuccess &&
         data &&
         data.map((suggestionGroup, i) => {
@@ -54,7 +57,7 @@ const ExplorePanel = () => {
               <EuiSpacer size="s" />
             </React.Fragment>
           );
-        })}
+        })}*/}
     </EuiPanel>
   );
 };

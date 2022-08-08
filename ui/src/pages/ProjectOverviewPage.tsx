@@ -75,15 +75,6 @@ const ProjectOverviewPage = () => {
                   of features and models to inform how they should continue designing Twitter’s ML platform. 
                   </p>
                   <p>
-                    <strong>Partners </strong><br/>
-                    <em>(as examples, haven't confirmed with everyone here yet that they're ok with being listed)</em><br/>
-                    Core Features Foundational Modeling Team in GoldBird<br/>
-                    ML Feature Management team in CXP<br/>
-                    Ruhua Jiang - Tech lead of GoldBird's ARM team. "Some quote here"<br/>
-                    ML Serving team in CXP<br/>
-                    Sean Moon - Tech lead in Health ML Infra
-                  </p>
-                  <p>
                     Learn how to add to the catalog or make changes by visiting{' '}
                     <a href="https://docs.google.com/document/d/1MNrqj81y4fl7PWS6I1NxlccVZcx2X4Hd4CAESaR0YF8/edit#heading=h.b9bdzauwwzcq">
                     go/ml-catalog-docs.</a><br/>
