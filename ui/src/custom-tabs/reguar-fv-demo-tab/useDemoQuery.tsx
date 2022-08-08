@@ -12,13 +12,13 @@ const demoSchema = z.object({
 type DemoDataType = z.infer<typeof demoSchema>;
 
 interface DemoQueryInterface {
-  featureView: string | undefined;
+  featureGroup: string | undefined;
 }
 
-const useDemoQuery = ({ featureView }: DemoQueryInterface) => {
+const useDemoQuery = ({ featureGroup }: DemoQueryInterface) => {
   // React Query manages caching for you based on query keys
   // See: https://react-query.tanstack.com/guides/query-keys
-  const queryKey = `demo-tab-namespace:${featureView}`;
+  const queryKey = `demo-tab-namespace:${featureGroup}`;
 
   // Pass the type to useQuery
   // so that components consuming the
@@ -35,7 +35,7 @@ const useDemoQuery = ({ featureView }: DemoQueryInterface) => {
         .then((data) => demoSchema.parse(data)); // Use zod to parse results
     },
     {
-      enabled: !!featureView, // Only start the query when the variable is not undefined
+      enabled: !!featureGroup, // Only start the query when the variable is not undefined
     }
   );
 };

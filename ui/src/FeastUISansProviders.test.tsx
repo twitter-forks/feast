@@ -69,8 +69,8 @@ test("routes are reachable", async () => {
   const mainRoutesNames = [
     "Data Sources",
     "Entities",
-    "Feature Views",
-    "Feature Services",
+    "Feature Groups",
+    "Models",
     "Datasets",
   ];
 
@@ -96,15 +96,15 @@ test("routes are reachable", async () => {
 });
 
 
-const featureViewName = registry.featureViews[0].spec.name;
-const featureName = registry.featureViews[0].spec.features[0].name;
+const featureGroupName = registry.featureGroups[0].spec.name;
+const featureName = registry.featureGroups[0].spec.features[0].name;
 
 test("features are reachable", async () => {
   render(<FeastUISansProviders />);
 
   // Wait for content to load
   await screen.findByText(/Explore this Project/i);
-  const routeRegExp = new RegExp("Feature Views", "i");
+  const routeRegExp = new RegExp("Feature Groups", "i");
 
   userEvent.click(
     screen.getByRole("button", { name: routeRegExp }),
@@ -112,11 +112,11 @@ test("features are reachable", async () => {
   );
 
   screen.getByRole("heading", {
-    name: "Feature Views",
+    name: "Feature Groups",
   });
 
-  await screen.findAllByText(/Feature Views/i);
-  const fvRegExp = new RegExp(featureViewName, "i");
+  await screen.findAllByText(/Feature Groups/i);
+  const fvRegExp = new RegExp(featureGroupName, "i");
 
   userEvent.click(
     screen.getByRole("link", { name: fvRegExp }),

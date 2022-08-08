@@ -43,7 +43,6 @@ const Layout = () => {
         >
           <FeastWordMark />
           <EuiSpacer size="s" />
-          <ProjectSelector />
           {registryPath && (
             <React.Fragment>
               <EuiHorizontalRule margin="s" />

@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { FeastFeatureColumnSchema } from "./feastFeatureViews";
+import { FeastFeatureColumnSchema } from "./feastFeatureGroups";
 import { FEAST_FEATURE_VALUE_TYPES } from "./types";
 
-const FeatureViewProjectionSchema = z.object({
-  featureViewProjection: z.object({
-    featureViewName: z.string(),
+const FeatureGroupProjectionSchema = z.object({
+  featureGroupProjection: z.object({
+    featureGroupName: z.string(),
     featureColumns: z.array(FeastFeatureColumnSchema),
   }),
 });
@@ -20,7 +20,7 @@ const RequestDataSourceSchema = z.object({
 });
 
 const ODFVInputsSchema = z.union([
-  FeatureViewProjectionSchema,
+  FeatureGroupProjectionSchema,
   RequestDataSourceSchema,
 ]);
 
@@ -42,7 +42,7 @@ const FeastODFVSchema = z.object({
 
 type FeastODFVType = z.infer<typeof FeastODFVSchema>;
 type RequestDataSourceType = z.infer<typeof RequestDataSourceSchema>;
-type FeatureViewProjectionType = z.infer<typeof FeatureViewProjectionSchema>;
+type FeatureGroupProjectionType = z.infer<typeof FeatureGroupProjectionSchema>;
 
 export { FeastODFVSchema };
-export type { FeastODFVType, RequestDataSourceType, FeatureViewProjectionType };
+export type { FeastODFVType, RequestDataSourceType, FeatureGroupProjectionType };

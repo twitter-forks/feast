@@ -2,7 +2,7 @@ import React from "react";
 import { EuiBasicTable } from "@elastic/eui";
 import EuiCustomLink from "../../components/EuiCustomLink";
 import { FeastEntityType } from "../../parsers/feastEntities";
-import useFeatureViewEdgesByEntity from "./useFeatureViewEdgesByEntity";
+import useFeatureGroupEdgesByEntity from "./useFeatureGroupEdgesByEntity";
 import { useParams } from "react-router-dom";
 
 interface EntitiesListingTableProps {
@@ -10,7 +10,7 @@ interface EntitiesListingTableProps {
 }
 
 const EntitiesListingTable = ({ entities }: EntitiesListingTableProps) => {
-  const { isSuccess, data } = useFeatureViewEdgesByEntity();
+  const { isSuccess, data } = useFeatureGroupEdgesByEntity();
   const { projectName } = useParams();
 
   const columns = [

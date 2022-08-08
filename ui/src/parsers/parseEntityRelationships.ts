@@ -14,22 +14,22 @@ interface EntityRelation {
 const parseEntityRelationships = (objects: FeastRegistryType) => {
   const links: EntityRelation[] = [];
 
-  objects.featureServices?.forEach((fs) => {
+  objects.models?.forEach((fs) => {
     fs.spec.features.forEach((feature) => {
       links.push({
         source: {
-          type: FEAST_FCO_TYPES["featureView"],
-          name: feature.featureViewName,
+          type: FEAST_FCO_TYPES["featureGroup"],
+          name: feature.featureGroupName,
         },
         target: {
-          type: FEAST_FCO_TYPES["featureService"],
+          type: FEAST_FCO_TYPES["model"],
           name: fs.spec.name,
         },
       });
     });
   });
 
-  objects.featureViews?.forEach((fv) => {
+  objects.featureGroups?.forEach((fv) => {
     fv.spec.entities.forEach((ent) => {
       links.push({
         source: {
@@ -37,7 +37,7 @@ const parseEntityRelationships = (objects: FeastRegistryType) => {
           name: ent,
         },
         target: {
-          type: FEAST_FCO_TYPES["featureView"],
+          type: FEAST_FCO_TYPES["featureGroup"],
           name: fv.spec.name,
         },
       });
@@ -49,14 +49,14 @@ const parseEntityRelationships = (objects: FeastRegistryType) => {
           name: fv.spec.batchSource.name || ''
         },
         target: {
-          type: FEAST_FCO_TYPES["featureView"],
+          type: FEAST_FCO_TYPES["featureGroup"],
           name: fv.spec.name,
         }
       })
     }
   });
 
-  objects.onDemandFeatureViews?.forEach((fv) => {
+  objects.onDemandFeatureGroups?.forEach((fv) => {
    Object.values(fv.spec.sources).forEach((input: { [key: string]: any }) => {
      if (input.requestDataSource) {
        links.push({
@@ -65,12 +65,12 @@ const parseEntityRelationships = (objects: FeastRegistryType) => {
               name: input.requestDataSource.name,
             },
             target: {
-              type: FEAST_FCO_TYPES["featureView"],
+              type: FEAST_FCO_TYPES["featureGroup"],
               name: fv.spec.name,
             },
           });
-     } else if (input.featureViewProjection?.featureViewName) {
-          const source_fv = objects.featureViews?.find(el => el.spec.name === input.featureViewProjection.featureViewName);
+     } else if (input.featureGroupProjection?.featureGroupName) {
+          const source_fv = objects.featureGroups?.find(el => el.spec.name === input.featureGroupProjection.featureGroupName);
           if (!source_fv) {
             return;
           }
@@ -80,7 +80,7 @@ const parseEntityRelationships = (objects: FeastRegistryType) => {
                name: source_fv?.spec.batchSource.name || '',
              },
              target: {
-               type: FEAST_FCO_TYPES["featureView"],
+               type: FEAST_FCO_TYPES["featureGroup"],
                name: fv.spec.name,
              },
            });

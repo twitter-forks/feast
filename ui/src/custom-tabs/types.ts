@@ -1,9 +1,9 @@
 import {
-  useLoadOnDemandFeatureView,
-  useLoadRegularFeatureView,
-} from "../pages/feature-views/useLoadFeatureView";
+  useLoadOnDemandFeatureGroup,
+  useLoadRegularFeatureGroup,
+} from "../pages/feature-groups/useLoadFeatureGroup";
 import useLoadFeature from "../pages/features/useLoadFeature";
-import useLoadFeatureService from "../pages/feature-services/useLoadFeatureService";
+import useLoadModel from "../pages/models/useLoadModel";
 import useLoadDataSource from "../pages/data-sources/useLoadDataSource";
 import useLoadEntity from "../pages/entities/useLoadEntity";
 import useLoadDataset from "../pages/saved-data-sets/useLoadDataset";
@@ -14,38 +14,38 @@ interface CustomTabRegistrationInterface {
   Component: (...args: any[]) => JSX.Element;
 }
 
-// Type for Regular Feature View Custom Tabs
-type RegularFeatureViewQueryReturnType = ReturnType<
-  typeof useLoadRegularFeatureView
+// Type for Regular Feature Group Custom Tabs
+type RegularFeatureGroupQueryReturnType = ReturnType<
+  typeof useLoadRegularFeatureGroup
 >;
-interface RegularFeatureViewCustomTabProps {
+interface RegularFeatureGroupCustomTabProps {
   id: string | undefined;
-  feastObjectQuery: RegularFeatureViewQueryReturnType;
+  feastObjectQuery: RegularFeatureGroupQueryReturnType;
 }
-interface RegularFeatureViewCustomTabRegistrationInterface
+interface RegularFeatureGroupCustomTabRegistrationInterface
   extends CustomTabRegistrationInterface {
   Component: ({
     id,
     feastObjectQuery,
     ...args
-  }: RegularFeatureViewCustomTabProps) => JSX.Element;
+  }: RegularFeatureGroupCustomTabProps) => JSX.Element;
 }
 
-// Type for OnDemand Feature View Custom Tabs
-type OnDemandFeatureViewQueryReturnType = ReturnType<
-  typeof useLoadOnDemandFeatureView
+// Type for OnDemand Feature Group Custom Tabs
+type OnDemandFeatureGroupQueryReturnType = ReturnType<
+  typeof useLoadOnDemandFeatureGroup
 >;
-interface OnDemandFeatureViewCustomTabProps {
+interface OnDemandFeatureGroupCustomTabProps {
   id: string | undefined;
-  feastObjectQuery: OnDemandFeatureViewQueryReturnType;
+  feastObjectQuery: OnDemandFeatureGroupQueryReturnType;
 }
-interface OnDemandFeatureViewCustomTabRegistrationInterface
+interface OnDemandFeatureGroupCustomTabRegistrationInterface
   extends CustomTabRegistrationInterface {
   Component: ({
     id,
     feastObjectQuery,
     ...args
-  }: OnDemandFeatureViewCustomTabProps) => JSX.Element;
+  }: OnDemandFeatureGroupCustomTabProps) => JSX.Element;
 }
 
 // Type for Entity Custom Tabs
@@ -77,18 +77,18 @@ interface FeatureCustomTabRegistrationInterface
 }
 
 
-// Type for Feature Service Custom Tabs
-interface FeatureServiceCustomTabProps {
+// Type for Model Custom Tabs
+interface ModelCustomTabProps {
   id: string | undefined;
-  feastObjectQuery: ReturnType<typeof useLoadFeatureService>;
+  feastObjectQuery: ReturnType<typeof useLoadModel>;
 }
-interface FeatureServiceCustomTabRegistrationInterface
+interface ModelCustomTabRegistrationInterface
   extends CustomTabRegistrationInterface {
   Component: ({
     id,
     feastObjectQuery,
     ...args
-  }: FeatureServiceCustomTabProps) => JSX.Element;
+  }: ModelCustomTabProps) => JSX.Element;
 }
 
 // Type for Data Source Custom Tabs
@@ -121,14 +121,14 @@ interface DatasetCustomTabRegistrationInterface
 
 export type {
   CustomTabRegistrationInterface,
-  RegularFeatureViewQueryReturnType,
-  RegularFeatureViewCustomTabRegistrationInterface,
-  RegularFeatureViewCustomTabProps,
-  OnDemandFeatureViewQueryReturnType,
-  OnDemandFeatureViewCustomTabProps,
-  OnDemandFeatureViewCustomTabRegistrationInterface,
-  FeatureServiceCustomTabRegistrationInterface,
-  FeatureServiceCustomTabProps,
+  RegularFeatureGroupQueryReturnType,
+  RegularFeatureGroupCustomTabRegistrationInterface,
+  RegularFeatureGroupCustomTabProps,
+  OnDemandFeatureGroupQueryReturnType,
+  OnDemandFeatureGroupCustomTabProps,
+  OnDemandFeatureGroupCustomTabRegistrationInterface,
+  ModelCustomTabRegistrationInterface,
+  ModelCustomTabProps,
   DataSourceCustomTabRegistrationInterface,
   DataSourceCustomTabProps,
   EntityCustomTabRegistrationInterface,

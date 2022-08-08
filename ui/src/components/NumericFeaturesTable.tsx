@@ -1,6 +1,6 @@
 import { EuiBasicTable } from "@elastic/eui";
 import React from "react";
-import { NumericColumnSummaryStatisticType } from "../parsers/featureViewSummaryStatistics";
+import { NumericColumnSummaryStatisticType } from "../parsers/featureGroupSummaryStatistics";
 import SparklineHistogram from "./SparklineHistogram";
 
 interface NumericFeaturesTableProps {

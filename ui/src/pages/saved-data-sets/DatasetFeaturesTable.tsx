@@ -3,7 +3,7 @@ import React from "react";
 
 interface DatasetFeatureEntry {
   featureName: string;
-  featureViewName: string;
+  featureGroupName: string;
 }
 
 interface DatasetFeaturesTableProps {
@@ -17,8 +17,8 @@ const DatasetFeaturesTable = ({ features }: DatasetFeaturesTableProps) => {
       field: "featureName",
     },
     {
-      name: "Sourc Feature View",
-      field: "featureViewName",
+      name: "Sourc Feature Group",
+      field: "featureGroupName",
     },
   ];
 

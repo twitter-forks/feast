@@ -8,8 +8,8 @@ import RegistryPathContext from "../contexts/RegistryPathContext";
 
 import { DataSourceIcon16 } from "../graphics/DataSourceIcon";
 import { EntityIcon16 } from "../graphics/EntityIcon";
-import { FeatureViewIcon16 } from "../graphics/FeatureViewIcon";
-import { FeatureServiceIcon16 } from "../graphics/FeatureServiceIcon";
+import { FeatureGroupIcon16 } from "../graphics/FeatureGroupIcon";
+import { ModelIcon16 } from "../graphics/ModelIcon";
 import { DatasetIcon16 } from "../graphics/DatasetIcon";
 
 const SideNav = () => {
@@ -37,42 +37,45 @@ const SideNav = () => {
       : ""
   }`;
 
-  const featureViewsLabel = `Feature Views ${
+  const featureGroupsLabel = `Feature Groups ${
     isSuccess && data?.mergedFVList && data?.mergedFVList.length > 0
       ? `(${data?.mergedFVList.length})`
       : ""
   }`;
 
-  const featureServicesLabel = `Feature Services ${
-    isSuccess && data?.objects.featureServices
-      ? `(${data?.objects.featureServices?.length})`
-      : ""
-  }`;
-
-  const savedDatasetsLabel = `Datasets ${
-    isSuccess && data?.objects.savedDatasets
-      ? `(${data?.objects.savedDatasets?.length})`
+  const modelsLabel = `Models ${
+    isSuccess && data?.objects.models
+      ? `(${data?.objects.models?.length})`
       : ""
   }`;
 
   const sideNav = [
     {
-      name: "Home",
+      name: "",
       id: htmlIdGenerator("basicExample")(),
       onClick: () => {
         navigate(`/p/${projectName}/`);
       },
       items: [
         {
-          name: dataSourcesLabel,
-          id: htmlIdGenerator("dataSources")(),
-          icon: <EuiIcon type={DataSourceIcon16} />,
+          name: featureGroupsLabel,
+          id: htmlIdGenerator("featureGroup")(),
+          icon: <EuiIcon type={FeatureGroupIcon16} />,
           onClick: () => {
-            navigate(`/p/${projectName}/data-source`);
+            navigate(`/p/${projectName}/feature-group`);
           },
-          isSelected: useMatchSubpath("data-source"),
+          isSelected: useMatchSubpath("feature-group"),
         },
         {
+          name: modelsLabel,
+          id: htmlIdGenerator("model")(),
+          icon: <EuiIcon type={ModelIcon16} />,
+          onClick: () => {
+            navigate(`/p/${projectName}/model`);
+          },
+          isSelected: useMatchSubpath("model"),
+        },
+                {
           name: entitiesLabel,
           id: htmlIdGenerator("entities")(),
           icon: <EuiIcon type={EntityIcon16} />,
@@ -82,31 +85,13 @@ const SideNav = () => {
           isSelected: useMatchSubpath("entity"),
         },
         {
-          name: featureViewsLabel,
-          id: htmlIdGenerator("featureView")(),
-          icon: <EuiIcon type={FeatureViewIcon16} />,
+          name: dataSourcesLabel,
+          id: htmlIdGenerator("dataSources")(),
+          icon: <EuiIcon type={DataSourceIcon16} />,
           onClick: () => {
-            navigate(`/p/${projectName}/feature-view`);
+            navigate(`/p/${projectName}/data-source`);
           },
-          isSelected: useMatchSubpath("feature-view"),
-        },
-        {
-          name: featureServicesLabel,
-          id: htmlIdGenerator("featureService")(),
-          icon: <EuiIcon type={FeatureServiceIcon16} />,
-          onClick: () => {
-            navigate(`/p/${projectName}/feature-service`);
-          },
-          isSelected: useMatchSubpath("feature-service"),
-        },
-        {
-          name: savedDatasetsLabel,
-          id: htmlIdGenerator("savedDatasets")(),
-          icon: <EuiIcon type={DatasetIcon16} />,
-          onClick: () => {
-            navigate(`/p/${projectName}/data-set`);
-          },
-          isSelected: useMatchSubpath("data-set"),
+          isSelected: useMatchSubpath("data-source"),
         },
       ],
     },

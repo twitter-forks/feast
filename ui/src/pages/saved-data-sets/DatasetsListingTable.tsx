@@ -28,8 +28,8 @@ const DatasetsListingTable = ({ datasets }: DatasetsListingTableProps) => {
       },
     },
     {
-      name: "Source Feature Service",
-      field: "spec.featureService",
+      name: "Source Model",
+      field: "spec.model",
     },
     {
       name: "Created",

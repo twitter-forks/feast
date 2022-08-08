@@ -48,11 +48,11 @@ const EntityOverviewTab = () => {
                 <EuiHorizontalRule margin="xs" />
                 <DatasetFeaturesTable
                   features={data.spec.features.map((joinedName: string) => {
-                    const [featureViewName, featureName] =
+                    const [featureGroupName, featureName] =
                       joinedName.split(":");
 
                     return {
-                      featureViewName,
+                      featureGroupName,
                       featureName,
                     };
                   })}
@@ -79,10 +79,10 @@ const EntityOverviewTab = () => {
                 <EuiHorizontalRule margin="xs" />
                 <EuiDescriptionList>
                   <EuiDescriptionListTitle>
-                    Source Feature Service
+                    Source Model
                   </EuiDescriptionListTitle>
                   <EuiDescriptionListDescription>
-                    {data.spec.featureService}
+                    {data.spec.model}
                   </EuiDescriptionListDescription>
                 </EuiDescriptionList>
               </EuiPanel>

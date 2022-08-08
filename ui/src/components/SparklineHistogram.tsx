@@ -1,5 +1,5 @@
 import React from "react";
-import { HistogramDataType } from "../parsers/featureViewSummaryStatistics";
+import { HistogramDataType } from "../parsers/featureGroupSummaryStatistics";
 import { extent } from "d3-array";
 import { scaleLinear } from "d3";
 import { EuiBadge, useEuiTheme } from "@elastic/eui";

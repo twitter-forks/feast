@@ -19,7 +19,7 @@ import useLoadRegistry from "../queries/useLoadRegistry";
 import RegistryPathContext from "../contexts/RegistryPathContext";
 
 const ProjectOverviewPage = () => {
-  useDocumentTitle("Feast Home");
+  useDocumentTitle("ML Catalog");
   const registryUrl = useContext(RegistryPathContext);
   const { isLoading, isSuccess, isError, data } = useLoadRegistry(registryUrl);
 
@@ -35,7 +35,7 @@ const ProjectOverviewPage = () => {
         <EuiTitle size="l">
           <h1>
             {isLoading && <EuiLoadingContent lines={1} />}
-            {isSuccess && data?.project && `Project: ${data.project}`}
+            {isSuccess && `Don't be a maybe, join the effort!`}
           </h1>
         </EuiTitle>
         <EuiSpacer />
@@ -65,19 +65,25 @@ const ProjectOverviewPage = () => {
               ) : (
                 <EuiText>
                   <p>
-                    Welcome to the Twitter Feature Store production metadata store! If you
-                    are new to Feature Store we suggest checking out our{' '}
-                    <a href="http://go/fs2">DocBird page</a>.
+                    We’re on a mission to catalog all the models and ML features actively used at Twitter.
                   </p>
                   <p>
-                    If you are new to this project, we suggest
-                    starting by exploring the Feature Services, as they
-                    represent the collection of Feature Views serving a
-                    particular model.
+                  ML practitioners can discover features that are being used by other models or the tech stack the model is using.
+                  They can peruse key pieces of information about features to make decisions on whether a feature is worth trying
+                  out and where/who the features are coming from. Lastly, they’ll finally have a reliable, shared central repository
+                  to store model and feature information. ML platform engineers can use the catalog to uncover and track the properties
+                  of features and models to inform how they should continue designing Twitter’s ML platform. 
                   </p>
                   <p>
-                    <strong>Questions?</strong>: Please reach out to the{' '}
-                    <a href="https://twitter.slack.com/archives/C022QGCQCKV">#ml-platform-support</a> channel.
+                  In addition to manual updates, we provide a REST API for programmatic updates and automation. When a team does a feature
+                  importance run or feature quality check, for instance, that information can be automatically propogated.
+                  </p>
+                  <p>
+                    Learn how to use the API by visiting{' '}
+                    <a href="https://docs.google.com/document/d/1MNrqj81y4fl7PWS6I1NxlccVZcx2X4Hd4CAESaR0YF8/edit#heading=h.b9bdzauwwzcq">
+                    go/ml-catalog-docs.</a><br/>
+                    <strong>Questions, concerns, ideas?</strong> Hit us up in{' '}
+                    <a href="https://twitter.slack.com/archives/C03PKUEPYFJ">#ml-catalog</a>!
                   </p>
                 </EuiText>
               ))}

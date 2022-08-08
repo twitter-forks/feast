@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import useLoadFeature from "./useLoadFeature";
 
 const FeatureRawData = () => {
-  let { FeatureViewName, FeatureName } = useParams();
+  let { FeatureGroupName, FeatureName } = useParams();
 
-  const eName = FeatureViewName === undefined ? "" : FeatureViewName;
+  const eName = FeatureGroupName === undefined ? "" : FeatureGroupName;
   const fName = FeatureName === undefined ? "" : FeatureName;
 
   const { isSuccess, data } = useLoadFeature(eName, fName);

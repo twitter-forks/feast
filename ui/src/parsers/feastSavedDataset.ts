@@ -13,7 +13,7 @@ const FeastSavedDatasetSchema = z.object({
         fileUrl: z.string(),
       }),
     }),
-    featureService: z
+    model: z
       .object({
         spec: z.object({
           name: z.string(),
