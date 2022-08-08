@@ -75,7 +75,8 @@ const ProjectOverviewPage = () => {
                   of features and models to inform how they should continue designing Twitter’s ML platform. 
                   </p>
                   <p>
-                    <strong>Partners (as example, haven't confirmed with everyone here yet)</strong><br/>
+                    <strong>Partners </strong><br/>
+                    <em>(as examples, haven't confirmed with everyone here yet that they're ok with being listed)</em><br/>
                     Core Features Foundational Modeling Team in GoldBird<br/>
                     ML Feature Management team in CXP<br/>
                     Ruhua Jiang - Tech lead of GoldBird's ARM team. "Some quote here"<br/>
