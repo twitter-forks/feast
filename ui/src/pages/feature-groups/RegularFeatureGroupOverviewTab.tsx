@@ -57,22 +57,6 @@ const RegularFeatureGroupOverviewTab = ({
   return (
     <React.Fragment>
       <EuiFlexGroup>
-        <EuiFlexItem>
-          <EuiStat title={`${numOfFs}`} description="Consuming Services" />
-        </EuiFlexItem>
-        {data.spec.batchSource.meta ? (
-          <EuiFlexItem>
-            <EuiStat
-              title={data.spec.batchSource.meta.latestEventTimestamp.toLocaleDateString(
-                "en-CA"
-              )}
-              description="Latest Event Time"
-              titleColor="subdued"
-            />
-          </EuiFlexItem>
-        ) : (
-          <EuiText>No batchSource specified on this feature group.</EuiText>
-        )}
         {data.meta.lastUpdatedTimestamp && (
           <EuiFlexItem>
             <EuiStat
@@ -166,33 +150,6 @@ const RegularFeatureGroupOverviewTab = ({
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiSpacer size="l" />
-      <EuiFlexGroup>
-        <EuiFlexItem>
-          <EuiPanel hasBorder={true}>
-            <EuiTitle size="xs">
-              <h3>Batch Source</h3>
-            </EuiTitle>
-            <EuiHorizontalRule margin="xs" />
-            <BatchSourcePropertiesView batchSource={data.spec.batchSource} />
-          </EuiPanel>
-        </EuiFlexItem>
-      </EuiFlexGroup>
-      <EuiSpacer size="l" />
-      <EuiPanel>
-        <EuiTitle size="xs">
-          <h3>Materialization Intervals</h3>
-        </EuiTitle>
-        <React.Fragment>
-          {data.meta.materializationIntervals?.map((interval, i) => {
-            return (
-              <p key={i}>
-                {interval.startTime.toLocaleDateString("en-CA")} to{" "}
-                {interval.endTime.toLocaleDateString("en-CA")}
-              </p>
-            );
-          })}
-        </React.Fragment>
-      </EuiPanel>
     </React.Fragment>
   );
 };
