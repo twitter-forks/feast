@@ -11,6 +11,8 @@ import {
 } from "@elastic/eui";
 import React from "react";
 
+import AdditionalInfoTable from "../../components/AdditionalInfoTable";
+import StandardInfoTable from "../../components/StandardInfoTable";
 import { useNavigate, useParams } from "react-router-dom";
 import FeaturesListDisplay from "../../components/FeaturesListDisplay";
 import TagsDisplay from "../../components/TagsDisplay";
@@ -124,32 +126,21 @@ const RegularFeatureGroupOverviewTab = ({
             {fsNames.length > 0 ? (
               <ConsumingModelsList fsNames={fsNames} />
             ) : (
-              <EuiText>No models consume this feature group</EuiText>
+              <EuiText>No models consume this feature group or it hasn't been set yet.</EuiText>
             )}
           </EuiPanel>
           <EuiSpacer size="m" />
-          <EuiPanel hasBorder={true} grow={false}>
-            <EuiTitle size="xs">
-              <h3>Tags</h3>
-            </EuiTitle>
-            <EuiHorizontalRule margin="xs" />
-            {data.spec.tags ? (
-              <TagsDisplay
-                tags={data.spec.tags}
-                createLink={(key, value) => {
-                  return (
-                    `/p/${projectName}/feature-group?` +
-                    encodeSearchQueryString(`${key}:${value}`)
-                  );
-                }}
-              />
-            ) : (
-              <EuiText>No Tags specified on this feature group.</EuiText>
-            )}
-          </EuiPanel>
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiSpacer size="l" />
+      <EuiFlexGroup>
+        <StandardInfoTable/>
+      </EuiFlexGroup>
+      <EuiSpacer size="l" />
+      <EuiSpacer size="m" />
+      <EuiFlexGroup>
+        <AdditionalInfoTable/>
+      </EuiFlexGroup>
     </React.Fragment>
   );
 };

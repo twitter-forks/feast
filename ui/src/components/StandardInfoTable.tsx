@@ -13,7 +13,7 @@ import {
   EuiTableRow,
   EuiTableRowCell,
 } from "@elastic/eui";
-import DataQuery from "./DataQuery";
+import DataQuery from "../queries/DataQuery";
 
 const DataRow = z.object({
   name: z.string(),
@@ -24,6 +24,7 @@ type DataRowType = z.infer<typeof DataRow>;
 
 const LineHeightProp: React.CSSProperties = {
   lineHeight: 1,
+  whiteSpace: "pre-wrap",
 }
 
 const EuiDataRow = ({name, value}: DataRowType) => {
@@ -44,6 +45,7 @@ const EuiDataRow = ({name, value}: DataRowType) => {
 }
 
 const DataTable = (data: any) => {
+
   var items: DataRowType[] = [];
 
   for (let element in data.data){
@@ -59,10 +61,10 @@ const DataTable = (data: any) => {
     <EuiTable>
       <EuiTableHeader>
         <EuiTableHeaderCell>
-          Data Item Name
+          Field Name
         </EuiTableHeaderCell>
         <EuiTableHeaderCell>
-          Data Item Value
+          Value
         </EuiTableHeaderCell>
       </EuiTableHeader>
       {items.map((item) => {
@@ -72,7 +74,7 @@ const DataTable = (data: any) => {
   )
 }
 
-const DataTab = () => {
+const StandardInfoTable = () => {
   const data = DataQuery().data;
 
   return (
@@ -83,7 +85,7 @@ const DataTab = () => {
         <EuiFlexItem>
           <EuiPanel hasBorder={true}>
             <EuiTitle size="xs">
-              <h3>Properties</h3>
+              <h3>Standard Info</h3>
             </EuiTitle>
             <EuiHorizontalRule margin="xs" />
             <DataTable data={data} />
@@ -96,4 +98,4 @@ const DataTab = () => {
   );
 };
 
-export default DataTab;
+export default StandardInfoTable;

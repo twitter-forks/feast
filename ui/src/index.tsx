@@ -15,7 +15,6 @@ import FeastUI from "./FeastUI";
 // 3. Register the tab in the appropriate array below. Each entry
 //    is a record with three keys: label, path, and Component.
 //    Import your component and pass it as Component
-import DataTab from "./custom-tabs/data-tab/DataTab";
 import RFVDemoCustomTab from "./custom-tabs/reguar-fv-demo-tab/DemoCustomTab";
 import ODFVDemoCustomTab from "./custom-tabs/ondemand-fv-demo-tab/DemoCustomTab";
 import FSDemoCustomTab from "./custom-tabs/model-demo-tab/DemoCustomTab";
@@ -27,13 +26,6 @@ import FDemoCustomTab from "./custom-tabs/feature-demo-tab/DemoCustomTab";
 const queryClient = new QueryClient();
 
 const tabsRegistry = {
-  RegularFeatureGroupCustomTabs: [
-    {
-      label: "Data Tab", // Navigation Label for the tab
-      path: "data-tab", // Subpath for the tab
-      Component: DataTab,
-    },
-  ],
   OnDemandFeatureGroupCustomTabs: [
     {
       label: "Custom Tab Demo",
@@ -55,25 +47,11 @@ const tabsRegistry = {
       Component: DSDemoCustomTab,
     },
   ],
-  EntityCustomTabs: [
-    {
-      label: "Data Tab", // Navigation Label for the tab
-      path: "data-tab", // Subpath for the tab
-      Component: DataTab,
-    },
-  ],
   DatasetCustomTabs: [
     {
       label: "Custom Tab Demo",
       path: "demo-tab",
       Component: DatasetDemoCustomTab,
-    },
-  ],
-  FeatureCustomTabs: [
-    {
-      label: "Data Tab", // Navigation Label for the tab
-      path: "data-tab", // Subpath for the tab
-      Component: DataTab,
     },
   ],
 };
