@@ -10,6 +10,7 @@ import {
   EuiFieldSearch,
   EuiFlexGroup,
   EuiFlexItem,
+  EuiButton,
 } from "@elastic/eui";
 
 import { FeatureGroupIcon32 } from "../../graphics/FeatureGroupIcon";
@@ -160,6 +161,22 @@ const Index = () => {
                     suggestionMode={suggestionMode}
                     setCursorPosition={setCursorPosition}
                   />
+                </EuiFlexItem>
+                <EuiFlexItem grow={1}>
+                <EuiTitle size="xs">
+                    <h2>&nbsp;</h2>
+                  </EuiTitle>
+                  <EuiButton href="feature-group-addition">
+                    Add New Feature Group
+                  </EuiButton>
+                </EuiFlexItem>
+                <EuiFlexItem grow={1}>
+                <EuiTitle size="xs">
+                    <h2>&nbsp;</h2>
+                  </EuiTitle>
+                  <EuiButton href="feature-addition">
+                    Add New Feature
+                  </EuiButton>
                 </EuiFlexItem>
               </EuiFlexGroup>
               <EuiSpacer size="m" />

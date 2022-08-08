@@ -10,6 +10,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiFieldSearch,
+  EuiButton,
 } from "@elastic/eui";
 
 import { ModelIcon32 } from "../../graphics/ModelIcon";
@@ -126,6 +127,11 @@ const Index = () => {
         borderRadius="none"
       >
         <EuiPageContentBody>
+        <EuiFlexItem grow={1}>
+          <EuiButton href="model-addition">
+            Add New Model
+          </EuiButton>
+        </EuiFlexItem>
           {isLoading && (
             <p>
               <EuiLoadingSpinner size="m" /> Loading

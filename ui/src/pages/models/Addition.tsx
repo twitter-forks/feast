@@ -15,11 +15,11 @@ import {
     EuiLoadingContent,
     EuiEmptyPrompt,
   } from "@elastic/eui";
-import { FeatureGroupIcon32 } from "../../graphics/FeatureGroupIcon";
+import { ModelIcon32 } from "../../graphics/ModelIcon";
 
 const ColumnQuery = () => {
     const data_url = "http://0.0.0.0:8000/api/fetch_columns";
-    const table = "feature_group";
+    const table = "model";
     return useQuery<any>(
         table,
         () => {
@@ -33,7 +33,7 @@ function form_submit(data: any) {
     var fields: string[] = [];
     var vals: any[] = [];
     for (let field of data.all) {
-        if (field !== "feature_group_name") {
+        if (field !== "model_name") {
             var val = (document.getElementsByName(field + "_col")[0] as HTMLInputElement).value;
             fields.push(field);
             if (val === ''){
@@ -44,11 +44,11 @@ function form_submit(data: any) {
             }
         }
     }
-    var feature_group_name = (document.getElementsByName("feature_group_name_col")[0] as HTMLInputElement).value;
-    const data_url = "http://0.0.0.0:8000/api/add_feature_groups";
-    data = [{"feature_group_name": feature_group_name, "metadata_fields": fields, "metadata_vals": vals}];
+    var model_name = (document.getElementsByName("model_name_col")[0] as HTMLInputElement).value;
+    const data_url = "http://0.0.0.0:8000/api/add_models";
+    data = [{"model_name": model_name, "metadata_fields": fields, "metadata_vals": vals}];
     fetch(data_url, {method: "POST", headers: {'content-type': 'application/json'}, body: JSON.stringify(data)})
-    window.location.href = "./feature-group"
+    window.location.href = "./model"
 }
 
 const AddRow = z.object({
@@ -86,7 +86,7 @@ const AdditionForm = (data: any) => {
     );
 }
 
-const FeatureGroupAddition = () => {
+const ModelAddition = () => {
     const { isLoading, isError, isSuccess, data } = ColumnQuery();
     if (isLoading) {
         // Handle Loading State
@@ -116,7 +116,7 @@ const FeatureGroupAddition = () => {
         <React.Fragment>
         <EuiPageHeader
             restrictWidth
-            iconType={FeatureGroupIcon32}
+            iconType={ModelIcon32}
             pageTitle="Feature Groups"
         />
         <EuiPageContent
@@ -145,4 +145,4 @@ const FeatureGroupAddition = () => {
     );
 };
 
-export default FeatureGroupAddition;
+export default ModelAddition;
