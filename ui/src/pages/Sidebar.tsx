@@ -49,38 +49,14 @@ const SideNav = () => {
       : ""
   }`;
 
-  const savedDatasetsLabel = `Datasets ${
-    isSuccess && data?.objects.savedDatasets
-      ? `(${data?.objects.savedDatasets?.length})`
-      : ""
-  }`;
-
   const sideNav = [
     {
-      name: "Home",
+      name: "",
       id: htmlIdGenerator("basicExample")(),
       onClick: () => {
         navigate(`/p/${projectName}/`);
       },
       items: [
-        {
-          name: dataSourcesLabel,
-          id: htmlIdGenerator("dataSources")(),
-          icon: <EuiIcon type={DataSourceIcon16} />,
-          onClick: () => {
-            navigate(`/p/${projectName}/data-source`);
-          },
-          isSelected: useMatchSubpath("data-source"),
-        },
-        {
-          name: entitiesLabel,
-          id: htmlIdGenerator("entities")(),
-          icon: <EuiIcon type={EntityIcon16} />,
-          onClick: () => {
-            navigate(`/p/${projectName}/entity`);
-          },
-          isSelected: useMatchSubpath("entity"),
-        },
         {
           name: featureGroupsLabel,
           id: htmlIdGenerator("featureGroup")(),
@@ -99,14 +75,23 @@ const SideNav = () => {
           },
           isSelected: useMatchSubpath("model"),
         },
-        {
-          name: savedDatasetsLabel,
-          id: htmlIdGenerator("savedDatasets")(),
-          icon: <EuiIcon type={DatasetIcon16} />,
+                {
+          name: entitiesLabel,
+          id: htmlIdGenerator("entities")(),
+          icon: <EuiIcon type={EntityIcon16} />,
           onClick: () => {
-            navigate(`/p/${projectName}/data-set`);
+            navigate(`/p/${projectName}/entity`);
           },
-          isSelected: useMatchSubpath("data-set"),
+          isSelected: useMatchSubpath("entity"),
+        },
+        {
+          name: dataSourcesLabel,
+          id: htmlIdGenerator("dataSources")(),
+          icon: <EuiIcon type={DataSourceIcon16} />,
+          onClick: () => {
+            navigate(`/p/${projectName}/data-source`);
+          },
+          isSelected: useMatchSubpath("data-source"),
         },
       ],
     },
