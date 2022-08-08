@@ -129,7 +129,7 @@ const Index = () => {
         <EuiPageContentBody>
         <EuiFlexItem grow={1}>
           <EuiButton href="model-addition">
-            Add New Entity
+            Add New Model
           </EuiButton>
         </EuiFlexItem>
           {isLoading && (

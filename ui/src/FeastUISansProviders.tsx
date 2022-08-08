@@ -116,7 +116,7 @@ const FeastUISansProviders = ({
                       element={<ModelInstance />}
                     />
                     <Route
-                      path="feature-group-addition/"
+                      path="model-addition/"
                       element={<ModelAddition />}
                     />
                     <Route path="entity/" element={<EntityIndex />} />
