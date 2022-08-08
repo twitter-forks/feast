@@ -16,6 +16,7 @@ import EntityInstance from "./pages/entities/EntityInstance";
 import FeatureInstance from "./pages/features/FeatureInstance";
 import ModelIndex from "./pages/models/Index";
 import FeatureGroupIndex from "./pages/feature-groups/Index";
+import FeatureGroupAddition from "./pages/feature-groups/Addition";
 import FeatureGroupInstance from "./pages/feature-groups/FeatureGroupInstance";
 import ModelInstance from "./pages/models/ModelInstance";
 import DataSourceInstance from "./pages/data-sources/DataSourceInstance";
@@ -86,6 +87,10 @@ const FeastUISansProviders = ({
                     <Route
                       path="feature-group/"
                       element={<FeatureGroupIndex />}
+                    />
+                    <Route
+                      path="feature-group-addition/"
+                      element={<FeatureGroupAddition />}
                     />
                     <Route path="feature-group/:featureGroupName/*" element={<FeatureGroupInstance />}>
                     </Route>

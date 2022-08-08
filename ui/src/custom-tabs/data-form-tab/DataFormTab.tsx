@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   EuiButton,
-  EuiCode,
   EuiFlexGroup,
   EuiFieldText,
   EuiFormRow,
   EuiForm,
-  EuiHorizontalRule,
-  EuiTable,
-  EuiTitle,
-  EuiTableHeader,
-  EuiTableHeaderCell,
   EuiPanel,
   EuiFlexItem,
-  EuiTableRow,
-  EuiTableRowCell,
 } from "@elastic/eui";
 import DataFormQuery from "./DataFormQuery";
 
