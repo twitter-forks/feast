@@ -15,6 +15,7 @@ import FeastUI from "./FeastUI";
 // 3. Register the tab in the appropriate array below. Each entry
 //    is a record with three keys: label, path, and Component.
 //    Import your component and pass it as Component
+import DataFormTab from "./custom-tabs/data-form-tab/DataFormTab";
 import RFVDemoCustomTab from "./custom-tabs/reguar-fv-demo-tab/DemoCustomTab";
 import ODFVDemoCustomTab from "./custom-tabs/ondemand-fv-demo-tab/DemoCustomTab";
 import FSDemoCustomTab from "./custom-tabs/model-demo-tab/DemoCustomTab";
@@ -26,6 +27,13 @@ import FDemoCustomTab from "./custom-tabs/feature-demo-tab/DemoCustomTab";
 const queryClient = new QueryClient();
 
 const tabsRegistry = {
+  RegularFeatureGroupCustomTabs: [
+    {
+      label: "Metadata Update",
+      path: "metadata-update",
+      Component: DataFormTab,
+    }
+  ],
   OnDemandFeatureGroupCustomTabs: [
     {
       label: "Custom Tab Demo",
@@ -35,10 +43,10 @@ const tabsRegistry = {
   ],
   ModelCustomTabs: [
     {
-      label: "Custom Tab Demo",
-      path: "fs-demo-tab",
-      Component: FSDemoCustomTab,
-    },
+      label: "Metadata Update",
+      path: "metadata-update",
+      Component: DataFormTab,
+    }
   ],
   DataSourceCustomTabs: [
     {
@@ -47,12 +55,26 @@ const tabsRegistry = {
       Component: DSDemoCustomTab,
     },
   ],
+  EntityCustomTabs: [
+    {
+      label: "Metadata Update",
+      path: "metadata-update",
+      Component: DataFormTab,
+    }
+  ],
   DatasetCustomTabs: [
     {
       label: "Custom Tab Demo",
       path: "demo-tab",
       Component: DatasetDemoCustomTab,
     },
+  ],
+  FeatureCustomTabs: [
+    {
+      label: "Metadata Update",
+      path: "metadata-update",
+      Component: DataFormTab,
+    }
   ],
 };
 

@@ -12,6 +12,8 @@ import {
   EuiFlexItem,
   EuiTableRow,
   EuiTableRowCell,
+  EuiLoadingContent,
+  EuiEmptyPrompt,
 } from "@elastic/eui";
 import DataQuery from "../queries/DataQuery";
 
@@ -75,7 +77,31 @@ const DataTable = (data: any) => {
 }
 
 const StandardInfoTable = () => {
-  const data = DataQuery().data;
+  const { isLoading, isError, isSuccess, data } = DataQuery();
+
+  if (isLoading) {
+    // Handle Loading State
+    // https://elastic.github.io/eui/#/display/loading
+    return <EuiLoadingContent lines={3} />;
+  }
+
+  if (isError) {
+    // Handle Data Fetching Error
+    // https://elastic.github.io/eui/#/display/empty-prompt
+    return (
+      <EuiEmptyPrompt
+        iconType="alert"
+        color="danger"
+        title={<h2>Unable to load</h2>}
+        body={
+          <p>
+            There was an error loading the Dashboard application. Contact your
+            administrator for help.
+          </p>
+        }
+      />
+    );
+  }
 
   return (
     <React.Fragment>
