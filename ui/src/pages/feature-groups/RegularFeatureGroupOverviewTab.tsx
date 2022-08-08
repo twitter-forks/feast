@@ -140,7 +140,7 @@ const RegularFeatureGroupOverviewTab = ({
             {fsNames.length > 0 ? (
               <ConsumingModelsList fsNames={fsNames} />
             ) : (
-              <EuiText>No services consume this feature group</EuiText>
+              <EuiText>No models consume this feature group</EuiText>
             )}
           </EuiPanel>
           <EuiSpacer size="m" />
