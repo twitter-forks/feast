@@ -35,7 +35,6 @@ const RootProjectSelectionPage = () => {
     return (
       <EuiFlexItem key={index}>
         <EuiCard
-          icon={<EuiIcon size="xxl" type={FeastIconBlue} />}
           title={`${item.name}`}
           description={item?.description || ""}
           onClick={() => {

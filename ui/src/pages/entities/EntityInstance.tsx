@@ -22,7 +22,7 @@ const EntityInstance = () => {
   const { customNavigationTabs } = useEntityCustomTabs(navigate);
   const CustomTabRoutes = useEntityCustomTabRoutes();
 
-  useDocumentTitle(`${entityName} | Entity | Feast`);
+  useDocumentTitle(`${entityName} | Entity`);
 
   return (
     <React.Fragment>

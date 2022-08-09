@@ -32,7 +32,7 @@ const useLoadDatasources = () => {
 const Index = () => {
   const { isLoading, isSuccess, isError, data } = useLoadDatasources();
 
-  useDocumentTitle(`Data Sources | Feast`);
+  useDocumentTitle(`Data Sources`);
 
   return (
     <React.Fragment>

@@ -22,7 +22,7 @@ const FeatureInstance = () => {
   const { customNavigationTabs } = useFeatureCustomTabs(navigate);
   const CustomTabRoutes = useFeatureCustomTabRoutes();
 
-  useDocumentTitle(`${FeatureName} | ${FeatureGroupName} | Feast`);
+  useDocumentTitle(`${FeatureName} | ${FeatureGroupName}`);
 
   return (
     <React.Fragment>

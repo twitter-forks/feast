@@ -94,7 +94,7 @@ const Index = () => {
   const { isLoading, isSuccess, isError, data } = useLoadFeatureGroups();
   const tagAggregationQuery = useFeatureGroupTagsAggregation();
 
-  useDocumentTitle(`Feature Groups | Feast`);
+  useDocumentTitle(`Feature Groups`);
 
   const { searchString, searchTokens, setSearchString } = useSearchQuery();
 

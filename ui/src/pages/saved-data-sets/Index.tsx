@@ -33,7 +33,7 @@ const useLoadSavedDataSets = () => {
 const Index = () => {
   const { isLoading, isSuccess, isError, data } = useLoadSavedDataSets();
 
-  useDocumentTitle(`Saved Datasets | Feast`);
+  useDocumentTitle(`Saved Datasets`);
 
   return (
     <React.Fragment>

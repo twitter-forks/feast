@@ -1,9 +1,9 @@
 {
   "projects": [
     {
-      "name": "Twitter Feature Store",
-      "description": "Project for Twitter Feature Store",
-      "id": "twitter_feature_store_project",
+      "name": "ML Catalog",
+      "description": "We’re on a mission to catalog all the models and ML features actively used at Twitter.",
+      "id": "main",
       "registryPath": "/registry.json"
     }
   ]

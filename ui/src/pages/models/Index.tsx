@@ -92,7 +92,7 @@ const Index = () => {
   const { isLoading, isSuccess, isError, data } = useLoadModels();
   const tagAggregationQuery = useModelTagsAggregation();
 
-  useDocumentTitle(`Models | Feast`);
+  useDocumentTitle(`Models`);
 
   const { searchString, searchTokens, setSearchString } = useSearchQuery();
 

@@ -36,7 +36,7 @@ const useLoadEntities = () => {
 const Index = () => {
   const { isLoading, isSuccess, isError, data } = useLoadEntities();
 
-  useDocumentTitle(`Entities | Feast`);
+  useDocumentTitle(`Entities`);
 
   return (
     <React.Fragment>

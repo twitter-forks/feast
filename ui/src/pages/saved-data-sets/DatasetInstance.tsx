@@ -21,7 +21,7 @@ const DatasetInstance = () => {
   const navigate = useNavigate();
   let { datasetName } = useParams();
 
-  useDocumentTitle(`${datasetName} | Saved Datasets | Feast`);
+  useDocumentTitle(`${datasetName} | Saved Datasets`);
 
   const { customNavigationTabs } = useDatasetCustomTabs(navigate);
   const CustomTabRoutes = useDataSourceCustomTabRoutes();

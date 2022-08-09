@@ -23,7 +23,7 @@ const DataSourceInstance = () => {
   const navigate = useNavigate();
   let { dataSourceName } = useParams();
 
-  useDocumentTitle(`${dataSourceName} | Data Source | Feast`);
+  useDocumentTitle(`${dataSourceName} | Data Source`);
   const dsName = dataSourceName === undefined ? "" : dataSourceName;
   const { isSuccess, data } = useLoadDataSource(dsName);
 

@@ -20,7 +20,7 @@ const ModelInstance = () => {
   const navigate = useNavigate();
   let { modelName } = useParams();
 
-  useDocumentTitle(`${modelName} | Model | Feast`);
+  useDocumentTitle(`${modelName} | Model`);
 
   const { customNavigationTabs } = useModelCustomTabs(navigate);
   const CustomTabRoutes = useModelCustomTabRoutes();
