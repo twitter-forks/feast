@@ -31,8 +31,6 @@ const useLoadObjectStats = () => {
   };
 };
 
-const statStyle = { cursor: "pointer" };
-
 const ObjectsCountStats = () => {
   const { isLoading, isSuccess, isError, data } = useLoadObjectStats();
   const { projectName } = useParams();
@@ -51,8 +49,6 @@ const ObjectsCountStats = () => {
           <EuiFlexGroup>
             <EuiFlexItem>
               <EuiStat
-                style={statStyle}
-                onClick={() => navigate(`/p/${projectName}/model`)}
                 description="Models"
                 title={data.models}
                 reverse
@@ -60,27 +56,21 @@ const ObjectsCountStats = () => {
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiStat
-                style={statStyle}
                 description="Feature Groups"
-                onClick={() => navigate(`/p/${projectName}/feature-group`)}
                 title={data.featureGroups}
                 reverse
               />
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiStat
-                style={statStyle}
                 description="Entities"
-                onClick={() => navigate(`/p/${projectName}/entity`)}
                 title={data.entities}
                 reverse
               />
             </EuiFlexItem>
             <EuiFlexItem>
               <EuiStat
-                style={statStyle}
                 description="Data Sources"
-                onClick={() => navigate(`/p/${projectName}/data-source`)}
                 title={data.dataSources}
                 reverse
               />
