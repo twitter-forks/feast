@@ -1,7 +1,7 @@
 syntax = "proto3";
 package feast.core;
 
-option go_package = "github.com/feast-dev/feast/sdk/go/protos/feast/core";
+option go_package = "github.com/feast-dev/feast/go/protos/feast/core";
 option java_outer_classname = "FeatureServiceProto";
 option java_package = "feast.proto.core";
 
@@ -23,12 +23,18 @@ message FeatureServiceSpec {
   // Name of Feast project that this Feature Service belongs to.
   string project = 2;
 
-  // List of features that this feature service encapsulates.
-  // Stored as a list of references to other features views and the features from those views.
+  // Represents a projection that's to be applied on top of the FeatureView.
+  // Contains data such as the features to use from a FeatureView.
   repeated FeatureViewProjection features = 3;
 
   // User defined metadata
   map<string,string> tags = 4;
+
+  // Description of the feature service.
+  string description = 5;
+
+  // Owner of the feature service.
+  string owner = 6;
 }
 
 

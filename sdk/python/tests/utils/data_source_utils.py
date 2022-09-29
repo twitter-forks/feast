@@ -1,5 +1,8 @@
 import contextlib
+import random
 import tempfile
+import time
+from typing import Iterator
 
 from google.cloud import bigquery
 
@@ -8,24 +11,20 @@ from feast.data_format import ParquetFormat
 
 
 @contextlib.contextmanager
-def prep_file_source(df, event_timestamp_column=None) -> FileSource:
+def prep_file_source(df, timestamp_field=None) -> Iterator[FileSource]:
     with tempfile.NamedTemporaryFile(suffix=".parquet") as f:
         f.close()
         df.to_parquet(f.name)
         file_source = FileSource(
-            file_format=ParquetFormat(),
-            file_url=f.name,
-            event_timestamp_column=event_timestamp_column,
+            file_format=ParquetFormat(), path=f.name, timestamp_field=timestamp_field,
         )
         yield file_source
 
 
-def simple_bq_source_using_table_ref_arg(
-    df, event_timestamp_column=None
-) -> BigQuerySource:
+def simple_bq_source_using_table_arg(df, timestamp_field=None) -> BigQuerySource:
     client = bigquery.Client()
     gcp_project = client.project
-    bigquery_dataset = "ds"
+    bigquery_dataset = f"ds_{time.time_ns()}"
     dataset = bigquery.Dataset(f"{gcp_project}.{bigquery_dataset}")
     client.create_dataset(dataset, exists_ok=True)
     dataset.default_table_expiration_ms = (
@@ -34,23 +33,18 @@ def simple_bq_source_using_table_ref_arg(
         * 60  # 60 minutes in milliseconds (seems to be minimum limit for gcloud)
     )
     client.update_dataset(dataset, ["default_table_expiration_ms"])
-    table_ref = f"{gcp_project}.{bigquery_dataset}.table_1"
+    table = f"{gcp_project}.{bigquery_dataset}.table_{random.randrange(100, 999)}"
 
-    job = client.load_table_from_dataframe(
-        df, table_ref, job_config=bigquery.LoadJobConfig()
-    )
+    job = client.load_table_from_dataframe(df, table)
     job.result()
 
-    return BigQuerySource(
-        table_ref=table_ref, event_timestamp_column=event_timestamp_column,
-    )
+    return BigQuerySource(table=table, timestamp_field=timestamp_field,)
 
 
-def simple_bq_source_using_query_arg(df, event_timestamp_column=None) -> BigQuerySource:
-    bq_source_using_table_ref = simple_bq_source_using_table_ref_arg(
-        df, event_timestamp_column
-    )
+def simple_bq_source_using_query_arg(df, timestamp_field=None) -> BigQuerySource:
+    bq_source_using_table = simple_bq_source_using_table_arg(df, timestamp_field)
     return BigQuerySource(
-        query=f"SELECT * FROM {bq_source_using_table_ref.table_ref}",
-        event_timestamp_column=event_timestamp_column,
+        name=bq_source_using_table.table,
+        query=f"SELECT * FROM {bq_source_using_table.table}",
+        timestamp_field=timestamp_field,
     )

@@ -1,13 +1,30 @@
+import logging
+import os
 from pathlib import Path
 from typing import Any
 
 import yaml
-from pydantic import BaseModel, StrictInt, StrictStr, ValidationError, root_validator
+from pydantic import (
+    BaseModel,
+    StrictInt,
+    StrictStr,
+    ValidationError,
+    root_validator,
+    validator,
+)
 from pydantic.error_wrappers import ErrorWrapper
 from pydantic.typing import Dict, Optional, Union
 
-from feast.importer import get_class_from_type
+from feast import flags
+from feast.errors import (
+    FeastFeatureServerTypeInvalidError,
+    FeastFeatureServerTypeSetError,
+    FeastProviderNotSetError,
+)
+from feast.importer import import_class
 from feast.usage import log_exceptions
+
+_logger = logging.getLogger(__name__)
 
 # These dict exists so that:
 # - existing values for the online store type in featurestore.yaml files continue to work in a backwards compatible way
@@ -17,17 +34,31 @@ ONLINE_STORE_CLASS_FOR_TYPE = {
     "datastore": "feast.infra.online_stores.datastore.DatastoreOnlineStore",
     "redis": "feast.infra.online_stores.redis.RedisOnlineStore",
     "dynamodb": "feast.infra.online_stores.dynamodb.DynamoDBOnlineStore",
+    "snowflake.online": "feast.infra.online_stores.snowflake.SnowflakeOnlineStore",
 }
 
 OFFLINE_STORE_CLASS_FOR_TYPE = {
     "file": "feast.infra.offline_stores.file.FileOfflineStore",
     "bigquery": "feast.infra.offline_stores.bigquery.BigQueryOfflineStore",
     "redshift": "feast.infra.offline_stores.redshift.RedshiftOfflineStore",
+    "snowflake.offline": "feast.infra.offline_stores.snowflake.SnowflakeOfflineStore",
+    "spark": "feast.infra.offline_stores.contrib.spark_offline_store.spark.SparkOfflineStore",
+    "trino": "feast.infra.offline_stores.contrib.trino_offline_store.trino.TrinoOfflineStore",
+}
+
+FEATURE_SERVER_CONFIG_CLASS_FOR_TYPE = {
+    "aws_lambda": "feast.infra.feature_servers.aws_lambda.config.AwsLambdaFeatureServerConfig",
+    "gcp_cloudrun": "feast.infra.feature_servers.gcp_cloudrun.config.GcpCloudRunFeatureServerConfig",
+}
+
+FEATURE_SERVER_TYPE_FOR_PROVIDER = {
+    "aws": "aws_lambda",
+    "gcp": "gcp_cloudrun",
 }
 
 
 class FeastBaseModel(BaseModel):
-    """ Feast Pydantic Configuration Class """
+    """Feast Pydantic Configuration Class"""
 
     class Config:
         arbitrary_types_allowed = True
@@ -35,7 +66,7 @@ class FeastBaseModel(BaseModel):
 
 
 class FeastConfigBaseModel(BaseModel):
-    """ Feast Pydantic Configuration Class """
+    """Feast Pydantic Configuration Class"""
 
     class Config:
         arbitrary_types_allowed = True
@@ -43,7 +74,10 @@ class FeastConfigBaseModel(BaseModel):
 
 
 class RegistryConfig(FeastBaseModel):
-    """ Metadata Store Configuration. Configuration that relates to reading from and writing to the Feast registry."""
+    """Metadata Store Configuration. Configuration that relates to reading from and writing to the Feast registry."""
+
+    registry_store_type: Optional[StrictStr]
+    """ str: Provider name or a class name that implements RegistryStore. """
 
     path: StrictStr
     """ str: Path to metadata store. Can be a local path, or remote object storage path, e.g. a GCS URI """
@@ -56,7 +90,7 @@ class RegistryConfig(FeastBaseModel):
 
 
 class RepoConfig(FeastBaseModel):
-    """ Repo config. Typically loaded from `feature_store.yaml` """
+    """Repo config. Typically loaded from `feature_store.yaml`"""
 
     registry: Union[StrictStr, RegistryConfig] = "data/registry.db"
     """ str: Path to metadata store. Can be a local path, or remote object storage path, e.g. a GCS URI """
@@ -76,10 +110,19 @@ class RepoConfig(FeastBaseModel):
     offline_store: Any
     """ OfflineStoreConfig: Offline store configuration (optional depending on provider) """
 
+    feature_server: Optional[Any]
+    """ FeatureServerConfig: Feature server configuration (optional depending on provider) """
+
+    flags: Any
+    """ Flags: Feature flags for experimental features (optional) """
+
     repo_path: Optional[Path] = None
+
+    go_feature_retrieval: Optional[bool] = False
 
     def __init__(self, **data: Any):
         super().__init__(**data)
+
         if isinstance(self.online_store, Dict):
             self.online_store = get_online_config_from_type(self.online_store["type"])(
                 **self.online_store
@@ -93,6 +136,11 @@ class RepoConfig(FeastBaseModel):
             )(**self.offline_store)
         elif isinstance(self.offline_store, str):
             self.offline_store = get_offline_config_from_type(self.offline_store)()
+
+        if isinstance(self.feature_server, Dict):
+            self.feature_server = get_feature_server_config_from_type(
+                self.feature_server["type"]
+            )(**self.feature_server)
 
     def get_registry_config(self):
         if isinstance(self.registry, str):
@@ -113,8 +161,12 @@ class RepoConfig(FeastBaseModel):
         if "online_store" not in values:
             values["online_store"] = dict()
 
-        # Skip if we aren't creating the configuration from a dict
+        # Skip if we aren't creating the configuration from a dict or online store is null or it is a string like "None" or "null"
         if not isinstance(values["online_store"], Dict):
+            if isinstance(values["online_store"], str) and values[
+                "online_store"
+            ].lower() in {"none", "null"}:
+                values["online_store"] = None
             return values
 
         # Make sure that the provider configuration is set. We need it to set the defaults
@@ -141,7 +193,6 @@ class RepoConfig(FeastBaseModel):
             raise ValidationError(
                 [ErrorWrapper(e, loc="online_store")], model=RepoConfig,
             )
-
         return values
 
     @root_validator(pre=True)
@@ -164,7 +215,7 @@ class RepoConfig(FeastBaseModel):
             elif values["provider"] == "gcp":
                 values["offline_store"]["type"] = "bigquery"
             elif values["provider"] == "aws":
-                values["offline_store"]["type"] = "file"
+                values["offline_store"]["type"] = "redshift"
 
         offline_store_type = values["offline_store"]["type"]
 
@@ -178,6 +229,77 @@ class RepoConfig(FeastBaseModel):
             )
 
         return values
+
+    @root_validator(pre=True)
+    def _validate_feature_server_config(cls, values):
+        # Having no feature server is the default.
+        if "feature_server" not in values:
+            return values
+
+        # Skip if we aren't creating the configuration from a dict
+        if not isinstance(values["feature_server"], Dict):
+            return values
+
+        # Make sure that the provider configuration is set. We need it to set the defaults
+        if "provider" not in values:
+            raise FeastProviderNotSetError()
+
+        feature_server_type = FEATURE_SERVER_TYPE_FOR_PROVIDER.get(values["provider"])
+        defined_type = values["feature_server"].get("type")
+        # Make sure that the type is either not set, or set correctly, since it's defined by the provider
+        if defined_type not in (None, feature_server_type):
+            raise FeastFeatureServerTypeSetError(defined_type)
+        values["feature_server"]["type"] = feature_server_type
+
+        # Validate the dict to ensure one of the union types match
+        try:
+            feature_server_config_class = get_feature_server_config_from_type(
+                feature_server_type
+            )
+            feature_server_config_class(**values["feature_server"])
+        except ValidationError as e:
+            raise ValidationError(
+                [ErrorWrapper(e, loc="feature_server")], model=RepoConfig,
+            )
+
+        return values
+
+    @validator("project")
+    def _validate_project_name(cls, v):
+        from feast.repo_operations import is_valid_name
+
+        if not is_valid_name(v):
+            raise ValueError(
+                f"Project name, {v}, should only have "
+                f"alphanumerical values and underscores but not start with an underscore."
+            )
+        return v
+
+    @validator("flags")
+    def _validate_flags(cls, v):
+        if not isinstance(v, Dict):
+            return
+
+        for flag_name, val in v.items():
+            if flag_name not in flags.FLAG_NAMES:
+                _logger.warn(
+                    "Unrecognized flag: %s. This feature may be invalid, or may refer "
+                    "to a previously experimental feature which has graduated to production.",
+                    flag_name,
+                )
+            if type(val) is not bool:
+                raise ValueError(f"Flag value, {val}, not valid.")
+
+        return v
+
+    def write_to_path(self, repo_path: Path):
+        config_path = repo_path / "feature_store.yaml"
+        with open(config_path, mode="w") as f:
+            yaml.dump(
+                yaml.safe_load(self.json(exclude={"repo_path"}, exclude_unset=True,)),
+                f,
+                sort_keys=False,
+            )
 
 
 class FeastConfigError(Exception):
@@ -197,7 +319,7 @@ class FeastConfigError(Exception):
 
 def get_data_source_class_from_type(data_source_type: str):
     module_name, config_class_name = data_source_type.rsplit(".", 1)
-    return get_class_from_type(module_name, config_class_name, "Source")
+    return import_class(module_name, config_class_name, "DataSource")
 
 
 def get_online_config_from_type(online_store_type: str):
@@ -208,7 +330,7 @@ def get_online_config_from_type(online_store_type: str):
     module_name, online_store_class_type = online_store_type.rsplit(".", 1)
     config_class_name = f"{online_store_class_type}Config"
 
-    return get_class_from_type(module_name, config_class_name, config_class_name)
+    return import_class(module_name, config_class_name, config_class_name)
 
 
 def get_offline_config_from_type(offline_store_type: str):
@@ -219,14 +341,24 @@ def get_offline_config_from_type(offline_store_type: str):
     module_name, offline_store_class_type = offline_store_type.rsplit(".", 1)
     config_class_name = f"{offline_store_class_type}Config"
 
-    return get_class_from_type(module_name, config_class_name, config_class_name)
+    return import_class(module_name, config_class_name, config_class_name)
+
+
+def get_feature_server_config_from_type(feature_server_type: str):
+    # We do not support custom feature servers right now.
+    if feature_server_type not in FEATURE_SERVER_CONFIG_CLASS_FOR_TYPE:
+        raise FeastFeatureServerTypeInvalidError(feature_server_type)
+
+    feature_server_type = FEATURE_SERVER_CONFIG_CLASS_FOR_TYPE[feature_server_type]
+    module_name, config_class_name = feature_server_type.rsplit(".", 1)
+    return import_class(module_name, config_class_name, config_class_name)
 
 
 def load_repo_config(repo_path: Path) -> RepoConfig:
     config_path = repo_path / "feature_store.yaml"
 
     with open(config_path) as f:
-        raw_config = yaml.safe_load(f)
+        raw_config = yaml.safe_load(os.path.expandvars(f.read()))
         try:
             c = RepoConfig(**raw_config)
             c.repo_path = repo_path

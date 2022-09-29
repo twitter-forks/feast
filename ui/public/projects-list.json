@@ -1,0 +1,10 @@
+{
+  "projects": [
+    {
+      "name": "Twitter Feature Store",
+      "description": "Project for Twitter Feature Store",
+      "id": "twitter_feature_store_project",
+      "registryPath": "/registry.json"
+    }
+  ]
+}

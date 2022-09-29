@@ -1,15 +1,15 @@
 # File
 
-### Description
+## Description
 
 The File offline store provides support for reading [FileSources](../data-sources/file.md).
 
 * Only Parquet files are currently supported.
 * All data is downloaded and joined using Python and may not scale to production workloads.
 
-### Example
+## Example
 
-{% code title="feature\_store.yaml" %}
+{% code title="feature_store.yaml" %}
 ```yaml
 project: my_feature_repo
 registry: data/registry.db
@@ -20,4 +20,3 @@ offline_store:
 {% endcode %}
 
 Configuration options are available [here](https://rtd.feast.dev/en/latest/#feast.repo_config.FileOfflineStoreConfig).
-

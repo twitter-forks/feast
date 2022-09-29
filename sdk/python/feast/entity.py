@@ -11,16 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import warnings
+from datetime import datetime
+from typing import Dict, List, Optional
 
-from typing import Dict, MutableMapping, Optional
+from google.protobuf.json_format import MessageToJson
 
-import yaml
-from google.protobuf import json_format
-from google.protobuf.json_format import MessageToDict, MessageToJson
-from google.protobuf.timestamp_pb2 import Timestamp
-
-from feast.loaders import yaml as feast_yaml
-from feast.protos.feast.core.Entity_pb2 import Entity as EntityV2Proto
+from feast.protos.feast.core.Entity_pb2 import Entity as EntityProto
 from feast.protos.feast.core.Entity_pb2 import EntityMeta as EntityMetaProto
 from feast.protos.feast.core.Entity_pb2 import EntitySpecV2 as EntitySpecProto
 from feast.usage import log_exceptions
@@ -29,45 +26,107 @@ from feast.value_type import ValueType
 
 class Entity:
     """
-    Represents a collection of entities and associated metadata.
+    An entity defines a collection of entities for which features can be defined. An
+    entity can also contain associated metadata.
+
+    Attributes:
+        name: The unique name of the entity.
+        value_type: The type of the entity, such as string or float.
+        join_key: A property that uniquely identifies different entities within the
+            collection. The join_key property is typically used for joining entities
+            with their associated features. If not specified, defaults to the name.
+        description: A human-readable description.
+        tags: A dictionary of key-value pairs to store arbitrary metadata.
+        owner: The owner of the entity, typically the email of the primary maintainer.
+        created_timestamp: The time when the entity was created.
+        last_updated_timestamp: The time when the entity was last updated.
+        join_keys: A list of property that uniquely identifies different entities within the
+            collection. This is meant to replace the `join_key` parameter, but currently only
+            supports a list of size one.
     """
+
+    name: str
+    value_type: ValueType
+    join_key: str
+    description: str
+    tags: Dict[str, str]
+    owner: str
+    created_timestamp: Optional[datetime]
+    last_updated_timestamp: Optional[datetime]
+    join_keys: List[str]
 
     @log_exceptions
     def __init__(
         self,
-        name: str,
+        *args,
+        name: Optional[str] = None,
         value_type: ValueType = ValueType.UNKNOWN,
         description: str = "",
         join_key: Optional[str] = None,
-        labels: Optional[MutableMapping[str, str]] = None,
+        tags: Optional[Dict[str, str]] = None,
+        owner: str = "",
+        join_keys: Optional[List[str]] = None,
     ):
-        self._name = name
-        self._description = description
-        self._value_type = value_type
+        """Creates an Entity object."""
+        if len(args) == 1:
+            warnings.warn(
+                (
+                    "Entity name should be specified as a keyword argument instead of a positional arg."
+                    "Feast 0.23+ will not support positional arguments to construct Entities"
+                ),
+                DeprecationWarning,
+            )
+        if len(args) > 1:
+            raise ValueError(
+                "All arguments to construct an entity should be specified as keyword arguments only"
+            )
+
+        self.name = args[0] if len(args) > 0 else name
+
+        if not self.name:
+            raise ValueError("Name needs to be specified")
+
+        self.value_type = value_type
+
         if join_key:
-            self._join_key = join_key
+            warnings.warn(
+                (
+                    "The `join_key` parameter is being deprecated in favor of the `join_keys` parameter. "
+                    "Please switch from using `join_key` to `join_keys`. Feast 0.23 and onwards will not "
+                    "support the `join_key` parameter."
+                ),
+                DeprecationWarning,
+            )
+        self.join_keys = join_keys or []
+        if join_keys and len(join_keys) > 1:
+            raise ValueError(
+                "An entity may only have single join key. "
+                "Multiple join keys will be supported in the future."
+            )
+        if join_keys and len(join_keys) == 1:
+            self.join_key = join_keys[0]
         else:
-            self._join_key = name
+            self.join_key = join_key if join_key else self.name
+        self.description = description
+        self.tags = tags if tags is not None else {}
+        self.owner = owner
+        self.created_timestamp = None
+        self.last_updated_timestamp = None
 
-        self._labels: MutableMapping[str, str]
-        if labels is None:
-            self._labels = dict()
-        else:
-            self._labels = labels
-
-        self._created_timestamp: Optional[Timestamp] = None
-        self._last_updated_timestamp: Optional[Timestamp] = None
+    def __hash__(self) -> int:
+        return hash((self.name, self.join_key))
 
     def __eq__(self, other):
         if not isinstance(other, Entity):
             raise TypeError("Comparisons should only involve Entity class objects.")
 
         if (
-            self.labels != other.labels
-            or self.name != other.name
-            or self.description != other.description
+            self.name != other.name
             or self.value_type != other.value_type
             or self.join_key != other.join_key
+            or self.description != other.description
+            or self.tags != other.tags
+            or self.owner != other.owner
         ):
             return False
 
@@ -76,239 +135,68 @@ class Entity:
     def __str__(self):
         return str(MessageToJson(self.to_proto()))
 
-    @property
-    def name(self):
-        """
-        Returns the name of this entity
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """
-        Sets the name of this entity
-        """
-        self._name = name
-
-    @property
-    def description(self):
-        """
-        Returns the description of this entity
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """
-        Sets the description of this entity
-        """
-        self._description = description
-
-    @property
-    def join_key(self):
-        """
-        Returns the join key of this entity
-        """
-        return self._join_key
-
-    @join_key.setter
-    def join_key(self, join_key):
-        """
-        Sets the join key of this entity
-        """
-        self._join_key = join_key
-
-    @property
-    def value_type(self) -> ValueType:
-        """
-        Returns the type of this entity
-        """
-        return self._value_type
-
-    @value_type.setter
-    def value_type(self, value_type: ValueType):
-        """
-        Set the type for this entity
-        """
-        self._value_type = value_type
-
-    @property
-    def labels(self):
-        """
-        Returns the labels of this entity. This is the user defined metadata
-        defined as a dictionary.
-        """
-        return self._labels
-
-    @labels.setter
-    def labels(self, labels: MutableMapping[str, str]):
-        """
-        Set the labels for this entity
-        """
-        self._labels = labels
-
-    @property
-    def created_timestamp(self):
-        """
-        Returns the created_timestamp of this entity
-        """
-        return self._created_timestamp
-
-    @property
-    def last_updated_timestamp(self):
-        """
-        Returns the last_updated_timestamp of this entity
-        """
-        return self._last_updated_timestamp
-
     def is_valid(self):
         """
-        Validates the state of a entity locally. Raises an exception
-        if entity is invalid.
-        """
+        Validates the state of this entity locally.
 
+        Raises:
+            ValueError: The entity does not have a name or does not have a type.
+        """
         if not self.name:
-            raise ValueError("No name found in entity.")
+            raise ValueError("The entity does not have a name.")
 
         if not self.value_type:
-            raise ValueError("No type found in entity {self.value_type}")
+            raise ValueError(f"The entity {self.name} does not have a type.")
 
     @classmethod
-    def from_yaml(cls, yml: str):
+    def from_proto(cls, entity_proto: EntityProto):
         """
-        Creates an entity from a YAML string body or a file path
+        Creates an entity from a protobuf representation of an entity.
 
         Args:
-            yml: Either a file path containing a yaml file or a YAML string
+            entity_proto: A protobuf representation of an entity.
 
         Returns:
-            Returns a EntityV2 object based on the YAML file
+            An Entity object based on the entity protobuf.
         """
-
-        return cls.from_dict(feast_yaml.yaml_loader(yml, load_single=True))
-
-    @classmethod
-    def from_dict(cls, entity_dict):
-        """
-        Creates an entity from a dict
-
-        Args:
-            entity_dict: A dict representation of an entity
-
-        Returns:
-            Returns a EntityV2 object based on the entity dict
-        """
-
-        entity_proto = json_format.ParseDict(
-            entity_dict, EntityV2Proto(), ignore_unknown_fields=True
-        )
-        return cls.from_proto(entity_proto)
-
-    @classmethod
-    def from_proto(cls, entity_proto: EntityV2Proto):
-        """
-        Creates an entity from a protobuf representation of an entity
-
-        Args:
-            entity_proto: A protobuf representation of an entity
-
-        Returns:
-            Returns a EntityV2 object based on the entity protobuf
-        """
-
         entity = cls(
             name=entity_proto.spec.name,
-            description=entity_proto.spec.description,
             value_type=ValueType(entity_proto.spec.value_type),
-            labels=entity_proto.spec.labels,
             join_key=entity_proto.spec.join_key,
+            description=entity_proto.spec.description,
+            tags=entity_proto.spec.tags,
+            owner=entity_proto.spec.owner,
         )
 
-        entity._created_timestamp = entity_proto.meta.created_timestamp
-        entity._last_updated_timestamp = entity_proto.meta.last_updated_timestamp
+        if entity_proto.meta.HasField("created_timestamp"):
+            entity.created_timestamp = entity_proto.meta.created_timestamp.ToDatetime()
+        if entity_proto.meta.HasField("last_updated_timestamp"):
+            entity.last_updated_timestamp = (
+                entity_proto.meta.last_updated_timestamp.ToDatetime()
+            )
 
         return entity
 
-    def to_proto(self) -> EntityV2Proto:
+    def to_proto(self) -> EntityProto:
         """
-        Converts an entity object to its protobuf representation
+        Converts an entity object to its protobuf representation.
 
         Returns:
-            EntityV2Proto protobuf
+            An EntityProto protobuf.
         """
-
-        meta = EntityMetaProto(
-            created_timestamp=self.created_timestamp,
-            last_updated_timestamp=self.last_updated_timestamp,
-        )
+        meta = EntityMetaProto()
+        if self.created_timestamp:
+            meta.created_timestamp.FromDatetime(self.created_timestamp)
+        if self.last_updated_timestamp:
+            meta.last_updated_timestamp.FromDatetime(self.last_updated_timestamp)
 
         spec = EntitySpecProto(
             name=self.name,
-            description=self.description,
             value_type=self.value_type.value,
-            labels=self.labels,
             join_key=self.join_key,
+            description=self.description,
+            tags=self.tags,
+            owner=self.owner,
         )
 
-        return EntityV2Proto(spec=spec, meta=meta)
-
-    def to_dict(self) -> Dict:
-        """
-        Converts entity to dict
-
-        Returns:
-            Dictionary object representation of entity
-        """
-
-        entity_dict = MessageToDict(self.to_proto())
-
-        # Remove meta when empty for more readable exports
-        if entity_dict["meta"] == {}:
-            del entity_dict["meta"]
-
-        return entity_dict
-
-    def to_yaml(self):
-        """
-        Converts a entity to a YAML string.
-
-        Returns:
-            Entity string returned in YAML format
-        """
-        entity_dict = self.to_dict()
-        return yaml.dump(entity_dict, allow_unicode=True, sort_keys=False)
-
-    def to_spec_proto(self) -> EntitySpecProto:
-        """
-        Converts an EntityV2 object to its protobuf representation.
-        Used when passing EntitySpecV2 object to Feast request.
-
-        Returns:
-            EntitySpecV2 protobuf
-        """
-
-        spec = EntitySpecProto(
-            name=self.name,
-            description=self.description,
-            value_type=self.value_type.value,
-            labels=self.labels,
-            join_key=self.join_key,
-        )
-
-        return spec
-
-    def _update_from_entity(self, entity):
-        """
-        Deep replaces one entity with another
-
-        Args:
-            entity: Entity to use as a source of configuration
-        """
-
-        self.name = entity.name
-        self.description = entity.description
-        self.value_type = entity.value_type
-        self.labels = entity.labels
-        self.join_key = entity.join_key
-        self._created_timestamp = entity.created_timestamp
-        self._last_updated_timestamp = entity.last_updated_timestamp
+        return EntityProto(spec=spec, meta=meta)
